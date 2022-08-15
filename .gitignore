@@ -7,26 +7,4 @@
 .Rbuildignore
 
 # RStudio files
-ModernDive-Master.Rproj
-ModernDive\ Master.Rproj
-
-# bookdown output files
-*_bookdown_files
-ismaykimkuyper.Rmd
-ismaykimkuyper.pdf
-moderndive.Rmd
-moderndive.pdf
-*.tex
-*.auc
-*.aux
-*.idx
-*.log
-*.out
-*.toc
-bib/packages.bib
-purl.Rout
-docs/*
-
-# other files
-.httr-oauth
-*rsconnect/
+moderndive_book.Rproj
