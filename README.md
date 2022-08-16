@@ -1,4 +1,6 @@
-This repository is administered by Chris Diaz & Arend Kuyper. Questions? Email chris-diaz@northwestern.edu.
+Welcome to Economics 3253: Economics of Public and Social Issues (Fall 2022) at the University of Texas, San Antonio (taught by Dr. [Jon Moreno-Medina](https://www.jmorenomedina.com/) ).
+
+
 
 [![Build Status](https://travis-ci.org/nulib/moderndive_book.svg?branch=master)](https://travis-ci.org/nulib/moderndive_book)
 
@@ -15,25 +17,10 @@ Welcome to the GitHub repository page for **ModernDive: An Introduction to
 Statistical and Data Sciences via R** available at [ModernDive.com](https://moderndive.com/). 
 
 
-## Contents of this Repository
-
-ModernDive is built using RStudio's [`bookdown`](https://www.rstudio.com/resources/webinars/introducing-bookdown/) package; for more information on how to use `bookdown` see [bookdown.org](https://bookdown.org/).
-
-* The `bookdown` source code for the development version of ModernDive is above, the output of which can be previewed at [moderndive.netlify.com](https://moderndive.netlify.com) which is based on the outputted HTML files in the `docs/` folder.
-* The `bookdown` source code for all [previously released versions](https://moderndive.com/index.html#about-book) of ModernDive, including the latest version available at [ModernDive.com](https://moderndive.com/), is accessible on the [Releases](https://github.com/moderndive/moderndive_book/releases) page.
-* For information on all changes between versions and our planned changes for the next version, please see [NEWS.md](https://github.com/moderndive/moderndive_book/blob/master/NEWS.md).
-
-
-## More Information
-
-* If you would like to receive periodic updates about ModernDive (roughly every 3 months), please sign up for our [mailing list](http://eepurl.com/cBkItf).
-* Contact Albert at [albert.ys.kim@gmail.com](mailto:albert.ys.kim@gmail.com) and Chester [chester.ismay@gmail.com](mailto:chester.ismay@gmail.com).
-<!--* We're on Twitter at [ModernDive](https://twitter.com/ModernDive).-->
-
-
 ## Acknowledgements
 
-The authors would like to thank [Nina Sonneborn](https://github.com/nsonneborn), [Kristin Bott](https://twitter.com/rhobott?lang=en), and the participants of our [USCOTS 2017 workshop](https://www.causeweb.org/cause/uscots/uscots17/workshop/3) for their feedback and suggestions.  A special thanks goes to Prof. Yana Weinstein, cognitive psychological scientist and co-founder of [The Learning Scientists](http://www.learningscientists.org/yana-weinstein/), for her extensive contributions.
+I build this course based on the contributions of many teams and individuals. 
 
+First, the intro and R components are mainly based on the material put up by the folks at Northwester (Chester Ismay, Albert Y. Kim, Arend M. Kuyper, Elizabeth Tipton, and Kaitlyn G. Fitzgerald). They build this great resource for [Intro to Statistics and Data Science](https://nulib.github.io/moderndive_book/index.html). That team, in turn, build their site based on the contribution of the Chester Ismay and Albert Y. Kim, who constructed the amazing online book [Modern Dive](https://moderndive.netlify.app/).
 
-
+Second, I have also adopted a big chunk of the lectures put up by [Raj Chetty](https://rajchetty.com/) and the [Opportunity Insights](https://opportunityinsights.org/) team at Harvard, which can be found [here](https://opportunityinsights.org/course/). 

@@ -199,7 +199,41 @@ How will you learn? **Do the HOMEWORKS with time**... I cannot emphasize this en
     + Logical operators: `&` representing "and" as well as `|` representing "or." Ex: `(2 + 1 == 3) & (2 + 1 == 4)` returns `FALSE` since both clauses are not `TRUE` (only the first clause is `TRUE`). On the other hand, `(2 + 1 == 3) | (2 + 1 == 4)` returns `TRUE` since at least one of the two clauses is `TRUE`. 
 * *Functions*, also called *commands*: Functions perform tasks in R. They take in inputs called *arguments* and return outputs. You can either manually specify a function's arguments or use the function's *default values*. 
 
+## In Class Exercise
 
+Go to RStudio and run the following: 
+:::: {.columns}
+
+::: {.column width="50%"}
+```
+2*3
+2*pi
+log(10)
+exp(2)
+sqrt(25)
+3==3
+3==4
+3<=4
+3!=4
+```
+:::
+
+::: {.column width="50%"}
+
+```
+x <- c(1,3,2,5)# this is called a 'vector'
+x #what do you see?
+x <- c(1,6,2)
+x #now what do you see?
+y <- c(1,4,3) # USE ARROW!
+length(x)
+length(y)
+x+y
+#write this
+write this again
+```
+:::
+::::
 
 ## Errors, warnings, and messages
 
@@ -356,40 +390,39 @@ R is telling you that you are trying to use a function in a package that has not
 
 # Hands-on exercise!
 
-## Explore your first dataset {#nycflights13}
+## Explore your first dataset: economic mobility in the US {#mobilitydata}
 
 Let's put everything we've learned so far into practice and start exploring some real data! These "spreadsheet"-type datasets are called _data frames_ in R; we will focus on working with data saved as data frames throughout this course.
 
 Step 1: Load all the packages needed for this exercise (assuming you've already installed them). 
+```{r include=FALSE}
+#alternative way of loading data:
+#githubURL <- ("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/rds/trials.rds")
+#download.file(githubURL,"trials.rds", method="curl")
+#data <- readRDS("trials.rds")
+```
+
 
 ```{r message=FALSE}
-library(nycflights13)
 library(dplyr)
 library(knitr)
+atlas <- readRDS(gzcon(url("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds")))
 ```
 
 
-### `nycflights13` package
+### Economic mobility data
 
-Are there ways that we can avoid having to deal with these flight delays? We'd all like to arrive at our destinations on time whenever possible. This package contains five data sets saved in five separate data frames with information about all domestic flights departing from New York City in 2013. These include Newark Liberty International (EWR), John F. Kennedy International (JFK), and LaGuardia (LGA) airports:
+The [Opportunity Atlas](https://www.opportunityatlas.org/) is a freely available interactive mapping tool that traces the roots of outcomes such as poverty and incarceration back to the neighborhoods in which children grew up. The `atlas` dataset we loaded has the underlying data to describe equality of opportunity across the `r scales::comma(nrow(atlas))` different neighborhoods in the United States. 
 
-* `flights`: Information on all `r scales::comma(nrow(nycflights13::flights))` flights
-* `airlines`: A table matching airline names and their two letter IATA airline codes (also known as carrier codes) for `r nrow(nycflights13::airlines)` airline companies
-* `planes`: Information about each of `r scales::comma(nrow(nycflights13::planes))` physical aircraft used.
-* `weather`: Hourly meteorological data for each of the three NYC airports. This data frame has `r scales::comma(nrow(nycflights13::weather))` rows, roughtly corresponding to the 365 $\times$ 24 $\times$ 3 = 26,280 possible hourly measurements one can observe at three locations over the course of a year.
-* `airports`: Airport names, codes, and locations for `r scales::comma(nrow(nycflights13::airports))` destination airports.
+Let's unpack these data a bit more!
 
-### `flights` data frame
+### `atlas` data frame
 
-We will begin by exploring the `flights` data frame that is included in the `nycflights13` package and getting an idea of its structure. Run the following code in your console (either by typing it or cutting & pasting it): it loads in the `flights` dataset into your Console. Note depending on the size of your monitor, the output may vary slightly. 
-
-```{r load_flights}
-flights
-```
+We will begin by exploring the `atlas` data frame we just loaded to get an idea of its structure. 
 
 Let's unpack this output:
 
-* `A tibble: 336,776 x 19`: A `tibble` is a kind of data frame used in R. This particular data frame has
+* `A data.frane: 336,776 x 19`: A `tibble` is a kind of data frame used in R. This particular data frame has
     + `336,776` rows
     + `19` columns corresponding to 19 variables describing each observation
 * `year month day dep_time sched_dep_time dep_delay arr_time` are different columns, in other words variables, of this data frame.
