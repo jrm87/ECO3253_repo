@@ -5,6 +5,8 @@ format:
   beamer: 
       aspectratio: 169
       navigation: horizontal
+      colortheme: rose
+      urlcolor: blue
 author: Jonathan Moreno-Medina
 institute: ECO3253, UTSA
 date: "Fall 2022"
@@ -40,6 +42,10 @@ options(scipen = 99, digits = 3)
 # Set random number generator see value for replicable pseudorandomness. Why 76?
 # https://www.youtube.com/watch?v=xjJ7FheCkCU
 set.seed(76)
+#alternative way of loading data:
+#githubURL <- ("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/rds/trials.rds")
+#download.file(githubURL,"trials.rds", method="curl")
+#data <- readRDS("trials.rds")
 ```
 
 This class *is* about social issues in economics. But what are those social issues? 
@@ -201,11 +207,10 @@ How will you learn? **Do the HOMEWORKS with time**... I cannot emphasize this en
 
 ## In Class Exercise
 
-Go to RStudio and run the following: 
 :::: {.columns}
 
 ::: {.column width="50%"}
-```
+```{r, echo=TRUE, eval=FALSE}
 2*3
 2*pi
 log(10)
@@ -220,7 +225,7 @@ sqrt(25)
 
 ::: {.column width="50%"}
 
-```
+```{r, echo=TRUE, eval=FALSE}
 x <- c(1,3,2,5)# this is called a 'vector'
 x #what do you see?
 x <- c(1,6,2)
@@ -233,6 +238,7 @@ x+y
 write this again
 ```
 :::
+
 ::::
 
 ## Errors, warnings, and messages
@@ -345,7 +351,12 @@ There are two ways to install an R package. For example, to install the `ggplot2
 
 ## Package installation - 2 
 
-- **Slightly harder way**: A more common way to install a package is by typing `install.packages("ggplot2")` in the Console pane of RStudio and hitting enter. Note you must include the quotation marks.
+- **Slightly harder way**: A more common way to install a package is by typing
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("ggplot2")
+```
+in the Console pane of RStudio and hitting enter. Note you must include the quotation marks.
 
 
 ## Excercise - Install Packages
@@ -358,7 +369,7 @@ Install packages `dplyr`, `nycflights13`, and `knitr` packages. This will instal
 
 Recall: after installing a package, you need to "load" it (open it). We do this by using the `library()` command. For example, to load the `ggplot2` package, run the following code in the Console pane. What do we mean by "run the following code"? Either type or copy & paste the following code into the Console pane and then hit the enter key. 
 
-```{r, eval=FALSE}
+```{r, echo=TRUE, eval=FALSE}
 library(ggplot2)
 ```
 
@@ -395,137 +406,114 @@ R is telling you that you are trying to use a function in a package that has not
 Let's put everything we've learned so far into practice and start exploring some real data! These "spreadsheet"-type datasets are called _data frames_ in R; we will focus on working with data saved as data frames throughout this course.
 
 Step 1: Load all the packages needed for this exercise (assuming you've already installed them). 
-```{r include=FALSE}
-#alternative way of loading data:
-#githubURL <- ("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/rds/trials.rds")
-#download.file(githubURL,"trials.rds", method="curl")
-#data <- readRDS("trials.rds")
-```
 
 
 ```{r message=FALSE}
 library(dplyr)
-library(knitr)
+library(tibble)
 atlas <- readRDS(gzcon(url("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds")))
+atlas<-tibble(atlas)
 ```
 
 
-### Economic mobility data
+## Economic mobility data
 
 The [Opportunity Atlas](https://www.opportunityatlas.org/) is a freely available interactive mapping tool that traces the roots of outcomes such as poverty and incarceration back to the neighborhoods in which children grew up. The `atlas` dataset we loaded has the underlying data to describe equality of opportunity across the `r scales::comma(nrow(atlas))` different neighborhoods in the United States. 
 
 Let's unpack these data a bit more!
 
-### `atlas` data frame
+## `atlas` data frame
 
-We will begin by exploring the `atlas` data frame we just loaded to get an idea of its structure. 
+We will begin by exploring the `atlas` data frame we just loaded to get an idea of its structure. Run the following code in your console (either by typing it or cutting & pasting it): it loads the `atlas` dataset into your Console. Note depending on the size of your monitor, the output may vary slightly. 
+
+```{r load_atlas, echo=TRUE}
+atlas
+```
 
 Let's unpack this output:
 
-* `A data.frane: 336,776 x 19`: A `tibble` is a kind of data frame used in R. This particular data frame has
-    + `336,776` rows
-    + `19` columns corresponding to 19 variables describing each observation
-* `year month day dep_time sched_dep_time dep_delay arr_time` are different columns, in other words variables, of this data frame.
-* We then have the first 10 rows of observations corresponding to 10 flights.
-* `... with 336,766 more rows, and 11 more variables:` indicating to us that 336,766 more rows of data and 11 more variables could not fit in this screen.
+* `A tibble: 73,278 x 62`: A `tibble` is a kind of data frame used in R. This particular data frame has
+    + `73,278` rows (one for each neighborhood)
+    + `62` columns corresponding to 62 variables describing each observation (e.g. neighborhood in this case)
+* `tract county state cz czname hhinc_mean2000 mean_commutetime2000 ...` are different columns, in other words variables, of this data frame.
+* We then have the first 10 rows of observations corresponding to 10 neighborhoods.
+* `... with 73,268 more rows, and 52 more variables:` indicating to us that 73,268 more rows of data and 52 more variables could not fit in this screen.
 
 Unfortunately, this output does not allow us to explore the data very well. Let's look at different tools to explore data frames.
 
-### Exploring data frames {#exploredataframes}
+## Exploring data frames {#exploredataframes}
 
-Among the many ways of getting a feel for the data contained in a data frame such as `flights`, we present three functions that take as their "argument", in other words their input, the data frame in question. We also include a fourth method for exploring one particular column of a data frame:
+Among the many ways of getting a feel for the data contained in a data frame such as `atlas`, we present three functions that take as their "argument", in other words their input, the data frame in question. We also include a fourth method for exploring one particular column of a data frame:
 
 1. Using the `View()` function built for use in RStudio. We will use this the most.
 1. Using the `glimpse()` function, which is included in the `dplyr` package.
-1. Using the `kable()` function,  which is included in the `knitr` package.
 1. Using the `$` operator to view a single variable in a data frame.
+
+## View() - Part 1
 
 **1. `View()`**:
 
-Run `View(flights)` in your Console in RStudio, either by typing it or cutting & pasting it into the Console pane, and explore this data frame in the resulting pop-up viewer. You should get into the habit of always `View`ing any data frames that come your way.  Note the capital "V" in `View`.  R is case-sensitive so you'll receive an error is you run `view(flights)` instead of `View(flights)`.
+Run `View(atlas)` in your Console in RStudio, either by typing it or cutting & pasting it into the Console pane, and explore this data frame in the resulting pop-up viewer. You should get into the habit of always `View`ing any data frames that come your way.  Note the capital "V" in `View`.  R is case-sensitive so you'll receive an error is you run `view(atlas)` instead of `View(atlas)`.
 
 ```{block lc2-2, type='learncheck'}
 **_Learning check_**
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does any *ONE* row in this `flights` dataset refer to?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does any *ONE* row in this `atlas` dataset refer to?
 
-- A. Data on an airline 
-- B. Data on a flight
-- C. Data on an airport
-- D. Data on multiple flights
+- A. Data on an neighborhood 
+- B. Data on a state
+- C. Data on an person
+- D. Data on multiple neighborhood
 
 ```{block, type='learncheck'}
 ```
 
-By running `View(flights)`, we see the different *variables* listed in the columns and we see that there are different types of variables.  Some of the variables like `distance`, `day`, and `arr_delay` are what we will call *quantitative* variables. These variables are numerical in nature. Other variables here are *categorical*.
+## View() - Part 2
 
-Note that if you look in the leftmost column of the `View(flights)` output, you will see a column of numbers.  These are the row numbers of the dataset.  If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.  In other words, this will allow you to identify what object is being referred to in a given row.  This is often called the *observational unit*.  The *observational unit* in this example is an individual flight departing New York City in 2013. You can identify the observational unit by determining what "thing" is being measured or described by each of the variables.
+By running `View(atlas)`, we see the different *variables* listed in the columns and we see that there are different types of variables.  Some of the variables like `poor_share2010`, `hhinc_mean2000`, and `share_hisp2010` are what we will call *quantitative* variables. These variables are numerical in nature. Other variables, like `tract` are *categorical*: they are just names (even if they have numbers). For example `tract` represents a Tract FIPS Code, that is, a 6-digit code assigned by the census folks to each neighborhood in 2010.
+
+Note that if you look in the leftmost column of the `View(flights)` output, you will see a column of numbers.  These are the row numbers of the dataset.  If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.
+
+## glimpse()
 
 **2. `glimpse()`**:
 
 The second way to explore a data frame is using the `glimpse()` function included in the `dplyr` package. Thus, you can only use the `glimpse()` function after you've loaded the `dplyr` package. This function provides us with an alternative method for exploring a data frame:
 
-```{r}
-glimpse(flights)
+```{r, echo=TRUE}
+glimpse(atlas)
 ```
 
-We see that `glimpse()` will give you the first few entries of each variable in a row after the variable.  In addition, the *data type* (see Subsection \@ref(programming-concepts)) of the variable is given immediately after each variable's name inside `< >`.  Here, `int` and `dbl` refer to "integer" and "double", which are computer coding terminology for quantitative/numerical variables.  In contrast, `chr` refers to "character", which is computer terminology for text data. Text data, such as the `carrier` or `origin` of a flight, are categorical variables. The `time_hour` variable is an example of one more type of data type: `dttm`. As you may suspect, this variable corresponds to a specific date and time of day. However, we won't work with dates in this class and leave it to a more advanced book on data science. 
+## glimpse() - Part 2
 
-```{block lc2-3, type='learncheck'}
-**_Learning check_**
-```
+We see that `glimpse()` will give you the first few entries of each variable in a row after the variable.  In addition, the *data type* of the variable is given immediately after each variable's name inside `< >`.  Here, `int` and `dbl` refer to "integer" and "double", which are computer coding terminology for quantitative/numerical variables.  In contrast, `chr` refers to "character", which is computer terminology for text data. Text data, such as the `czname` (the name of the metro area), are categorical variables. 
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What are some examples in this dataset of **categorical** variables?  What makes them different than **quantitative** variables?
+## `$` operator 
 
-```{block, type='learncheck'}
-```
-
-**3. `kable()`**:
-
-The another way to explore the entirety of a data frame is using the `kable()` function from the `knitr` package. Let's explore the different carrier codes for all the airlines in our dataset two ways. Run both of these lines of code in your Console:
-
-```{r eval=FALSE}
-airlines
-kable(airlines)
-```
-
-At first glance, it may not appear that there is much difference in the outputs. However when using tools for document production such as [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html), the latter code produces output that is much more legible and reader-friendly. 
-
-**4. `$` operator**
+**3. `$` operator**
 
 Lastly, the `$` operator allows us to explore a single variable within a data frame. For example, run the following in your console
 
-```{r eval=FALSE}
-airlines
-airlines$name
+```{r, echo=TRUE, eval=FALSE}
+atlas$tract
 ```
 
-We used the `$` operator to extract only the `name` variable and return it as a vector of length 16. We will only be occasionally exploring data frames using this operator, instead favoring the `View()` and `glimpse()` functions.
-
-### Help files
-
-Another nice feature of R is the help system.  You can get help in R by entering a `?` before the name of a function or data frame in question and you will be presented with a page showing the documentation.  For example, let's look at the help file for the `flights` data frame:
-
-```{r eval=FALSE}
-?flights
-```
-
-A help file should pop-up in the Help pane of RStudio. If you have questions about a function or data frame included in an R package, you should get in the habit of consulting the help file right away.
-
-
+We used the `$` operator to extract only the `tract` variable and return it as a vector of length 73,278. We will only be occasionally exploring data frames using this operator, instead favoring the `View()` and `glimpse()` functions.
 
 ## Conclusion
 
-We've given you what we feel are the most essential concepts to know before you can start exploring data in R. Is this chapter exhaustive? Absolutely not. To try to include everything in this chapter would make the chapter so large it wouldn't be useful! 
+We've given you what we feel are the most essential concepts to know before you can start exploring data in R. There is much more to explore in R but this is a great place to get started!
 
 
 ### Additional resources
 
-If you are completely new to the world of coding, R, and RStudio and feel you could benefit from a more detailed introduction, we suggest you check out ModernDive co-author Chester Ismay's [Getting used to R, RStudio, and R Markdown](https://rbasics.netlify.com/) short book [@usedtor2016], which includes screencast recordings that you can follow along and pause as you learn. Furthermore, there is an introduction to R Markdown, a tool used for reproducible research in R.
+If you want to dive more and feel you could benefit from a more detailed introduction, check this short book: [Getting used to R, RStudio, and R Markdown](https://rbasics.netlify.com/) short book. 
+
+It has screencast recordings that you can follow along and pause as you learn. Furthermore, there is an introduction to R Markdown, a tool used for reproducible research in R.
 
 <center>
-![](../../images/gettting-used-to-R.png){ height=3.5in }
+![](../../images/gettting-used-to-R.png){ height=2.5in }
 </center>
 
 <!-- ### What's to come? -->
