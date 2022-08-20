@@ -1,13 +1,13 @@
 # Updated Schedule {- #schedule}
 
-I will keep this page with the updated schedule for the semester. 
+I will keep this page with the updated schedule for the semester. You can find these readings on [Blackboard](https://utsa.blackboard.com/ultra/courses/_231735_1/cl/outline).
 
 ```{r tableSchedule, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
 | Week              | Session | Topic                                                                              | Required reading                                                                       | Method                                       | Deliverable                   |
 | --------------------- | ------- | ---------------------------------------------------------------------------------- |  -------------------------------------------------------------------------------------- |  -------------------------------------------- | ----------------------------- |
 | 1: 08/22 & 08/24  | 1       | Introduction to the course                                                         |                                                                                        |                                              |                               |
-|                   | 2       | Geography of Upward Mobility in America                                            | [Chetty, Friedman, Hendren, Jones and Porter (2018)- **Non-technical summary**](www.google.com)       | Correlation, regression                      |                               |
+|                   | 2       | Geography of Upward Mobility in America                                            | Chetty, Friedman, Hendren, Jones and Porter (2018)- **Non-technical summary**      | Correlation, regression                      |                               |
 | 2: 08/29 & 08/31  | 3       | Intro to R and data                                                                |                                                                                        |                                              |                               |
 |                   | 4       | Intro to visualization and RMarkdown (homeworks)                                   |                                                                                        |                                              | First short report (In class) |
 | 3: 09/05 & 09/07  | -      | Labor Day – No class                                                               |                                                                                        |                                              |                               |
