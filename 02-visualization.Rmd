@@ -27,11 +27,145 @@ options(knitr.kable.NA = '')
 set.seed(76)
 ```
 
-We begin the development of your data science toolbox with data visualization. By visualizing our data, we gain valuable insights that we couldn't initially see from just looking at the raw data in spreadsheet form.  We will use the `ggplot2` package as it provides an easy way to customize your plots. `ggplot2` is rooted in the data visualization theory known as _The Grammar of Graphics_ [@wilkinson2005].
+>This chapter is based in big part on the [chapter on visualization](https://nulib.github.io/moderndive_book/2-viz.html) by the folks at Northwestern. Please be check that link if you want to dive into how to make even cooler graphs than the ones we will cover here.
+
+We will learn basic tools to visualize our data. By visualizing our data, we gain valuable insights that we couldn't initially see from just looking at the raw data in spreadsheet form. We will use the `ggplot2` package as it provides an easy way to customize your plots. `ggplot2` is rooted in the data visualization theory known as _The Grammar of Graphics_ [@wilkinson2005].
 
 At the most basic level, graphics/plots/charts (we use these terms interchangeably in this book) provide a nice way for us to get a sense for how quantitative variables compare in terms of their center (where the values tend to be located) and their spread (how they vary around the center).  Graphics should be designed to emphasize the findings and insight you want your audience to understand.  This does however require a balancing act.  On the one hand, you want to highlight as many meaningful relationships and interesting findings as possible; on the other you don't want to include so many as to overwhelm your audience.  
 
 As we will see, plots/graphics also help us to identify patterns and outliers in our data.  We will see that a common extension of these ideas is to compare the *distribution* of one quantitative variable (i.e., what the spread of a variable looks like or how the variable is *distributed* in terms of its values) as we go across the levels of a different categorical variable.
+
+### Previous exercise on correlation and visualization
+
+To cover today: 
+
+0. Clarification on standard deviation; density plots; subsetting options
+1. Univariate Linear Regression
+2. Scatter Plot
+3. Scatter Plot with a Linear Fit
+4. Multivariate Regression
+
+# Load package ggplot: 
+library(ggplot2)
+
+atlas<-readRDS("atlas.rds")
+
+# Histogram plot: 
+ggplot(data = atlas, aes(x=kfr_pooled_p25))+
+  geom_histogram()
+
+# Priettier Histogram
+# Option 2 but prettier: 
+ggplot(data = atlas, aes(x=kfr_pooled_p25))+
+  geom_histogram(fill="coral", color="white", alpha=0.9) +
+  ggtitle("Histogram of Predicted Income from Children of Parents in 25th Percentile of Income Distribution") +
+  theme(
+    plot.title = element_text(size=13,face = "bold")
+  )+
+  xlab("Upward Mobility Measure")
+
+ggplot(data = atlas, aes(x=kfr_pooled_p25))+
+  geom_density()
+
+# Explain subsetting again: 
+x<-c(123, 133,13,12312,3 )
+x
+
+test<-atlas$kfr_pooled_p25[1:5]
+
+#test
+test[c(T,F,F,F,T)]
+
+# My tract: 
+length(atlas$kfr_pooled_p25[atlas$state == 37 & atlas$county == 63])
+
+# An esier way to subset: 
+atlas_county<-subset(atlas, state == 37 & county == 63)
+atlas_county
+
+# Pipes!!!! For humans =)
+
+library(dplyr) #magrittr; tidyverse
+
+atlas%>%filter(state==37 & county==63)%>%ggplot(aes(kfr_pooled_p25))+geom_histogram()
+
+# Univariate Linear Regression: 
+# We run the following command, that creates a 'statistical model' of that linear regression:
+model1<-lm(kfr_pooled_p25~poor_share2010_per, data=atlas)
+
+summary(model1)
+
+summary(atlas$poor_share2010)
+atlas$poor_share2010_per<-atlas$poor_share2010*100
+
+# Linear regression (univariate)
+# Consider the last plot. What if we try to fit the best line that summarizes the relationship between those points? 
+# We can do this by running this command: 
+ggplot(data=atlas, aes(x=poor_share2010_per, y=kfr_pooled_p25))+
+  geom_point(color="blue", alpha=0.3)+
+  geom_smooth(aes(x=poor_share2010_per, y=kfr_pooled_p25), method = "lm", se = T, color="red")+
+  xlim(0, 100) # this line stops the plot at 0 and 100 in the poverty share (which is the lowest and max possible number)
+
+
+# Mutivariate linear regression: 
+# What if we not only want to consider the association between mobility and poverty, but also want to explore another variable at the same time?
+# One tool is to do a linear regression with more than two variables. 
+# Say we want to explore changes in mobility, with changes in poverty AND rental prices. We can run: 
+model3<-lm(kfr_pooled_p25~poor_share2010_per+rent_twobed2015, data=atlas) # notice the '+'
+summary(model3)
+
+Plan for the day: 
+
+1. Standardization of variables
+2. Go over regressions once more (tables, units, coefficients, p-values, confidence intervals)
+3. Idea of an RD
+4. Implementation in R (project 2)
+
+
+
+atlas<-readRDS("atlas.rds")
+
+names(atlas)
+
+# Take median household income in 2016: 
+summary(atlas$med_hhinc2016)
+
+# Load ggplot2
+library(ggplot2)
+
+ggplot(atlas, aes(x=med_hhinc2016))+
+geom_density()
+
+# standardize median hh income for 2016: 
+atlas$z_med_hhincome2016<-(atlas$med_hhinc2016-mean(atlas$med_hhinc2016, na.rm = T))/sd(atlas$med_hhinc2016, na.rm=T)
+
+summary(atlas$z_med_hhincome2016)
+sd(atlas$z_med_hhincome2016, na.rm=T)
+
+# density of the standardize med_hhincome2016 variable: 
+ggplot(atlas, aes(z_med_hhincome2016))+
+geom_density()
+
+# Regressions (once more): 
+
+# let's regress upward mobility for p25 on med hh income in 2016: 
+model_normal<-lm(data=atlas, kfr_pooled_p25~med_hhinc2016)
+summary(model_normal)
+
+# Now let's do the regression with bojth variables being standardize: 
+
+# Let's standardize upward mob measure: 
+atlas$z_kfr_pooled_p25<-(atlas$kfr_pooled_p25-mean(atlas$kfr_pooled_p25, na.rm = T))/sd(atlas$kfr_pooled_p25, na.rm=T)
+
+# Now the regression: 
+model_stand<-lm(data=atlas, z_kfr_pooled_p25~z_med_hhincome2016)
+summary(model_stand)
+
+install.packages("gmodels")
+library(gmodels)
+
+# Confidence intervals:
+ci(model_stand)
 
 
 ### Needed packages {-}
