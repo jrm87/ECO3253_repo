@@ -1,0 +1,12 @@
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files: [
+  "index.Rmd",
+  "00-schedule.Rmd",
+  "01-intro.Rmd",
+  "01-getting-started.Rmd",
+  "91-appendixA.Rmd",
+  "project1-empty.Rmd"
+]

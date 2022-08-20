@@ -30,14 +30,22 @@ $$Standard \, deviation = \sqrt{\frac{(x_1 - \overline{x})^2 + (x_2 - \overline{
 
 ### Five-number summary
 
-The **five-number summary** consists of five values:  minimum, first quantile AKA 25^th^ percentile, second quantile AKA median AKA 50^th^ percentile, third quantile AKA 75^th^, and maximum.  The quantiles are calculated as
+The **five-number summary** consists of five values:  minimum, first quartile AKA 25^th^ percentile, second quartile AKA median AKA 50^th^ percentile, third quartile AKA 75^th^, and maximum.  The quartiles are calculated as
 
-- first quantile ($Q_1$): the median of the first half of the sorted data
-- third quantile ($Q_3$): the median of the second half of the sorted data
+- first quartile ($Q_1$): the median of the first half of the sorted data
+- third quartile ($Q_3$): the median of the second half of the sorted data
 
 The _interquartile range_ is defined as $Q_3 - Q_1$ and is a measure of how spread out the middle 50% of values is. The five-number summary is not influenced by the presence of outliers in the ways that the mean and standard deviation are.  It is, thus, recommended for skewed datasets.
 
-### Distribution
+### Percentiles or rank {#appPercentiles}
+
+Just as you can sort the values of a variable form smallest to larges and find the middle element to get the median, you are dividing all the values into two groups with the same number of observations. 
+
+If you do that but instead of dividing into 2 groups, you divide it into 4 groups, you get each of the quartiles. 
+
+If you divide the sorted observations into **100 groups** of equal number of observations, you get the **percentiles**. Depending on the application, the percentile can be read as the rank in the distribution.
+
+### Distribution {#appDistributions}
 
 The **distribution** of a variable/dataset corresponds to generalizing patterns in the dataset.  It often shows how frequently elements in the dataset appear.  It shows how the data varies and gives some information about where a typical element in the data might fall.  Distributions are most easily seen through data visualization.
 
@@ -46,7 +54,3 @@ The **distribution** of a variable/dataset corresponds to generalizing patterns 
 **Outliers** correspond to values in the dataset that fall far outside the range of "ordinary" values.  In regards to a boxplot (by default), they correspond to values below $Q_1 - (1.5 * IQR)$ or above $Q_3 + (1.5 * IQR)$.
 
 Note that these terms (aside from **Distribution**) only apply to quantitative variables.
-
-
-
-## Normal distribution discussion

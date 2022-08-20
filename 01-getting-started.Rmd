@@ -1,6 +1,18 @@
-# Getting Started with Data in R {#getting-started}
+# (PART) Tools {-}
+
+# Very Brief Intro to Data in R {#getting-started}
+
+## Why R again?
+
+### Why are we learning R? I wanted to learn about economics of public and social issues...
 
 ```{r setup_getting_started, include=FALSE, purl=FALSE}
+library(pacman)
+p_load(
+  broom, tidyverse,
+  ggplot2, ggthemes, ggforce, viridis, extrafont, gridExtra,
+  dplyr, here, magrittr, knitr
+)
 chap <- 2
 lc <- 0
 rq <- 0
@@ -20,7 +32,89 @@ options(scipen = 99, digits = 3)
 # Set random number generator see value for replicable pseudorandomness. Why 76?
 # https://www.youtube.com/watch?v=xjJ7FheCkCU
 set.seed(76)
+#alternative way of loading data:
+#githubURL <- ("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/rds/trials.rds")
+#download.file(githubURL,"trials.rds", method="curl")
+#data <- readRDS("trials.rds")
+
+include_image <- function(path,                           
+                          html_opts = "width=45%", 
+                          latex_opts = html_opts,
+                          alt_text = ""){
+  if(knitr:::is_html_output()){
+    glue::glue("![{alt_text}]({path}){{ {html_opts} }}")
+  } else if(knitr:::is_latex_output()){
+    glue::glue("![{alt_text}]({path}){{ {latex_opts} }}")    
+  }
+}
 ```
+
+This class *is* about social issues in economics. But what are those social issues? 
+
+* Economic mobility and inequality
+* Effects of education on wages and inequality
+* Criminal justice system outcomes
+* Pollution and climate change
+* and so on...
+
+How can we know if going to school increases wages? Or if economic mobility is low or high? 
+
+We need to *analyze* data! We can do that analysis by hand... but that would be very time consuming. Or we can use a super calculator with amazing capabilities to explore data, maps, etc: enter **R** and **R Studio**.
+
+This course is not about teaching you all about **R**! We will only cover the very basics so you can jump into doing some empirical analysis by yourself. You will be able to expand much more on the tools briefly described here in other, more advanced, courses in the Economics sequence. 
+
+:::: {.blackbox data-latex=""}
+::: {.center data-latex=""}
+**Important!**
+:::
+
+For the vast majority of exercises in our course, _I will give you all the code you will have to run_. So, it's not like you need to write anything from scratch! 
+::::
+
+I do want you to get a basic understanding of what we will be doing when we run those lines.
+
+### Ok, but why R?
+
+- **R** is free and open source!
+- **R** has a vibrant online community!
+- **R** is very flexible and powerful — adaptable to nearly any task ( _e.g._, correlations, econometrics, spatial data analysis, machine learning, web scraping, data cleaning, website building, teaching.)
+- Employers like **R** over alternatives
+
+### Added benefits of learning R
+
+Employers hire people that knows **R**. Again, we will only cover the essentials, but maybe you want to keep this in mind as you go along with your studies. 
+
+```{r, statistical languages, echo = F, fig.height = 6, fig.width = 9}
+# The popularity data
+pop_df <- data.frame(
+  lang = c("SQL", "Python", "R", "SAS", "Matlab", "SPSS", "Stata"),
+  n_jobs = c(107130, 66976, 48772, 25644, 11464, 3717, 1624),
+  free = c(T, T, T, F, F, F, F)
+)
+pop_df %<>% mutate(lang = lang %>% factor(ordered = T))
+# Plot it
+red_pink <- "#e64173"
+ggplot(data = pop_df, aes(x = lang, y = n_jobs, fill = free)) +
+geom_col() +
+geom_hline(yintercept = 0) +
+aes(x = reorder(lang, -n_jobs), fill = reorder(free, -free)) +
+xlab("Statistical language") +
+scale_y_continuous(label = scales::comma) +
+ylab("Number of jobs") +
+ggtitle(
+  "Comparing statistical languages",
+  subtitle = "Number of job postings on Indeed.com, 2019/01/06"
+) +
+scale_fill_manual(
+  "Free?",
+  labels = c("True", "False"),
+  values = c(red_pink, "darkslategray")
+) +
+theme_pander(base_size = 17) +
+theme(legend.position = "bottom")
+```
+
+## Key concepts before we start: 
 
 Before we can start exploring data in R, there are some key concepts to understand first:
 
@@ -28,11 +122,9 @@ Before we can start exploring data in R, there are some key concepts to understa
 1. How do I code in R?
 1. What are R packages?
 
-We'll introduce these concepts in upcoming Sections \@ref(r-rstudio)-\@ref(packages). If you are already somewhat familiar with these concepts, feel free to skip to Section \@ref(nycflights13) where we'll introduce our first data set: all domestic flights departing a New York City airport in 2013. This is a dataset we will explore in depth in this book.
+We'll introduce these concepts in upcoming Sections \@ref(r-rstudio)-\@ref(packages). Then we'll introduce our first data set: data on the economic mobility for all neighborhoods across the US in the `atlas` dataset.
 
-
-
-## What are R and RStudio? {#r-rstudio}
+### What are R and RStudio? {#r-rstudio}
 
 For much of this book, we will assume that you are using R via RStudio. First time users often confuse the two. At its simplest:
 
@@ -92,14 +184,39 @@ We now introduce some basic programming concepts and terminology. Instead of ask
     + *Data types*: Integers, doubles/numerics, logicals, and characters. 
 * *Vectors*: A series of values. These are created using the `c()` function, where `c()` stands for "combine" or "concatenate." For example: `c(6, 11, 13, 31, 90, 92)`.
 * *Factors*: *Categorical data* are represented in R as factors.
-* *Data frames*: Data frames are like rectangular spreadsheets: they are representations of datasets in R where the rows correspond to *observations* and the columns correspond to *variables* that describe the observations. \index{data frames} We'll cover data frames later in Section \@ref(nycflights13).
+* *Data frames*: Data frames are like rectangular spreadsheets: they are representations of datasets in R where the rows correspond to *observations* and the columns correspond to *variables* that describe the observations. \index{data frames} We'll cover data frames later in Section \@ref(mobilitydata).
 * *Conditionals*: 
     + Testing for equality in R using `==` (and not `=` which is typically used for assignment). Ex: `2 + 1 == 3` compares `2 + 1` to `3` and is correct R code, while `2 + 1 = 3` will return an error.
     + Boolean algebra: `TRUE/FALSE` statements and mathematical operators such as `<` (less than), `<=` (less than or equal), and `!=` (not equal to). 
     + Logical operators: `&` representing "and" as well as `|` representing "or." Ex: `(2 + 1 == 3) & (2 + 1 == 4)` returns `FALSE` since both clauses are not `TRUE` (only the first clause is `TRUE`). On the other hand, `(2 + 1 == 3) | (2 + 1 == 4)` returns `TRUE` since at least one of the two clauses is `TRUE`. 
 * *Functions*, also called *commands*: Functions perform tasks in R. They take in inputs called *arguments* and return outputs. You can either manually specify a function's arguments or use the function's *default values*. 
 
-This list is by no means an exhaustive list of all the programming concepts and terminology needed to become a savvy R user; such a list would be so large it wouldn't be very useful, especially for novices. Rather, we feel this is a minimally viable list of programming concepts and terminology you need to know before getting started. We feel that you can learn the rest as you go.  Remember that your mastery of all of these concepts and terminology will build as you practice more and more.
+This list is by no means an exhaustive list of all the programming concepts and terminology needed to become a savvy R user; such a list would be so large it wouldn't be very useful, especially for novices. Rather, we feel this is a minimally viable list of programming concepts and terminology you need to know before getting started. I'm confident you can learn the rest as you go. Remember that your mastery of all of these concepts and terminology will build as you practice more and more.^[If you truly insist on getting more information, you can check this link explaining some of the basics: https://rstudio-education.github.io/hopr/basics.html ;but again, **this is not required or expected**.]
+
+## In Class Exercise
+
+Try running the following commands in the console. What do you see for each one? 
+```{r, echo=TRUE, eval=FALSE}
+2*3
+2*pi
+log(10)
+exp(2)
+sqrt(25)
+3==3
+3==4
+3<=4
+3!=4
+x <- c(1,3,2,5)# this is called a 'vector'
+x #what do you see?
+x <- c(1,6,2)
+x #now what do you see?
+y <- c(1,4,3) # USE ARROW!
+length(x)
+length(y)
+x+y
+#write this
+write this again
+```
 
 ### Errors, warnings, and messages
 
@@ -132,7 +249,7 @@ Here are a few useful tips to keep in mind as you learn to program:
 
 ## What are R packages? {#packages}
 
-Another point of confusion with many new R users is the idea of an R package. R packages extend the functionality of R by providing additional functions, data, and documentation. They are written by a world-wide community of R users and can be downloaded for free from the internet. For example, among the many packages we will use in this book are the `ggplot2` package for data visualization in Chapter \@ref(viz), the `dplyr` package for data wrangling in Chapter \@ref(wrangling), and the `moderndive` package that accompanies this book.
+Another point of confusion with many new R users is the idea of an R package. R packages extend the functionality of R by providing additional functions, data, and documentation. They are written by a world-wide community of R users and can be downloaded for free from the internet. For example, among the many packages we will use in this book are the `ggplot2` package for data visualization which we will cover later (or you can check [here](https://nulib.github.io/moderndive_book/2-viz.html)) or the `dplyr` package for data wrangling (again, we will cover later, but check [this](https://nulib.github.io/moderndive_book/3-wrangling.html#needed-packages-1) if you want to know more).
 
 A good analogy for R packages is they are like apps you can download onto a mobile phone:
 
@@ -157,8 +274,6 @@ Let's now show you how to perform these two steps for the `ggplot2` package for 
 
 ### Package installation {#package-installation}
 
-> **Note about RStudio Server**: If your instructor has provided you with a link and access to RStudio Server, you probably will not need to install packages, as they have likely been pre-installed for you by your instructor. That being said, it is still a good idea to know this process for later on when you are not using RStudio Server, but rather RStudio Desktop on your own computer.
-
 There are two ways to install an R package. For example, to install the `ggplot2` package:
 
 1. **Easy way**: In the Files pane of RStudio:
@@ -174,7 +289,7 @@ Much like an app on your phone, you only have to install a package once. However
 ```{block lc2-0, type='learncheck'}
 **_Learning check_**
 ```
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Repeat the above installing steps, but for the `dplyr`, `nycflights13`, and `knitr` packages. This will install the earlier mentioned `dplyr` package, the `nycflights13` package containing data on all domestic flights leaving a NYC airport in 2013, and the `knitr` package for writing reports in R. 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Repeat the above installing steps, but for the `dplyr`, and `knitr` packages. This will install the earlier mentioned `dplyr` package, and the `knitr` package for writing reports in R. 
 ```{block, type='learncheck'}
 ```
  
@@ -198,7 +313,7 @@ Error in library(ggplot2) : there is no package called ‘ggplot2’
 ```{block lc2-1, type='learncheck'}
 **_Learning check_**
 ```
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** "Load" the `dplyr`, `nycflights13`, and `knitr` packages as well by repeating the above steps.
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** "Load" the `dplyr`, and `knitr` packages as well by repeating the above steps.
 ```{block, type='learncheck'}
 ```
  
@@ -215,153 +330,111 @@ R is telling you that you are trying to use a function in a package that has not
 
 
 
-## Explore your first dataset {#nycflights13}
+## Hands-on exercise!
 
-Let's put everything we've learned so far into practice and start exploring some real data! Data comes to us in a variety of formats, from pictures to text to numbers. Throughout this book, we'll focus on datasets that are saved in "spreadsheet"-type format; this is probably the most common way data are collected and saved in many fields. Remember from Subsection \@ref(programming-concepts) that these "spreadsheet"-type datasets are called _data frames_ in R; we will focus on working with data saved as data frames throughout this book.
+### Explore your first dataset: economic mobility in the US {#mobilitydata}
 
-Let's first load all the packages needed for this chapter, assuming you've already installed them. Read Section \@ref(packages) for information on how to install and load R packages if you haven't already.
+Let's put everything we've learned so far into practice and start exploring some real data! These "spreadsheet"-type datasets are called _data frames_ in R; we will focus on working with data saved as data frames throughout this course.
+
+Step 1: Load all the packages needed for this exercise (assuming you've already installed them). 
+
 
 ```{r message=FALSE}
-library(nycflights13)
 library(dplyr)
-library(knitr)
+library(tibble)
+atlas <- readRDS(gzcon(url("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds")))
+atlas<-tibble(atlas)
 ```
 
-At the beginning of all subsequent chapters in this text, we'll always have a list of packages that you should have installed and loaded to work with that chapter's R code. 
 
-### `nycflights13` package
+### Economic mobility data
 
-Many of us have flown on airplanes or know someone who has. Air travel has become an ever-present aspect in many people's lives. If you live in or are visiting a relatively large city and you walk around that city's airport, you see gates showing flight information from many different airlines.  And you will frequently see that some flights are delayed because of a variety of conditions. Are there ways that we can avoid having to deal with these flight delays?  
+The [Opportunity Atlas](https://www.opportunityatlas.org/) is a freely available interactive mapping tool that traces the roots of outcomes such as poverty and incarceration back to the neighborhoods in which children grew up. The `atlas` dataset we loaded has the underlying data to describe equality of opportunity across the `r scales::comma(nrow(atlas))` different neighborhoods in the United States. 
 
-We'd all like to arrive at our destinations on time whenever possible. (Unless you secretly love hanging out at airports.  If you are one of these people, pretend for the moment that you are very much anticipating being at your final destination.)  Throughout this book, we're going to analyze data related to flights contained in the `nycflights13` package [@R-nycflights13]. Specifically, this package contains five data sets saved in five separate data frames with information about all domestic flights departing from New York City in 2013. These include Newark Liberty International (EWR), John F. Kennedy International (JFK), and LaGuardia (LGA) airports:
+Let's unpack these data a bit more!
 
-* `flights`: Information on all `r scales::comma(nrow(nycflights13::flights))` flights
-* `airlines`: A table matching airline names and their two letter IATA airline codes (also known as carrier codes) for `r nrow(nycflights13::airlines)` airline companies
-* `planes`: Information about each of `r scales::comma(nrow(nycflights13::planes))` physical aircraft used.
-* `weather`: Hourly meteorological data for each of the three NYC airports. This data frame has `r scales::comma(nrow(nycflights13::weather))` rows, roughtly corresponding to the 365 $\times$ 24 $\times$ 3 = 26,280 possible hourly measurements one can observe at three locations over the course of a year.
-* `airports`: Airport names, codes, and locations for `r scales::comma(nrow(nycflights13::airports))` destination airports.
+### `atlas` data frame
 
-### `flights` data frame
+We will begin by exploring the `atlas` data frame we just loaded to get an idea of its structure. Run the following code in your console (either by typing it or cutting & pasting it): it loads the `atlas` dataset into your Console. Note depending on the size of your monitor, the output may vary slightly. 
 
-We will begin by exploring the `flights` data frame that is included in the `nycflights13` package and getting an idea of its structure. Run the following code in your console (either by typing it or cutting & pasting it): it loads in the `flights` dataset into your Console. Note depending on the size of your monitor, the output may vary slightly. 
-
-```{r load_flights}
-flights
+```{r load_atlas, echo=TRUE}
+atlas
 ```
 
 Let's unpack this output:
 
-* `A tibble: 336,776 x 19`: A `tibble` is a kind of data frame used in R. This particular data frame has
-    + `336,776` rows
-    + `19` columns corresponding to 19 variables describing each observation
-* `year month day dep_time sched_dep_time dep_delay arr_time` are different columns, in other words variables, of this data frame.
-* We then have the first 10 rows of observations corresponding to 10 flights.
-* `... with 336,766 more rows, and 11 more variables:` indicating to us that 336,766 more rows of data and 11 more variables could not fit in this screen.
+* `A tibble: 73,278 x 62`: A `tibble` is a kind of data frame used in R. This particular data frame has
+    + `73,278` rows (one for each neighborhood)
+    + `62` columns corresponding to 62 variables describing each observation (e.g. neighborhood in this case)
+* `tract county state cz czname hhinc_mean2000 mean_commutetime2000 ...` are different columns, in other words variables, of this data frame.
+* We then have the first 10 rows of observations corresponding to 10 neighborhoods.
+* `... with 73,268 more rows, and 52 more variables:` indicating to us that 73,268 more rows of data and 52 more variables could not fit in this screen.
 
 Unfortunately, this output does not allow us to explore the data very well. Let's look at different tools to explore data frames.
 
 ### Exploring data frames {#exploredataframes}
 
-Among the many ways of getting a feel for the data contained in a data frame such as `flights`, we present three functions that take as their "argument", in other words their input, the data frame in question. We also include a fourth method for exploring one particular column of a data frame:
+Among the many ways of getting a feel for the data contained in a data frame such as `atlas`, we present three functions that take as their "argument", in other words their input, the data frame in question. We also include a fourth method for exploring one particular column of a data frame:
 
 1. Using the `View()` function built for use in RStudio. We will use this the most.
 1. Using the `glimpse()` function, which is included in the `dplyr` package.
-1. Using the `kable()` function,  which is included in the `knitr` package.
 1. Using the `$` operator to view a single variable in a data frame.
+
 
 **1. `View()`**:
 
-Run `View(flights)` in your Console in RStudio, either by typing it or cutting & pasting it into the Console pane, and explore this data frame in the resulting pop-up viewer. You should get into the habit of always `View`ing any data frames that come your way.  Note the capital "V" in `View`.  R is case-sensitive so you'll receive an error is you run `view(flights)` instead of `View(flights)`.
+Run `View(atlas)` in your Console in RStudio, either by typing it or cutting & pasting it into the Console pane, and explore this data frame in the resulting pop-up viewer. You should get into the habit of always `View`ing any data frames that come your way.  Note the capital "V" in `View`.  R is case-sensitive so you'll receive an error is you run `view(atlas)` instead of `View(atlas)`.
 
 ```{block lc2-2, type='learncheck'}
 **_Learning check_**
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does any *ONE* row in this `flights` dataset refer to?
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What does any *ONE* row in this `atlas` dataset refer to?
 
-- A. Data on an airline 
-- B. Data on a flight
-- C. Data on an airport
-- D. Data on multiple flights
+- A. Data on an neighborhood 
+- B. Data on a state
+- C. Data on an person
+- D. Data on multiple neighborhood
 
 ```{block, type='learncheck'}
 ```
 
-By running `View(flights)`, we see the different *variables* listed in the columns and we see that there are different types of variables.  Some of the variables like `distance`, `day`, and `arr_delay` are what we will call *quantitative* variables. These variables are numerical in nature. Other variables here are *categorical*.
+By running `View(atlas)`, we see the different *variables* listed in the columns and we see that there are different types of variables.  Some of the variables like `poor_share2010`, `hhinc_mean2000`, and `share_hisp2010` are what we will call *quantitative* variables. These variables are numerical in nature. Other variables, like `tract` are *categorical*: they are just names (even if they have numbers). For example `tract` represents a Tract FIPS Code, that is, a 6-digit code assigned by the census folks to each neighborhood in 2010.
 
-Note that if you look in the leftmost column of the `View(flights)` output, you will see a column of numbers.  These are the row numbers of the dataset.  If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.  In other words, this will allow you to identify what object is being referred to in a given row.  This is often called the *observational unit*.  The *observational unit* in this example is an individual flight departing New York City in 2013. You can identify the observational unit by determining what "thing" is being measured or described by each of the variables.
+Note that if you look in the leftmost column of the `View(atlas)` output, you will see a column of numbers.  These are the row numbers of the dataset.  If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.
 
 **2. `glimpse()`**:
 
 The second way to explore a data frame is using the `glimpse()` function included in the `dplyr` package. Thus, you can only use the `glimpse()` function after you've loaded the `dplyr` package. This function provides us with an alternative method for exploring a data frame:
 
-```{r}
-glimpse(flights)
+```{r, echo=TRUE}
+glimpse(atlas)
 ```
 
-We see that `glimpse()` will give you the first few entries of each variable in a row after the variable.  In addition, the *data type* (see Subsection \@ref(programming-concepts)) of the variable is given immediately after each variable's name inside `< >`.  Here, `int` and `dbl` refer to "integer" and "double", which are computer coding terminology for quantitative/numerical variables.  In contrast, `chr` refers to "character", which is computer terminology for text data. Text data, such as the `carrier` or `origin` of a flight, are categorical variables. The `time_hour` variable is an example of one more type of data type: `dttm`. As you may suspect, this variable corresponds to a specific date and time of day. However, we won't work with dates in this class and leave it to a more advanced book on data science. 
+We see that `glimpse()` will give you the first few entries of each variable in a row after the variable.  In addition, the *data type* of the variable is given immediately after each variable's name inside `< >`.  Here, `int` and `dbl` refer to "integer" and "double", which are computer coding terminology for quantitative/numerical variables.  In contrast, `chr` refers to "character", which is computer terminology for text data. Text data, such as the `czname` (the name of the metro area), are categorical variables. 
 
-```{block lc2-3, type='learncheck'}
-**_Learning check_**
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** What are some examples in this dataset of **categorical** variables?  What makes them different than **quantitative** variables?
-
-```{block, type='learncheck'}
-```
-
-**3. `kable()`**:
-
-The another way to explore the entirety of a data frame is using the `kable()` function from the `knitr` package. Let's explore the different carrier codes for all the airlines in our dataset two ways. Run both of these lines of code in your Console:
-
-```{r eval=FALSE}
-airlines
-kable(airlines)
-```
-
-At first glance, it may not appear that there is much difference in the outputs. However when using tools for document production such as [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html), the latter code produces output that is much more legible and reader-friendly. 
-
-**4. `$` operator**
+**3. `$` operator**
 
 Lastly, the `$` operator allows us to explore a single variable within a data frame. For example, run the following in your console
 
-```{r eval=FALSE}
-airlines
-airlines$name
+```{r, echo=TRUE, eval=FALSE}
+atlas$tract
 ```
 
-We used the `$` operator to extract only the `name` variable and return it as a vector of length 16. We will only be occasionally exploring data frames using this operator, instead favoring the `View()` and `glimpse()` functions.
-
-### Help files
-
-Another nice feature of R is the help system.  You can get help in R by entering a `?` before the name of a function or data frame in question and you will be presented with a page showing the documentation.  For example, let's look at the help file for the `flights` data frame:
-
-```{r eval=FALSE}
-?flights
-```
-
-A help file should pop-up in the Help pane of RStudio. If you have questions about a function or data frame included in an R package, you should get in the habit of consulting the help file right away.
-
-
+We used the `$` operator to extract only the `tract` variable and return it as a vector of length 73,278. We will only be occasionally exploring data frames using this operator, instead favoring the `View()` and `glimpse()` functions.
 
 ## Conclusion
 
-We've given you what we feel are the most essential concepts to know before you can start exploring data in R. Is this chapter exhaustive? Absolutely not. To try to include everything in this chapter would make the chapter so large it wouldn't be useful! 
+We've given you what we feel are the most essential concepts to know before you can start exploring data in R. There is much more to explore in R but this is a great place to get started!
 
 
 ### Additional resources
 
-If you are completely new to the world of coding, R, and RStudio and feel you could benefit from a more detailed introduction, we suggest you check out ModernDive co-author Chester Ismay's [Getting used to R, RStudio, and R Markdown](https://rbasics.netlify.com/) short book [@usedtor2016], which includes screencast recordings that you can follow along and pause as you learn. Furthermore, there is an introduction to R Markdown, a tool used for reproducible research in R.
+If you want to dive more and feel you could benefit from a more detailed introduction, check this short book: [Getting used to R, RStudio, and R Markdown](https://rbasics.netlify.com/) short book. 
+
+It has screencast recordings that you can follow along and pause as you learn. Furthermore, there is an introduction to R Markdown, a tool used for reproducible research in R.
 
 <center>
-![](images/gettting-used-to-R.png){ height=3.5in }
+![](images/gettting-used-to-R.png){ height=2.5in }
 </center>
-
-<!-- ### What's to come? -->
-
-<!-- As we stated earlier however, the best way to learn R is to learn by doing. We now start the "data science" portion of the book in Chapter \@ref(viz) with what we feel is the most important tool in a data scientist's toolbox: data visualization. We will continue to explore the data included in the `nycflights13` package through data visualization. We'll see that data visualization is a powerful tool to add to our toolbox for data exploring that provides additional insight to what the `View()` and `glimpse()` functions can provide.  -->
-
-<!-- ```{r echo=FALSE, fig.cap="ModernDive flowchart", out.width='110%', fig.align='center'} -->
-<!-- knitr::include_graphics("images/flowcharts/flowchart/flowchart.004.png") -->
-<!-- ``` -->
-
+</center>

@@ -139,6 +139,17 @@ To use R and RStudio, you can:
 - install it in your computer (see the book) or ...
 - run it on someone else's computer (the cloud!). We will do that, so you don't have to worry about installations. 
 
+# Let's open R!
+
+## RStudio in the cloud
+
+Let's jump in! You should have received a link for you to access RStudio in the cloud. The Department of Economics is paying for us to use this service for this class. Remember that all the **code is running on someone's computer**. In this case, it is running on a computer owned by the folks at RStudio. 
+
+INCLUDE FIGURE OF RStudio Cloud
+
+## Starting a project
+
+Include Figure
 
 
 ## Using R via RStudio
@@ -361,7 +372,7 @@ in the Console pane of RStudio and hitting enter. Note you must include the quot
 
 ## Excercise - Install Packages
 
-Install packages `dplyr`, `nycflights13`, and `knitr` packages. This will install the earlier mentioned `dplyr` package, the `nycflights13` package containing data on all domestic flights leaving a NYC airport in 2013, and the `knitr` package for writing reports in R. 
+Install packages `dplyr`,  and `knitr` packages. This will install the earlier mentioned `dplyr` package, and the `knitr` package for writing reports in R. 
 
 
 
@@ -385,7 +396,7 @@ Error in library(ggplot2) : there is no package called ‘ggplot2’
 
 ## Excercise - Load Packages
 
-Load packages `dplyr`, `nycflights13`, and `knitr` packages as well by repeating the above steps.
+Load packages `dplyr`,  and `knitr` packages as well by repeating the above steps.
 
 
 
@@ -473,7 +484,7 @@ Run `View(atlas)` in your Console in RStudio, either by typing it or cutting & p
 
 By running `View(atlas)`, we see the different *variables* listed in the columns and we see that there are different types of variables.  Some of the variables like `poor_share2010`, `hhinc_mean2000`, and `share_hisp2010` are what we will call *quantitative* variables. These variables are numerical in nature. Other variables, like `tract` are *categorical*: they are just names (even if they have numbers). For example `tract` represents a Tract FIPS Code, that is, a 6-digit code assigned by the census folks to each neighborhood in 2010.
 
-Note that if you look in the leftmost column of the `View(flights)` output, you will see a column of numbers.  These are the row numbers of the dataset.  If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.
+Note that if you look in the leftmost column of the `View(atlas)` output, you will see a column of numbers.  These are the row numbers of the dataset.  If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.
 
 ## glimpse()
 
