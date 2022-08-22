@@ -101,7 +101,7 @@ We will cover and make use if several economic concepts you probably learned in 
 
 ## Projects {-}
 
-A big part of the course will be the projects you will do during the semester. You will work on **3 projects** through the semester. These are more involved than most homeworks you have probably worked up to now. The good news is that they involve doing economics! You will get hands-on experience working with real data on real problems. 
+A big part of the course will be the projects you will do during the semester. You will work on **4 projects** through the semester. These are more involved than most homeworks you have probably worked up to now. The good news is that they involve doing economics! You will get hands-on experience working with real data on real problems. 
 
 The main recommendation is to start working on this projects **early**! I cannot emphasize this enough. There are several moving parts to these projects, and you need to plan in advance your work so you can try, fail, come back to it, and so on. If you try to work on these projects just the night before the deadline, that will not leave much room for experimenting, and trying. Given than several of these tools might be new, you need to give yourself time to try more than once. 
 
