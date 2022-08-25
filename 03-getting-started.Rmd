@@ -197,7 +197,7 @@ knitr::include_graphics("images/rstudio_cloud4.png")
 Once you are in the **ECO3253** tab, you should see a list of individual projects we will work on throughout the semester. It should look something like this:
 
 ```{r, echo=FALSE, out.width = '80%'}
-knitr::include_graphics("images/rstudio_cloud4.png")
+knitr::include_graphics("images/rstudio_cloud5.png")
 ```
 
 For our first class on R you will select the link that says **introRClass**. That is it! Now we are ready to get to work!
