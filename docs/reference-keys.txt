@@ -15,7 +15,9 @@ ok-but-why-r
 added-benefits-of-learning-r
 key-concepts-before-we-start
 r-rstudio
-installing-r-and-rstudio
+r-and-rstudio-in-your-computer-or-in-the-cloud
+lets-open-r
+rstudio-in-the-cloud
 using-r-via-rstudio
 code
 programming-concepts
