@@ -84,7 +84,7 @@ I do want you to get a basic understanding of what we will be doing when we run 
 
 Employers hire people that knows **R**. Again, we will only cover the essentials, but maybe you want to keep this in mind as you go along with your studies. 
 
-```{r, echo = F, out.width = '80%'}
+```{r, statistical_languages, echo = F, out.width = '80%'}
 # The popularity data
 pop_df <- data.frame(
   lang = c("SQL", "Python", "R", "SAS", "Matlab", "SPSS", "Stata"),
