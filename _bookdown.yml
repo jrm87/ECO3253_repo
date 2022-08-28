@@ -8,6 +8,7 @@ rmd_files: [
   "00-schedule.Rmd",
   "01-intro.Rmd",
   "03-getting-started.Rmd",
+  "02-visualization.Rmd",
   "91-appendixA.Rmd",
-  "project1-empty.Rmd"
+  "project1.Rmd"
 ]
