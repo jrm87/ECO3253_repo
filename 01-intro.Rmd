@@ -71,10 +71,15 @@ We're focusing specifically here on kids growing up in low-income families. If y
 ## Local Area Variation in Upward Mobility: Los Angeles, CA 
 
 This geographic variation in upward mobility is not just about broad regional variation, but it's actually about extremely local variation.  We can use the Opportunity Atlas to visualize the data. 
-The Opportunity Atlas starts out with the national map of the same statistics by commuting zone that we were looking at before. However, it allows us to zoom in to areas of specific interest.  
-Let us focus on one particular example: Nickerson Gardens in Los Angeles, CA, which is a public housing project in Watts. Let's look at black men growing up in the lowest-income families in the bottom 1% of the income distribution, which is actually representative of the incomes of the families living in this public housing project. The average household income of black men who grew up in the poorest families in Watts is just $3,300 a year. It has to be the case that lots of people are basically not working at all. You can see that in a very direct way in these data because we're able to look not just at income, but a variety of other outcomes, including incarceration. 
-Focusing on incarceration rates, you will see a really shocking and disturbing statistic about the United States, and this area in particular, which is that 44% of the black men who grew up in these lowest-income families are incarcerated on a single day, the date of the 2010 census.  
-If you go down to Compton, you see incarceration rates of 6.2%, which is a factor of 10 smaller than the 44% that we were seeing in Watts for black men growing up in low-income families. Compton is a different neighborhood than Watts, it's not exactly the same, but I don't think anybody from L.A. would have predicted that Compton would have drastically different outcomes like this from Watts.
+
+```{r , fig.cap="Incarceration Rates for Black Men Raised in the Lowest-Income Households in Los Angeles, CA", echo=FALSE, out.width = '90%'}
+knitr::include_graphics("images/la_incratesblack.png")
+```
+
+The Opportunity Atlas starts out with the national map of the same statistics by commuting zone that we were looking at before. However, it allows us to zoom in to areas of specific interest.  Let us focus on one particular example: Nickerson Gardens in Los Angeles, CA, which is a public housing project in Watts. Let's look at black men growing up in the lowest-income families in the bottom 1% of the income distribution, which is actually representative of the incomes of the families living in this public housing project. The average household income of black men who grew up in the poorest families in Watts is just $3,300 a year. It has to be the case that lots of people are basically not working at all. You can see that in a very direct way in these data because we're able to look not just at income, but a variety of other outcomes, including incarceration. 
+
+Focusing on incarceration rates, you will see a really shocking and disturbing statistic about the United States, and this area in particular, which is that 44% of the black men who grew up in these lowest-income families are incarcerated on a single day, the date of the 2010 census. If you go down to Compton, you see incarceration rates of 6.2%, which is a factor of 10 smaller than the 44% that we were seeing in Watts for black men growing up in low-income families. Compton is a different neighborhood than Watts, it's not exactly the same, but I don't think anybody from L.A. would have predicted that Compton would have drastically different outcomes like this from Watts.
+
 That shows you that you can go two miles away and just have a dramatically different picture in terms of what kids' life trajectories look like. We see that in the stark example here within Los Angeles, but we see that sort of thing more broadly across the United States. 
 
 <!--
