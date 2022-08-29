@@ -249,7 +249,7 @@ sqrt(wtd.var(atlas$yvar, atlas$count_pooled))
 
 If you want to select a subset of observations, you can add the rule for selecting those observations, and the `filter` function. Here we subset the observations for the State of Wisconsin, and called the resulting dataset `atlas_wisconsin`.
 
-```{r, echo=FALSE}
+```{r}
 atlas_wisconsin <- atlas %>% 
   filter(state == 55)
 ```
@@ -258,7 +258,7 @@ atlas_wisconsin <- atlas %>%
 
 We can do the same but now for a specific county, adding an extra rule after a comma `,` or `&`. Here we subset the observations for Milwaukee County in Wisconsin:
 
-```{r, echo=FALSE}
+```{r}
 atlas_milwaukee <- atlas %>% 
   filter(state == 55 & county == 079) 
 ```
@@ -275,7 +275,7 @@ atlas_milwaukee<- atlas_milwaukee %>%
 As an example, let's say you want to standardize both the measure of mobility and the annual job growth for the data in Wisconsin:
 
 
-```{r, echo=FALSE}
+```{r}
 atlas_wisconsin<- atlas_wisconsin %>%
   mutate(kfr_pooled_p25_std=(kfr_pooled_p25 - mean(atlas_wisconsin$kfr_pooled_p25, na.rm=TRUE))/sd(atlas_wisconsin$kfr_pooled_p25, na.rm=TRUE),
          ann_avg_job_growth_2004_2013_std=(ann_avg_job_growth_2004_2013 - mean(atlas_wisconsin$ann_avg_job_growth_2004_2013, na.rm=TRUE))/sd(atlas_wisconsin$ann_avg_job_growth_2004_2013, na.rm=TRUE))
@@ -319,6 +319,12 @@ To simplify the interpretation, let's run a regression where you use the standar
 mod3 <- lm(kfr_pooled_p25_std ~ ann_avg_job_growth_2004_2013_std, data = atlas_wisconsin)
 summary(mod3)
 ```
+
+You should focus here on interpreting the coefficient for `ann_avg_job_growth_2004_2013_std`. You should pay attention to both the magnitude of the number, and the sign. In this case, you would read it like this: 
+
+> In **Wisconsin**, increasing **one standard deviation** the average annual job growth rate **is correlated** with an **reduction** of **0.05 standard deviations** in the economic mobility for children with parents in the 25th percertile.
+
+
 
 
 ### Plotting the linear relationship  {-}

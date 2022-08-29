@@ -819,17 +819,24 @@ Figure A.2: Incarceration Rates for Black Men Raised in the Lowest-Income Househ
 <li>State level:</li>
 </ol>
 <p>If you want to select a subset of observations, you can add the rule for selecting those observations, and the <code>filter</code> function. Here we subset the observations for the State of Wisconsin, and called the resulting dataset <code>atlas_wisconsin</code>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="project1.html#cb57-1" aria-hidden="true" tabindex="-1"></a>atlas_wisconsin <span class="ot">&lt;-</span> atlas <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="project1.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="dv">55</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>County level:</li>
 </ol>
 <p>We can do the same but now for a specific county, adding an extra rule after a comma <code>,</code> or <code>&amp;</code>. Here we subset the observations for Milwaukee County in Wisconsin:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="project1.html#cb58-1" aria-hidden="true" tabindex="-1"></a>atlas_milwaukee <span class="ot">&lt;-</span> atlas <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="project1.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="dv">55</span> <span class="sc">&amp;</span> county <span class="sc">==</span> <span class="dv">079</span>) </span></code></pre></div>
 </div>
 <div id="standardize-variables" class="section level3 unnumbered hasAnchor">
 <h3>Standardize variables<a href="project1.html#standardize-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can standardize variables by substracting the mean and dividing by the standard deviation. Let us say that you want to standardize only considering the variables in Milwaukee, then you can do this:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="project1.html#cb57-1" aria-hidden="true" tabindex="-1"></a>atlas_milwaukee<span class="ot">&lt;-</span> atlas_milwaukee <span class="sc">%&gt;%</span></span>
-<span id="cb57-2"><a href="project1.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_std=</span>(xvar <span class="sc">-</span> <span class="fu">mean</span>(atlas_milwaukee<span class="sc">$</span>xvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_milwaukee<span class="sc">$</span>xvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="project1.html#cb59-1" aria-hidden="true" tabindex="-1"></a>atlas_milwaukee<span class="ot">&lt;-</span> atlas_milwaukee <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="project1.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_std=</span>(xvar <span class="sc">-</span> <span class="fu">mean</span>(atlas_milwaukee<span class="sc">$</span>xvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_milwaukee<span class="sc">$</span>xvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
 <p>As an example, let’s say you want to standardize both the measure of mobility and the annual job growth for the data in Wisconsin:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="project1.html#cb60-1" aria-hidden="true" tabindex="-1"></a>atlas_wisconsin<span class="ot">&lt;-</span> atlas_wisconsin <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="project1.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kfr_pooled_p25_std=</span>(kfr_pooled_p25 <span class="sc">-</span> <span class="fu">mean</span>(atlas_wisconsin<span class="sc">$</span>kfr_pooled_p25, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_wisconsin<span class="sc">$</span>kfr_pooled_p25, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb60-3"><a href="project1.html#cb60-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ann_avg_job_growth_2004_2013_std=</span>(ann_avg_job_growth_2004_2013 <span class="sc">-</span> <span class="fu">mean</span>(atlas_wisconsin<span class="sc">$</span>ann_avg_job_growth_2004_2013, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_wisconsin<span class="sc">$</span>ann_avg_job_growth_2004_2013, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
 </div>
 <div id="run-regression" class="section level3 unnumbered hasAnchor">
 <h3>Run regression<a href="project1.html#run-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -837,22 +844,22 @@ Figure A.2: Incarceration Rates for Black Men Raised in the Lowest-Income Househ
 <li>Simple linear regression</li>
 </ol>
 <p>Let’s say you want to run a simple regression of variable <code>yvar</code> on variable <code>xvar1</code> for the county of Milwaukee. We will save the results of that regression in an object call <code>mod1</code> (we could give it any name). Then you would do this:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="project1.html#cb58-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yvar<span class="sc">~</span>xvar1, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="project1.html#cb61-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yvar<span class="sc">~</span>xvar1, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
 <p>To see what the outcome of the regression is, you would use the function <code>summary</code> and apply it to our new object <code>mod1</code>, like this:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="project1.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="project1.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <p>As an example, we could regress the mobility of children from parents in the 25th percentile (<code>kfr_pooled_p25</code>) on the average annual job growth rate between 2004 and 2013 (<code>ann_avg_job_growth_2004_2013</code>). To do that, we would run:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="project1.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(kfr_pooled_p25<span class="sc">~</span>ann_avg_job_growth_2004_2013, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="project1.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(kfr_pooled_p25<span class="sc">~</span>ann_avg_job_growth_2004_2013, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Multivariate linear regression</li>
 </ol>
 <p>You might want to understand the relationship between <code>yvar</code> and variable <code>xvar1</code> <strong>while holding fixed</strong> another variable <code>xvar2</code> for neighborhoods only in Milwaukee. You can do this:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="project1.html#cb61-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yvar<span class="sc">~</span>xvar1<span class="sc">+</span>xvar2 <span class="sc">+</span> xvar3, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="project1.html#cb64-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yvar<span class="sc">~</span>xvar1<span class="sc">+</span>xvar2 <span class="sc">+</span> xvar3, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
 </div>
 <div id="how-to-read-the-regression-output" class="section level3 unnumbered hasAnchor">
 <h3>How to read the regression output?<a href="project1.html#how-to-read-the-regression-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To simplify the interpretation, let’s run a regression where you use the standardize both the measure of mobility and the annual job growth for the data in Wisconsin:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="project1.html#cb62-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(kfr_pooled_p25_std <span class="sc">~</span> ann_avg_job_growth_2004_2013_std, <span class="at">data =</span> atlas_wisconsin)</span>
-<span id="cb62-2"><a href="project1.html#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="project1.html#cb65-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(kfr_pooled_p25_std <span class="sc">~</span> ann_avg_job_growth_2004_2013_std, <span class="at">data =</span> atlas_wisconsin)</span>
+<span id="cb65-2"><a href="project1.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = kfr_pooled_p25_std ~ ann_avg_job_growth_2004_2013_std, 
@@ -873,14 +880,18 @@ Figure A.2: Incarceration Rates for Black Men Raised in the Lowest-Income Househ
 ##   (6 observations deleted due to missingness)
 ## Multiple R-squared:  0.00264,    Adjusted R-squared:  0.00192 
 ## F-statistic: 3.67 on 1 and 1386 DF,  p-value: 0.0557</code></pre>
+<p>You should focus here on interpreting the coefficient for <code>ann_avg_job_growth_2004_2013_std</code>. You should pay attention to both the magnitude of the number, and the sign. In this case, you would read it like this:</p>
+<blockquote>
+<p>In <strong>Wisconsin</strong>, increasing <strong>one standard deviation</strong> the average annual job growth rate <strong>is correlated</strong> with an <strong>reduction</strong> of <strong>0.05 standard deviations</strong> in the economic mobility for children with parents in the 25th percertile.</p>
+</blockquote>
 </div>
 <div id="plotting-the-linear-relationship" class="section level3 unnumbered hasAnchor">
 <h3>Plotting the linear relationship<a href="project1.html#plotting-the-linear-relationship" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You need to load the <code>ggplot2</code> package (which should be installed already).</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="project1.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="project1.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <p>Suppose you want to visually see the linear relationship between two variables in the <code>atlas_milwaukee</code> dataset that we filtered above. Then, you can do this:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="project1.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas_milwaukee) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar1, <span class="at">y =</span> yvar)) <span class="sc">+</span> </span>
-<span id="cb65-2"><a href="project1.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar1, <span class="at">y =</span> yvar), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="project1.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas_milwaukee) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar1, <span class="at">y =</span> yvar)) <span class="sc">+</span> </span>
+<span id="cb68-2"><a href="project1.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar1, <span class="at">y =</span> yvar), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> F)</span></code></pre></div>
 <p>The function <code>geom_smooth()</code> adds the line that you calculated above for <code>mod1</code>, where you ran <code>mod1 &lt;- lm(yvar~xvar1, data = atlas_milwaukee)</code></p>
 
 </div>
