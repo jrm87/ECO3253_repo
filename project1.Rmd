@@ -8,7 +8,7 @@
 
 - **Part 1**: Due at midnight on Wednesday, September 7, 2022
 
-- **Part 2**: Due at midnight on Thursday, September 9, 2022
+- **Part 2**: Due at midnight on Wednesday, September 14, 2022
 
 The [Opportunity Atlas](https://www.opportunityatlas.org/) is a freely available interactive mapping tool that traces the roots of outcomes such as poverty and incarceration back to the neighborhoods in which children grew up.  
 
