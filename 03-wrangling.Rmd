@@ -46,7 +46,7 @@ ggplot(data = atlas_wisconsin, mapping = aes(x = med_hhinc2016, y = kfr_pooled_p
 In this chapter, we'll introduce **two** very useful functions from the `dplyr` package that will allow you to take a data frame and
 
 1. `filter()` its existing rows to only pick out a subset of them. For example, the `atlas_wisconsin` data frame above.
-1. `mutate()` its existing columns/variables to create new ones. For example, convert hourly temperature recordings from &deg;F to &deg;C.
+1. `mutate()` its existing columns/variables to create new ones. For example, convert dollars to log dollars.
 
 There are other functions we will not cover here, but that could be really useful for you to know if you ever get to work with data outside this course: `summarize()`, `group_by()`, `arrange()` and `join()`. I will leave those to learn on your own if you want to. You can check [this very good explanation](https://nustat.github.io/intro-stat-ds/4-tidy.html). 
 
