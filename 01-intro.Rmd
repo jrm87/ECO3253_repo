@@ -1,6 +1,6 @@
 # (PART) Ec. & Soc. Issues {-}
 
-# Upward Mobility in the US
+# Upward Mobility in the US {#lec1_geomobility}
 
 We will first dive into a relatively recent (from 2020) called “The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility.”, by Chetty, Friedman, Hendren, Jones and Porter. The previous link should take you to Blackboard where you will be able to download it. 
 
