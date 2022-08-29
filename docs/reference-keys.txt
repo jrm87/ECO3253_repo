@@ -23,7 +23,7 @@ fig:selectfig
 fig:dplyr-cheatsheet
 fig:unnamed-chunk-53
 fig:unnamed-chunk-54
-upward-mobility-in-the-us
+lec1_geomobility
 parental-and-children-income-rank
 interpreting-the-regression-line
 percentiles

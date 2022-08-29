@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Statistical Background | Economics of Public and Social Issues</title>
+  <title>Chapter 1 Upward Mobility in the US | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Statistical Background | Economics of Public and Social Issues" />
+  <meta property="og:title" content="Chapter 1 Upward Mobility in the US | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Statistical Background | Economics of Public and Social Issues" />
+  <meta name="twitter:title" content="Chapter 1 Upward Mobility in the US | Economics of Public and Social Issues" />
   
   <meta name="twitter:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="wrangling.html"/>
-<link rel="next" href="project1.html"/>
+<link rel="prev" href="schedule.html"/>
+<link rel="next" href="getting-started.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -318,52 +318,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appendixA" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">A</span> Statistical Background<a href="appendixA.html#appendixA" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="basic-statistical-terms" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">A.1</span> Basic statistical terms<a href="appendixA.html#basic-statistical-terms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="mean" class="section level3 hasAnchor" number="5.1.1">
-<h3><span class="header-section-number">A.1.1</span> Mean<a href="appendixA.html#mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The mean, also known as (AKA) the average, is the most commonly reported measure of center. It is commonly called the “average” though this term can be a little ambiguous. The mean is the sum of all of the data elements divided by how many elements there are. If we have <span class="math inline">\(n\)</span> data points, the mean is given by: <span class="math display">\[\overline{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}\]</span></p>
-<p>Note that you will often see shorthand notation for a sum of numbers using <span class="math inline">\(\sum\)</span> notation. For example, we could rewrite the formula for <span class="math inline">\(\bar{x}\)</span> as:</p>
-<p><span class="math display">\[\bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}=\frac{\sum_{i = 1}^n x_i}{n}\]</span></p>
-<p>We’ve simply replaced the subscript on each <span class="math inline">\(x\)</span> with a generic index <span class="math inline">\(i\)</span>, and use the <span class="math inline">\(\sum\)</span> notation to indicate we are summing <span class="math inline">\(x\)</span>s with indices (i.e. subscripts) that go from 1 to <span class="math inline">\(n\)</span>. When summing numbers in statistics, we’re almost always dealing with indices that start with the value 1 and go up to a value equal to a sample size (e.g. <span class="math inline">\(n\)</span>), so often you will see an even more shorthand version, where it’s assumed you’re summing from <span class="math inline">\(i = 1\)</span> to <span class="math inline">\(i = n\)</span>:</p>
-<p><span class="math display">\[\bar{x} = \frac{\sum x_i}{n}\]</span></p>
+<div id="lec1_geomobility" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Upward Mobility in the US<a href="lec1_geomobility.html#lec1_geomobility" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We will first dive into a relatively recent (from 2020) called “The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility.”, by Chetty, Friedman, Hendren, Jones and Porter. The previous link should take you to Blackboard where you will be able to download it.</p>
+<p>The main question in the paper is the following: ‘how do children’s chances of moving up vary across areas in America?’</p>
+<p>To answer it, the authors need to measure upward mobility across the country. How do they do that? They will construct a database called the <a href="https://www.opportunityatlas.org/">Opportunity Atlas</a>.</p>
+<p>How do they measure upward mobility separately by geographic area in the United States? They take data from the 2000 and 2010 Censuses, and link that to information from federal income tax returns. They also use tax return data from 1989 to 2015. Linking those datasets yields information on essentially every American between 1989 and 2015, including how much they are earning, where they live, the dependents they have, and other information, year by year.</p>
+<p>In that dataset, they want to study economic opportunity across generations. But that requires knowing in the data who is the children of whom. In order to link parents to their children, they use information from dependency claims on tax returns. (In order to receive a tax deduction, parents must enter their child’s Social Security Number on their tax returns.) They’re able to use this information to link 99% of kids in America back to their parents, thereby generating an intergenerational sample where you can study income inequality and mobility across generations. There is a lot you can learn about the US and economic mobility with that sort of data!</p>
+<p>At the end, they end up with an 8-billion row dataset which covers 20.5 million children born between 1978 and 1983, representing 96% of our target population. They analyze children born during those particular years because we need the children to be old enough that we can measure their earnings reliably.</p>
+<p>They’re interested in people who were born in the U.S. or are authorized immigrants who came to the U.S. in childhood. They are focusing on authorized immigrants because these datasets don’t go a great job of covering undocumented immigrants. Note here that this is a limitation for the study only in the sense that it does not necessarily paint a picture of how economic mobility looks for undocumented immigrants. Additionally, the number is not 100% because there are some kids who you can’t link to their parents and people you can’t link the census form to the tax form.</p>
+<p>How do they measure parents’ and children’s incomes in tax data? They do so by measuring incomes using information from the anonymized tax return data. For parents, they use average income between 1994 and 2000 reported on Form 1040, the main tax return in the U.S. Similarly, for kids, we measure average income in 2014 and 2015, the last two years of the data theyworked with. That is when the children are in their mid-30s.</p>
+<p>Using this information, they’re going to focus on percentile ranks in the national <a href="appendixA.html#appDistributions">distribution</a>. What that means, concretely, is that they rank kids relative to all the other kids born in the same year, and parents relative to all other parents. They are comparing kids to other kids of the same age. Then likewise, they compare parents to other parents. The reason is that because they want to adjust for the fact that as people grow older, their incomes tend to rise.</p>
+<div id="parental-and-children-income-rank" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Parental and children income rank<a href="lec1_geomobility.html#parental-and-children-income-rank" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The chart below was constructed using data for kids who were raised in the Chicago metro area, which consists of Chicago and the surrounding suburbs.</p>
+<div class="figure"><span style="display:block;" id="fig:chicagoMob"></span>
+<img src="images/chicago_mobility_chetty14.png" alt="Source: Chetty, Hendren, Kline, Saez (2014)" width="90%" />
+<p class="caption">
+Figure 1.1: Source: Chetty, Hendren, Kline, Saez (2014)
+</p>
 </div>
-<div id="median" class="section level3 hasAnchor" number="5.1.2">
-<h3><span class="header-section-number">A.1.2</span> Median<a href="appendixA.html#median" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The median is calculated by first sorting a variable’s data from smallest to largest. After sorting the data, the middle element in the list is the <strong>median</strong>. If the middle falls between two values, then the median is the mean of those two values.</p>
+<p>Let’s interpret the figure. On the x-axis, it shows the parent rank in the national income distribution. There are a hundred dots here, one corresponding to each percentile of the distribution (see <a href="appendixA.html#appPercentiles">here</a> for a refresher on what the percentiles are). Then in each of those hundred bins, we’re plotting the average ranking of the child in the national income distribution. Now as you go to the right, you’re looking at kids from richer and richer families, and you see that there’s a very strong upward-sloping pattern. This reflects the simple fact that if you were born to a richer family in America, you yourself tend to be richer in adulthood.</p>
+<p>Now let’s find the <strong>line</strong> that fits that data most accurately using a method called regression. Then I’m going to focus on the value of this line, called the <em>predicted value</em>, at the 25th percentile of the parent income distribution. There is a lot of information contained in each dot in the graph, but by focusing on the value of this line we can construct a digestible <strong>single statistic</strong> (i.e., a number) summarizing what upward mobility looks like in each place.</p>
 </div>
-<div id="standard-deviation" class="section level3 hasAnchor" number="5.1.3">
-<h3><span class="header-section-number">A.1.3</span> Standard deviation<a href="appendixA.html#standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We will next discuss the <strong>standard deviation</strong> of a sample dataset pertaining to one variable. The formula can be a little intimidating at first but it is important to remember that it is essentially a measure of how far to expect a given data value is from its mean:</p>
-<p><span class="math display">\[Standard \, deviation = \sqrt{\frac{(x_1 - \overline{x})^2 + (x_2 - \overline{x})^2 + \cdots + (x_n - \overline{x})^2}{n - 1}} = \sqrt{\frac{\sum_{i= 1}^n(x_i - \overline{x})^2 }{n - 1}}\]</span></p>
+<div id="interpreting-the-regression-line" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Interpreting the regression line<a href="lec1_geomobility.html#interpreting-the-regression-line" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In Chicago, on average, kids who start out in families at the 25th percentile end up at the 40th percentile. Kids growing up in low-income families in Chicago, roughly speaking, earn about $30,000, on average, when they’re adults. We can’t directly use the value of the dot on the above chart at the 25th percentile. Instead we use a regression line. This is because there is noise and random variation in the data, specifically with smaller samples of people.</p>
+<p>When working with small samples, it starts to become very important to fit that regression line. That is, we need to use the discipline of a statistical model. That’s the core idea of statistical models, to take the underlying data and represent it in a way that is more stable.</p>
+<div id="percentiles" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Percentiles<a href="lec1_geomobility.html#percentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The conversion to percentiles is very important here. If we did this analysis in dollars, that relationship is very far from linear. It is very curved, which makes it harder to fit systematically with a statistical model.
+To construct the Opportunity Atlas, we fit line like this to the kids who grew up in every different census tract in America.</p>
 </div>
-<div id="five-number-summary" class="section level3 hasAnchor" number="5.1.4">
-<h3><span class="header-section-number">A.1.4</span> Five-number summary<a href="appendixA.html#five-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>five-number summary</strong> consists of five values: minimum, first quartile AKA 25<sup>th</sup> percentile, second quartile AKA median AKA 50<sup>th</sup> percentile, third quartile AKA 75<sup>th</sup>, and maximum. The quartiles are calculated as</p>
-<ul>
-<li>first quartile (<span class="math inline">\(Q_1\)</span>): the median of the first half of the sorted data</li>
-<li>third quartile (<span class="math inline">\(Q_3\)</span>): the median of the second half of the sorted data</li>
-</ul>
-<p>The <em>interquartile range</em> is defined as <span class="math inline">\(Q_3 - Q_1\)</span> and is a measure of how spread out the middle 50% of values is. The five-number summary is not influenced by the presence of outliers in the ways that the mean and standard deviation are. It is, thus, recommended for skewed datasets.</p>
+<div id="what-is-a-tract" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> What is a tract?<a href="lec1_geomobility.html#what-is-a-tract" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A Census tract is a small definition of a neighborhood that the Census Bureau has created. There are 70,000 Census tracts in America, each of which has about 4,200 people. In order to handle children who might have moved while they were kids, we weigh children by the fraction of their childhood that they spent in each area.</p>
 </div>
-<div id="appPercentiles" class="section level3 hasAnchor" number="5.1.5">
-<h3><span class="header-section-number">A.1.5</span> Percentiles or rank<a href="appendixA.html#appPercentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Just as you can sort the values of a variable form smallest to larges and find the middle element to get the median, you are dividing all the values into two groups with the same number of observations.</p>
-<p>If you do that but instead of dividing into 2 groups, you divide it into 4 groups, you get each of the quartiles.</p>
-<p>If you divide the sorted observations into <strong>100 groups</strong> of equal number of observations, you get the <strong>percentiles</strong>. Depending on the application, the percentile can be read as the rank in the distribution.</p>
 </div>
-<div id="appDistributions" class="section level3 hasAnchor" number="5.1.6">
-<h3><span class="header-section-number">A.1.6</span> Distribution<a href="appendixA.html#appDistributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>distribution</strong> of a variable/dataset corresponds to generalizing patterns in the dataset. It often shows how frequently elements in the dataset appear. It shows how the data varies and gives some information about where a typical element in the data might fall. Distributions are most easily seen through data visualization.</p>
+<div id="geographic-variation-in-upward-mobility-by-commuting-zone" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Geographic Variation in Upward Mobility by Commuting Zone<a href="lec1_geomobility.html#geographic-variation-in-upward-mobility-by-commuting-zone" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The map below plots average household earnings of children who grew up in low-income families. The map presents this statistic separately for each of the 741 commuting zones (CZs) in the United States. CZs are aggregations of counties based on commuting patterns that are similar to metro areas but cover the entire United States.</p>
+<div class="figure"><span style="display:block;" id="fig:mobCZ"></span>
+<img src="images/mobility_CZ_chetty18.png" alt="Source: Chetty, Friedman, Hendren, Jones and Porter (2018)" width="90%" />
+<p class="caption">
+Figure 1.2: Source: Chetty, Friedman, Hendren, Jones and Porter (2018)
+</p>
 </div>
-<div id="outliers" class="section level3 hasAnchor" number="5.1.7">
-<h3><span class="header-section-number">A.1.7</span> Outliers<a href="appendixA.html#outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Outliers</strong> correspond to values in the dataset that fall far outside the range of “ordinary” values. In regards to a boxplot (by default), they correspond to values below <span class="math inline">\(Q_1 - (1.5 * IQR)\)</span> or above <span class="math inline">\(Q_3 + (1.5 * IQR)\)</span>.</p>
-<p>Note that these terms (aside from <strong>Distribution</strong>) only apply to quantitative variables.</p>
+<p>Note that the map shows household income in dollars, but the underlying statistic is based on the predicted percentile rank defined earlier. The ranks have been converted to dollars because it’s more intuitive and concrete.</p>
+<p>In the map, blue colors depict areas with high levels of upward mobility and red colors depict areas with low levels of upward mobility. The map shows broad geographic variation. One of the most interesting features of this map is that the highest upward mobility areas in America are the Great Plains, the rural parts of the country in the center of the country.
+Charlotte is one of the cities in America with the highest rates of job growth in the United States. Yet, somehow remarkably, for low-income kids who grow up in Charlotte, they do not have very good chances of moving up.</p>
+<p>The map shows that in the current generation, there are some parts of America where kids’ chances of moving up still look fantastic—actually better than any other country in the world. Then there’s some places, like in much of the industrial Midwest, where your odds of climbing up look worse than any country for which we currently have data. America is a land of tremendous variability in opportunity.</p>
+<div id="adjustments-for-cost-of-living" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Adjustments for cost of living<a href="lec1_geomobility.html#adjustments-for-cost-of-living" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This map shows nominal incomes, meaning it does not adjust for differences in cost of living. You can redraw this map, adjusting for differences in cost of living. When you do that, you get a map that looks almost identical to the one that I’m showing you here. To put it more precisely, the correlation between that data and these data is .9, meaning that it looks essentially the same.</p>
+<p>We’re focusing specifically here on kids growing up in low-income families. If you look at kids growing up in middle-class families, it’s broadly similar. If you look at kids growing up in high-income families, you see that there’s significantly less variation across areas for kids growing up in very-high-income families.</p>
+</div>
+</div>
+<div id="local-area-variation-in-upward-mobility-los-angeles-ca" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Local Area Variation in Upward Mobility: Los Angeles, CA<a href="lec1_geomobility.html#local-area-variation-in-upward-mobility-los-angeles-ca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This geographic variation in upward mobility is not just about broad regional variation, but it’s actually about extremely local variation. We can use the Opportunity Atlas to visualize the data.</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="images/la_incratesblack.png" alt="Incarceration Rates for Black Men Raised in the Lowest-Income Households in Los Angeles, CA" width="90%" />
+<p class="caption">
+Figure 1.3: Incarceration Rates for Black Men Raised in the Lowest-Income Households in Los Angeles, CA
+</p>
+</div>
+<p>The Opportunity Atlas starts out with the national map of the same statistics by commuting zone that we were looking at before. However, it allows us to zoom in to areas of specific interest. Let us focus on one particular example: Nickerson Gardens in Los Angeles, CA, which is a public housing project in Watts. Let’s look at black men growing up in the lowest-income families in the bottom 1% of the income distribution, which is actually representative of the incomes of the families living in this public housing project. The average household income of black men who grew up in the poorest families in Watts is just $3,300 a year. It has to be the case that lots of people are basically not working at all. You can see that in a very direct way in these data because we’re able to look not just at income, but a variety of other outcomes, including incarceration.</p>
+<p>Focusing on incarceration rates, you will see a really shocking and disturbing statistic about the United States, and this area in particular, which is that 44% of the black men who grew up in these lowest-income families are incarcerated on a single day, the date of the 2010 census. If you go down to Compton, you see incarceration rates of 6.2%, which is a factor of 10 smaller than the 44% that we were seeing in Watts for black men growing up in low-income families. Compton is a different neighborhood than Watts, it’s not exactly the same, but I don’t think anybody from L.A. would have predicted that Compton would have drastically different outcomes like this from Watts.</p>
+<p>That shows you that you can go two miles away and just have a dramatically different picture in terms of what kids’ life trajectories look like. We see that in the stark example here within Los Angeles, but we see that sort of thing more broadly across the United States.</p>
+<!--
+## Captioned figures and tables
 
+Figures and tables *with captions* can also be cross-referenced from elsewhere in your book using `\@ref(fig:chunk-label)` and `\@ref(tab:chunk-label)`, respectively.
+
+See Figure \@ref(fig:nice-fig).
+
+
+```r
+par(mar = c(4, 4, .1, .1))
+plot(pressure, type = 'b', pch = 19)
+```
+
+<div class="figure" style="text-align: center">
+<img src="_main_files/figure-html/nice-fig-1.png" alt="Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases." width="80%" />
+<p class="caption">(\#fig:nice-fig)Here is a nice figure!</p>
 </div>
+
+Don't miss Table \@ref(tab:nice-tab).
+
+
+```r
+knitr::kable(
+  head(pressure, 10), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+
+
+Table: (\#tab:nice-tab)Here is a nice table!
+
+| temperature| pressure|
+|-----------:|--------:|
+|           0|   0.0002|
+|          20|   0.0012|
+|          40|   0.0060|
+|          60|   0.0300|
+|          80|   0.0900|
+|         100|   0.2700|
+|         120|   0.7500|
+|         140|   1.8500|
+|         160|   4.2000|
+|         180|   8.8000|
+-->
+
 </div>
 </div>
 
@@ -374,8 +442,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="wrangling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="project1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="schedule.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-started.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -406,7 +474,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/91-appendixA.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-intro.Rmd",
 "text": "Edit"
 },
 "history": {
