@@ -283,6 +283,8 @@ atlas_wisconsin<- atlas_wisconsin %>%
 
 ### Run regression {-}
 
+I have written a whole section explaining regression in more detail: Section \@ref(regression). Please see that for further details. But here is a quick help.
+
 1. Simple linear regression
 
 Let's say you want to run a simple regression of variable `yvar` on variable `xvar1` for the county of Milwaukee. We will save the results of that regression in an object call `mod1` (we could give it any name). Then you would do this:
@@ -325,8 +327,6 @@ You should focus here on interpreting the coefficient for `ann_avg_job_growth_20
 > In **Wisconsin**, increasing **one standard deviation** the average annual job growth rate **is correlated** with an **reduction** of **0.05 standard deviations** in the economic mobility for children with parents in the 25th percertile.
 
 
-
-
 ### Plotting the linear relationship  {-}
 
 
@@ -343,5 +343,6 @@ ggplot(data = atlas_milwaukee) + geom_point(aes(x = xvar1, y = yvar)) +
   geom_smooth(aes(x = xvar1, y = yvar), method = "lm", se = F)
 ```
 
-The function `geom_smooth()` adds the line that you calculated above for `mod1`, where you ran `mod1 <- lm(yvar~xvar1, data = atlas_milwaukee)`
+The function `geom_smooth()` adds the line that you calculated above for `mod1`, where you ran `mod1 <- lm(yvar~xvar1, data = atlas_milwaukee)`.
 
+For more, see Section \@ref(viz).
