@@ -289,6 +289,13 @@ Scatterplots display the relationship between two numerical variables.  They are
 
 With medium to large data sets, you may need to play around with the different modifications one can make to a scatterplot. This tweaking is often a fun part of data visualization, since you'll have the chance to see different relationships come about as you make subtle changes to your plots.
 
+Last thing: remember Figure \@ref(fig:gapminder)? Here is the code of how we did that. It has a few pieces that you would need to figure out on your own, but you should get the essence by now. In particular, in the first line we pass on a filtered data for the year 2007. I'll explain that more in the next Section \@ref(wrangling) on Data Wrangling. Still, try it out! 
+
+```{r gapminder2, eval=FALSE, fig.cap="Life Expectancy over GDP per Capita in 2007"}
+ggplot(data = gapminder%>%filter(year == 2007), mapping = aes(x=gdpPercap, y=lifeExp, size=pop, col=continent)) +
+  geom_point() +
+  labs(x = "GDP per capita", y = "Life expectancy")
+```
 
 
 ***
