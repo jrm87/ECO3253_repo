@@ -33,7 +33,7 @@ So far in our journey, we've seen how to look at data saved in data frames using
 
 We created these visualizations using the "Grammar of Graphics", which maps variables in a data frame to the aesthetic attributes of one the above 3 `geom`etric objects. We can also control other aesthetic attributes of the geometric objects such as the size and color as seen in the Gapminder data example in Figure \@ref(fig:gapminder). 
 
-Recall however in Section \@ref(whats-to-come-3) we discussed that for two of our visualizations we needed transformed/modified versions of existing data frames. Recall for example the scatterplot of economic mobility *only* for neighborhoods in Wisconsin. In order to create this visualization, we needed to first pare down the `atlas` data frame to a new data frame `atlas_wisconsin.` consisting of only `state == 55` neighborhoods using the `filter()` function.
+Recall however in previous chapters we discussed that for two of our visualizations we needed transformed/modified versions of existing data frames. Recall for example the scatterplot of economic mobility *only* for neighborhoods in Wisconsin. In order to create this visualization, we needed to first pare down the `atlas` data frame to a new data frame `atlas_wisconsin.` consisting of only `state == 55` neighborhoods using the `filter()` function.
 
 ```{r, eval=FALSE}
 atlas_wisconsin <- atlas %>% 
