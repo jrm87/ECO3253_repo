@@ -1,6 +1,4 @@
-# (PART) Data Modeling {-} 
-
-# Basic Regression {#regression}
+# Simple and Multivariate Regression {#regression}
 
 ```{r, include=FALSE, purl=FALSE}
 chap <- 5
@@ -33,8 +31,9 @@ set.seed(76)
 Let's briefly recap where we have been so far and where we are headed.  In Chapter \@ref(tidy), we discussed what it means for data to be tidy.  We saw that this refers to observations corresponding to rows and variables being stored in columns (one variable for every column).  The entries in the data frame correspond to different combinations of observations (specific instances of observational units) and variables.  In the `flights` data frame, we saw that each row corresponds to a different flight leaving New York City.  In other words, the **observational unit** of the `flights` tidy data frame is a flight.  The variables are listed as columns, and for `flights` these columns include both quantitative variables like `dep_delay` and `distance` and also categorical variables like `carrier` and `origin`.  An entry in the table corresponds to a particular flight on a given day and a particular value of a given variable representing that flight.
 -->
 
+> As a reminder, this is not a course on econometrics, so I will not delve deep into the issues of regression. Nonetheless, there are basic intuitions we can construct when analyzing the data with these models. I will summarize the main issues in this chapter. Nonetheless, feel free to dive deeper [here](https://nustat.github.io/intro-stat-ds/5-regression.html). 
 
-Now that we are equipped with data visualization skills from Chapter \@ref(viz), an understanding of the "tidy" data format from Chapter \@ref(tidy), and data wrangling skills from Chapter \@ref(wrangling), we now proceed with data modeling. The fundamental premise of data modeling is *to make explicit the relationship* between:
+Now that we are equipped with data visualization skills from Chapter \@ref(viz), and data wrangling skills from Chapter \@ref(wrangling), we now proceed with data modeling. The fundamental premise of data modeling is *to make explicit the relationship* between:
 
 * an outcome variable $y$, also called a dependent variable and 
 * an explanatory/predictor variable $x$, also called an independent variable or covariate. 
@@ -42,55 +41,49 @@ Now that we are equipped with data visualization skills from Chapter \@ref(viz),
 Another way to state this is using mathematical terminology: we will model the outcome variable $y$ *as a function* of the explanatory/predictor variable $x$. Why do we have two different labels, explanatory and predictor, for the variable $x$? That's because roughly speaking data modeling can be used for two purposes:
 
 1. **Modeling for prediction**: You want to predict an outcome variable $y$ based on the information contained in a set of predictor variables. You don't care so much about understanding how all the variables relate and interact, but so long as you can make good predictions about $y$, you're fine. For example, if we know many individuals' risk factors for lung cancer, such as smoking habits and age, can we predict whether or not they will develop lung cancer? Here we wouldn't care so much about distinguishing the degree to which the different risk factors contribute to lung cancer, but instead only on whether or not they could be put together to make reliable predictions.
-1. **Modeling for explanation**: You want to explicitly describe the relationship between an outcome variable $y$ and a set of explanatory variables, determine the significance of any found relationships, and have measures summarizing these. Continuing our example from above, we would now be interested in describing the individual effects of the different risk factors and quantifying the magnitude of these effects. One reason could be to design an intervention to reduce lung cancer cases in a population, such as targeting smokers of a specific age group with an advertisement for smoking cessation programs. In this book, we'll focus more on this latter purpose.
+1. **Modeling for explanation**: You want to explicitly describe the relationship between an outcome variable $y$ and a set of explanatory variables, determine the significance of any found relationships, and have measures summarizing these. Continuing our example from above, we would now be interested in describing the individual effects of the different risk factors and quantifying the magnitude of these effects. One reason could be to design an intervention to reduce lung cancer cases in a population, such as targeting smokers of a specific age group with an advertisement for smoking cessation programs. In this course, we'll focus more on this latter purpose.
 
-Data modeling is used in a wide variety of fields, including statistical inference, causal inference, artificial intelligence, and machine learning. There are many techniques for data modeling, such as tree-based models, neural networks and deep learning, and supervised learning. In this chapter, we'll focus on one particular technique: *linear regression*, one of the most commonly-used and easy-to-understand approaches to modeling. Recall our discussion in Subsection \@ref(exploredataframes) on numerical and categorical variables. Linear regression involves:
+Data modeling is used in a wide variety of fields, including statistical inference, causal inference, artificial intelligence, and machine learning. There are many techniques for data modeling, such as tree-based models, neural networks and deep learning, and supervised learning. We will briefly touch on those at the end of the course. For now, we'll focus on one particular technique: *linear regression*, one of the most commonly-used and easy-to-understand approaches to modeling. Recall our discussion in Subsection \@ref(exploredataframes) on numerical and categorical variables. Linear regression involves:
 
 * an outcome variable $y$ that is *numerical* and 
 * explanatory variables $x_i$ (e.g. $x_1, x_2, ...$) that are either *numerical* or *categorical*.
 
 With linear regression there is always only one numerical outcome variable $y$ but we have choices on both the number and the type of explanatory variables to use. We're going to cover the following regression scenarios:
 
-* In this current chapter on basic regression, we'll always have only one explanatory variable.
-    + In Section \@ref(model1), this explanatory variable will be a single numerical explanatory variable $x$. This scenario is known as *simple linear regression*. 
-    + In Section \@ref(model2), this explanatory variable will be a categorical explanatory variable $x$.
-* In the next chapter, Chapter \@ref(multiple-regression) on *multiple regression*, we'll have more than one explanatory variable:
+* Only one explanatory variable: *simple linear regression*
+    + In Section \@ref(model1), this explanatory variable will be a single numerical explanatory variable $x$.  
+    + In the next Section on Experiments we will use an explanatory variable that is a categorical explanatory variable $x$ (being in a treatment or in a control). This is an example of a broader class of regressions using explanatory variables, but we will see those later.
+* More than one explanatory variable: *multiple regression*
     + We'll focus on two numerical explanatory variables, $x_1$ and $x_2$, in Section \@ref(model3). 
-    + We'll use one numerical and one categorical explanatory variable in Section \@ref(model3). We'll also introduce *interaction models* here; there, the effect of one explanatory variable depends on the value of another. 
+    + We'll use one numerical and one categorical explanatory variable. As before, we will see this in later sections. 
 
-We'll study all four of these regression scenarios using real data, all easily accessible via R packages! <!--We will also discuss the concept of *correlation* and how it is frequently incorrectly used to imply *causation*.-->
+We'll study the first of each of these two types of regression scenarios using the `atlas` data! <!--We will also discuss the concept of *correlation* and how it is frequently incorrectly used to imply *causation*.-->
 
 
 ### Needed packages {-}
 
 Let's now load all the packages needed for this chapter (this assumes you've already installed them). In this chapter we introduce some new packages:
 
-1. The `tidyverse` "umbrella" package. Recall from our discussion in Section \@ref(tidyverse-package) that loading the `tidyverse` package by running `library(tidyverse)` loads the following commonly used data science packages all at once:
+1. The `tidyverse` "umbrella" package. You can load the `tidyverse` package by running `library(tidyverse)`, which loads several other packages we have used thus far, including:
     + `ggplot2` for data visualization
     + `dplyr` for data wrangling
-    + `tidyr` for converting data to "tidy" format
-    + `readr` for importing spreadsheet data into R
-    + As well as the more advanced `purrr`, `tibble`, `stringr`, and `forcats` packages
+    + As well as the more advanced `purrr`, `tidyr`, `readr`, `tibble`, `stringr`, and `forcats` packages
 1. The `skimr` [@R-skimr] package, which provides a simple-to-use function to quickly compute a wide array of commonly-used summary statistics. \index{summary statistics}
-1. The `gapminder` package, which provides excerpts of data available from [Gapminder.org](https://gapminder.org)
-1. The `moderndive` package, which accompanies this book and includes data sets we will analyze
 
-If needed, read Section \@ref(packages) for information on how to install and load R packages.
+If needed, read Section \@ref(packages) for information on how to install and load R packages. We will also load the `atlas` dataset.
 
 ```{r, eval=FALSE}
 library(tidyverse)
 library(skimr)
-library(gapminder)
-library(moderndive)
+atlas <- readRDS(gzcon(url("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds")))
 ```
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
-library(moderndive)
+atlas <- readRDS(gzcon(url("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds")))
 # DO NOT load the skimr package as a whole as it will break all kable() code for 
 # the remaining chapters in the book.
 # Furthermore all skimr::skim() output in this Chapter has been hard coded. 
 # library(skimr)
-library(gapminder)
 ```
 
 
@@ -100,6 +93,7 @@ library(mvtnorm)
 library(broom)
 library(kableExtra)
 library(patchwork)
+library(rockchalk)
 ```
 
 
@@ -110,16 +104,12 @@ library(patchwork)
 
 ## One numerical explanatory variable {#model1}
 
-Why do some professors and instructors at universities and colleges get high teaching evaluations from students while others don't? What factors can explain these differences? Are there biases? These are questions that are of interest to university/college administrators, as teaching evaluations are among the many criteria considered in determining which professors and instructors should get promotions. Researchers at the University of Texas in Austin, Texas (UT Austin) tried to answer this question: what factors can explain differences in instructor's teaching evaluation scores? To this end, they collected information on $n = 463$ instructors. A full description of the study can be found at [openintro.org](https://www.openintro.org/stat/data/?data=evals).
-
-We'll keep things simple for now and try to explain differences in instructor evaluation scores as a function of one numerical variable: their "beauty score." The specifics on how this score was calculated will be described shortly. 
-
-Could it be that instructors with higher beauty scores also have higher teaching evaluations? Could it be instead that instructors with higher beauty scores tend to have lower teaching evaluations? Or could it be there is no relationship between beauty score and teaching evaluations? 
+Let's say you want to explore what correlates with economic mobility for children of poor parents (those at percentile 25 of the parental income distribution). To try to keep things simple, you want to understand if neighborhoods that have more jobs, tend to provide more or less economic mobility for this population. We will try to keep things simple for now and explain the differences in mobility with the average job growth rate between 2004 and 2013 (a rough measurement of how much jobs grow in that area) correlates with economic mobility for children from poor parents  
 
 We'll achieve ways to address these questions by modeling the relationship between these two variables with a particular kind of linear regression called *simple linear regression*. Simple linear regression is the most basic form of linear regression. With it we have
 
-1. A numerical outcome variable $y$. In this case, an instructor's teaching score.
-1. A single numerical explanatory variable $x$. In this case, an instructor's beauty score.
+1. A numerical outcome variable $y$. In this case, economic mobility for children of parents in the percentile 25.
+1. A single numerical explanatory variable $x$. In this case, the average annual job growth rate between 2004 and 2013 for that neighborhood. 
 
 
 ### Exploratory data analysis {#model1EDA}
@@ -130,84 +120,96 @@ A crucial step before doing any kind of modeling or analysis is performing an *e
 1. Computing summary statistics like means, medians, and standard deviations.
 1. Creating data visualizations.
 
-Let's load the `evals` data (which is built into the `moderndive` package), `select` only a subset of the variables, and look at the raw values. Recall you can look at the raw values by running `View()` in the console in RStudio to pop-up the spreadsheet viewer with the data frame of interest as the argument to `View()`. Here, however, we present only a snapshot of five randomly chosen rows:
+Let's load the `atlas` data, `select` only a subset of the variables (including the 'names', which are the codes of tract, country and state), and look at the raw values. Recall you can look at the raw values by running `View()` in the console in RStudio to pop-up the spreadsheet viewer with the data frame of interest as the argument to `View()`. Here, however, we present only a snapshot of five randomly chosen rows:
 
 ```{r}
-evals_ch5 <- evals %>%
-  select(score, bty_avg, age)
+atlas_mob_jobs <- atlas %>%
+  select(tract, county, state, kfr_pooled_p25, ann_avg_job_growth_2004_2013)
 ```
 
 ```{r, eval=FALSE}
-evals_ch5 %>% 
+atlas_mob_jobs %>% 
   sample_n(5)
 ```
 
 ```{r, echo=FALSE}
 set.seed(76)
-evals_ch5 %>%
+atlas_mob_jobs %>%
   sample_n(5) %>%
   knitr::kable(
     digits = 3,
-    caption = "Random sample of 5 instructors",
+    caption = "Random sample of 5 neighborhoods",
     booktabs = TRUE
   ) %>% 
   kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16), 
                 latex_options = c("HOLD_position"))
 ```
 
-While a full description of each of these variables can be found at [openintro.org](https://www.openintro.org/stat/data/?data=evals), let's summarize what each of these variables represents.
+You can see the full description of each variable in the Section on Data Description for Project 1 and the bulk of [Lecture 1 on the Geography of Economic Mobility](#lec1_geomobility), but let's summarize what each variable represents: 
 
-1. `score`: Numerical variable of the average teaching score based on students' evaluations between 1 and 5. This is the outcome variable $y$ of interest.
-1. `bty_avg`: Numerical variable of average "beauty" rating based on a panel of 6 students' scores between 1 and 10. This is the numerical explanatory variable $x$ of interest. Here 1 corresponds to a low beauty rating and 10 to a high beauty rating.
-1. `age`: A numerical variable of age in years as an integer value.
+1. `tract`: FIPS code for the tract
+1. `country`: FIPS code for the county
+1. `state`: FIPS code for the state
+1. `kfr_pooled_p25`: Numerical variable of the average income that children that grew up in that neighborhood from parents in the percentile 25th receive when adults.
+1. `ann_avg_job_growth_2004_2013`: Numerical variable of average job growth between 2004 and 2013. Notice that the numbers on job growth need to be multiplied by 100 to get percentages. That is, 0 is 0\\%, while  1 would be 100\\%.
 
-An alternative way to look at the raw data values is by choosing a random sample of the rows in `evals_ch5` by piping it into the `sample_n()` \index{dplyr!sample\_n()} function from the `dplyr` package. Here we set the `size` argument to be `5`, indicating that we want a random sample of 5 rows. We display the results in Table \@ref(tab:five-random-courses). Note that due to the random nature of the sampling, you will likely end up with a different subset of 5 rows.
+An alternative way to look at the raw data values is by choosing a random sample of the rows in `atlas_mob_jobs` by piping it into the `sample_n()` \index{dplyr!sample\_n()} function from the `dplyr` package. Here we set the `size` argument to be `5`, indicating that we want a random sample of 5 rows. We display the results in Table \@ref(tab:five-random-courses). Note that due to the random nature of the sampling, you will likely end up with a different subset of 5 rows.
 
 ```{r, eval=FALSE}
-evals_ch5 %>%
+atlas_mob_jobs %>%
   sample_n(size = 5)
 ```
 ```{r five-random-courses, echo=FALSE}
-evals_ch5 %>%
+atlas_mob_jobs %>%
   sample_n(5) %>%
   knitr::kable(
     digits = 3,
-    caption = "A random sample of 5 out of the 463 courses at UT Austin",
+    caption = "A random sample of 5 neighborhoods",
     booktabs = TRUE
   ) %>%
   kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
                 latex_options = c("hold_position"))
 ```
 
-Now that we've looked at the raw values in our `evals_ch5` data frame and got a preliminary sense of the data, let's move on to the next common step in an exploratory data analysis: computing summary statistics. Let's start by computing the mean and median of our numerical outcome variable `score` and our numerical explanatory variable "beauty" score denoted as `bty_avg`. We'll do this by using the `summarize()` function from `dplyr` along with the `mean()` and `median()` summary functions we saw in Section \@ref(summarize).
+Now that we've looked at the raw values in our `atlas_mob_jobs` data frame and got a preliminary sense of the data, let's move on to the next common step in an exploratory data analysis: computing summary statistics. Let's start by computing the mean and median of our numerical outcome variable `kfr_pooled_p25` and our numerical explanatory variable on ob growth denoted as `ann_avg_job_growth_2004_2013`. We'll do this by using the `summarize()` function from `dplyr` along with the `mean()` and `median()` summary functions, in a function that although we did not cover, is fairly intuitive: `summarize`. It will take some data, and summarize it according to what you ask.
 
-```{r eval=TRUE}
-evals_ch5 %>%
-  summarize(mean_bty_avg = mean(bty_avg), mean_score = mean(score),
-            median_bty_avg = median(bty_avg), median_score = median(score))
+```{r echo=FALSE, eval=TRUE}
+atlas_mob_jobs %>%
+  dplyr::summarize(mean_ann_avg_job_growth_2004_2013 = mean(ann_avg_job_growth_2004_2013, na.rm=TRUE),
+            mean_kfr_pooled_p25 = mean(kfr_pooled_p25, na.rm=TRUE),
+            median_ann_avg_job_growth_2004_2013 = median(ann_avg_job_growth_2004_2013, na.rm=TRUE),
+            median_kfr_pooled_p25 = median(kfr_pooled_p25, na.rm=TRUE))
 ```
 
-However, what if we want other summary statistics as well, such as the standard deviation (a measure of spread), the minimum and maximum values, and various percentiles? Typing out all these summary statistic functions in `summarize()` would be long and tedious. Instead, let's use the convenient `skim()` function from the `skimr` \index{R packages!skimr!skim()} package. This function takes in a data frame, "skims" it, and returns commonly used summary statistics. Let's take our `evals_ch5` data frame, `select()` only the outcome and explanatory variables teaching `score` and `bty_avg`, and pipe them into the `skim()` function:
+```{r eval=FALSE}
+atlas_mob_jobs %>%
+  summarize(mean_ann_avg_job_growth_2004_2013 = mean(ann_avg_job_growth_2004_2013, na.rm=TRUE),
+            mean_kfr_pooled_p25 = mean(kfr_pooled_p25, na.rm=TRUE),
+            median_ann_avg_job_growth_2004_2013 = median(ann_avg_job_growth_2004_2013, na.rm=TRUE),
+            median_kfr_pooled_p25 = median(kfr_pooled_p25, na.rm=TRUE))
+```
+
+However, what if we want other summary statistics as well, such as the standard deviation (a measure of spread), the minimum and maximum values, and various percentiles? Typing out all these summary statistic functions in `summarize()` would be long and tedious. Instead, let's use the convenient `skim()` function from the `skimr` \index{R packages!skimr!skim()} package. This function takes in a data frame, "skims" it, and returns commonly used summary statistics. Let's take our `atlas_mob_jobs` data frame, `select()` only the outcome and explanatory variables mobility `kfr_pooled_p25` and job growth `ann_avg_job_growth_2004_2013`, and pipe them into the `skim()` function:
 
 ```{r eval=FALSE}
-evals_ch5 %>%
-  select(score, bty_avg) %>%
+atlas_mob_jobs %>%
+  select(kfr_pooled_p25, ann_avg_job_growth_2004_2013) %>%
   skim()
 ```
 
 ```
 Skim summary statistics
- n obs: 463 
+ n obs: 73278 
  n variables: 2 
 ── Variable type:numeric ───────────────────────────────────────────────────────
  variable missing complete   n mean   sd   p0  p25  p50 p75 p100
-  bty_avg       0      463 463 4.42 1.53 1.67 3.17 4.33 5.5 8.17
-    score       0      463 463 4.17 0.54 2.3  3.8  4.3  4.6 5   
+  kfr_pooled_p25                    1267         0.983 34443.     8169.      0     28973      33733.      39167.     105732.
+    ann_avg_job_growth_2004_2013      2614         0.964     0.0153    0.0762 -0.607    -0.0189     0.00850     0.0410      1.34  
 ```
 
 (Note that for formatting purposes, the inline histogram that is usually printed with `skim()` has been removed. This can be done by running `skim_with(numeric = list(hist = NULL))` prior to using the `skim()` function as well.)
 
-For our two numerical variables teaching `score` and "beauty" score `bty_avg` it returns:
+For our two numerical variables mobility `kfr_pooled_p25` and job growth `ann_avg_job_growth_2004_2013` it returns:
 
 - `missing`: the number of missing values
 - `complete`: the number of non-missing or complete values
@@ -220,7 +222,7 @@ For our two numerical variables teaching `score` and "beauty" score `bty_avg` it
 - `p75`: the 75^th^ percentile: the value at which 75% of observations are smaller than it (the *3^rd^ quartile*)
 - `p100`: the 100^th^ percentile: the value at which 100% of observations are smaller than it (the *maximum* value)
 
-Looking at this output, we get an idea of how the values of both variables distribute. For example, the mean teaching score was 4.17 out of 5 whereas the mean "beauty" score was 4.42 out of 10. Furthermore, the middle 50% of teaching scores were between 3.80 and 4.6 (the first and third quartiles) whereas the middle 50% of "beauty" scores were between 3.17 and 5.5 out of 10.
+Looking at this output, we get an idea of how the values of both variables distribute. For example, the mean mobility was \$ 34,443 whereas the mean job growth was 0.0153 or 1.53\%. Furthermore, the middle 50% of mobility were between \$28,973 and \$39,167 (the first and third quartiles) whereas the middle 50% of job growth were between -0.0189 (-1.89\%) and 0.0410 (+4.10\%).
 
 The `skim()` function only returns what are known as *univariate* \index{univariate} summary statistics: functions that take a single variable and return some numerical summary of that variable. However, there also exist *bivariate* \index{bivariate} summary statistics: functions that take in two variables and return some summary of those two variables. In particular, when the two variables are numerical, we can compute the \index{correlation (coefficient)} *correlation coefficient*. Generally speaking, *coefficients* are quantitative expressions of a specific phenomenon.  A *correlation coefficient* is a quantitative expression of the *strength of the linear relationship between two numerical variables*. Its value ranges between -1 and 1 where:
 
@@ -260,98 +262,61 @@ ggplot(data = values, mapping = aes(V1, V2)) +
   )
 ```
 
-The correlation coefficient is computed using the `cor()` function, where the inputs to the function are the two numerical variables for which we want to quantify the strength of the linear relationship.
+The correlation coefficient is computed using the `cor()` function, where the inputs to the function are the two numerical variables for which we want to quantify the strength of the linear relationship. Note, however, that because the dataset has missing values for some neighborhoods, if you run `cor()` without the option `use = "pairwise.complete.obs"`, you will get `NA` - which is a missing value. See that we add this option below:
 
 ```{r}
-evals_ch5 %>% 
-  summarise(correlation = cor(score, bty_avg))
+atlas_mob_jobs %>% 
+  summarise(correlation = cor(kfr_pooled_p25, ann_avg_job_growth_2004_2013, use = "pairwise.complete.obs"))
 ```
 
 You can also use the `cor()` function directly instead of using it inside `summarise`, but you will need to use the `$` syntax to access the specific variables within a data frame (See  Subsection \@ref(exploredataframes)):
 
 ```{r}
-cor(x = evals_ch5$bty_avg, y = evals_ch5$score)
+cor(x = atlas_mob_jobs$ann_avg_job_growth_2004_2013, y = atlas_mob_jobs$kfr_pooled_p25, use = "pairwise.complete.obs")
 ```
 
-In our case, the correlation coefficient of `r cor(x = evals_ch5$bty_avg, y = evals_ch5$score) %>% round(3)` indicates that the relationship between teaching evaluation score and beauty average is "weakly positive." There is a certain amount of subjectivity in interpreting correlation coefficients, especially those that aren't close to -1, 0, and 1. For help developing such intuition and more discussion on the correlation coefficient see Subsection \@ref(correlationcoefficient) below. 
+In our case, the correlation coefficient of `r cor(x = atlas_mob_jobs$ann_avg_job_growth_2004_2013, y = atlas_mob_jobs$kfr_pooled_p25) %>% round(3)` indicates that the relationship between mobility and job growth is "weakly positive" There is a certain amount of subjectivity in interpreting correlation coefficients, especially those that aren't close to -1, 0, and 1. For help developing such intuition and more discussion on the correlation coefficient see Subsection \@ref(correlationcoefficient) below. 
 
-Let's now proceed by visualizing this data. Since both the `score` and `bty_avg` variables are numerical, a scatterplot is an appropriate graph to visualize this data. Let's do this using `geom_point()` and set informative axes labels and title and display the result in Figure \@ref(fig:numxplot1).
+Let's now proceed by visualizing this data. Since both the `kfr_pooled_p25` and `ann_avg_job_growth_2004_2013` variables are numerical, a scatterplot is an appropriate graph to visualize this data. Let's do this using `geom_point()` and set informative axes labels and title and display the result in Figure \@ref(fig:numxplot1).
 
-```{r numxplot1, warning=FALSE, fig.cap="Instructor evaluation scores at UT Austin"}
-ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Relationship of teaching and beauty scores")
+```{r numxplot1, warning=FALSE, fig.cap="Economic mobility for children of parents at percentile 25 across the US"}
+ggplot(atlas_mob_jobs, aes(x = ann_avg_job_growth_2004_2013, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Average Job Growth Rate 2004-2013", y = "Mobility for Children of Parents in P25", 
+       title = "Relationship of mobility and job growth")
 ```
 
 Observe the following:
 
-1. Most "beauty" scores lie between 2 and 8.
-1. Most teaching scores lie between 3 and 5.
-1. Recall our earlier computation of the correlation coefficient, which describes the strength of the linear relationship between two numerical variables. Looking at Figure \@ref(fig:numxplot2), it is not immediately apparent that these two variables are positively related. This is to be expected given the positive, but rather weak (close to 0), correlation coefficient of `r cor(evals_ch5$score, evals_ch5$bty_avg) %>% round(3)`.
+1. Most average job growth rates lie between -0.25 (-25\%) and 0.25 (+25\%).
+1. Most mobility outcomes lie between \$18,000 and \$50,000.
+1. Recall our earlier computation of the correlation coefficient, which describes the strength of the linear relationship between two numerical variables. Looking at Figure \@ref(fig:numxplot1), it is not immediately apparent that these two variables are positively related. This is to be expected given the positive, but rather weak (close to 0), correlation coefficient of `r cor(atlas_mob_jobs$kfr_pooled_p25, atlas_mob_jobs$ann_avg_job_growth_2004_2013) %>% round(3)`.
 
-Before we continue, we bring to light an important fact about this dataset: it suffers from *overplotting*. Recall from the data visualization Subsection \@ref(overplotting) that overplotting occurs when several points are stacked directly on top of each other thereby obscuring the number of points. For example, let's focus on the 6 points in the top-right of the plot with a beauty score of around 8 out of 10: are there truly only 6 points, or are there many more just stacked on top of each other? You can think of these as *ties*. Let's break up these ties with a little random "jitter" added to the points in Figure \@ref(fig:numxplot2). 
-
-```{r numxplot2, echo=FALSE, warning=FALSE, fig.cap="Instructor evaluation scores at UT Austin: Jittered"}
-set.seed(76)
-ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_jitter() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Relationship of teaching and beauty scores")
-```
-
-Jittering adds a little random bump to each of the points to break up these ties: just enough so you can distinguish them, but not so much that the plot is overly altered. Furthermore, jittering is strictly a visualization tool; it does not alter the original values in the dataset. 
-
-Let's compare side-by-side the regular scatterplot in Figure \@ref(fig:numxplot1) with the jittered scatterplot in Figure \@ref(fig:numxplot2) in Figure \@ref(fig:numxplot2-a).
-
-```{r numxplot2-a, echo=FALSE, warning=FALSE, fig.cap="Comparing regular and jittered scatterplots."}
-box <- tibble(x=c(7.6, 8, 8, 7.6, 7.6), y=c(4.75, 4.75, 5.1, 5.1, 4.75))
-p1 <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Regular scatterplot") +
-  geom_path(data = box, aes(x=x, y=y), col = "orange", size = 1)
-set.seed(76)
-p2 <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_jitter() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Jittered scatterplot") +
-  geom_path(data = box, aes(x=x, y=y), col = "orange", size = 1)
-p1 + p2
-```
-
-We make several further observations:
-
-<!-- We might want to actually highlight these points in the plot. -->
-
-1. Focusing our attention on the top-right of the plot again, as noted earlier where there seemed to only be 6 points in the regular scatterplot, we see there were in fact really 9 as seen in the jittered scatterplot. 
-1. A further interesting trend is that the jittering revealed a large number of instructors with beauty scores of between 3 and 4.5, towards the lower end of the beauty scale. 
-
-To keep things simple in this chapter, we'll present regular scatterplots rather than the jittered scatterplots, though we'll  keep the overplotting in mind whenever looking at such plots. Going back to scatterplot in Figure \@ref(fig:numxplot1), let's improve on it by adding a "regression line" in Figure \@ref(fig:numxplot3). This is easily done by adding a new layer to the `ggplot` code that created Figure \@ref(fig:numxplot2): `+ geom_smooth(method = "lm")`. A regression line is a "best fitting" line in that of all possible lines you could draw on this plot, it is "best" in terms of some mathematical criteria. We discuss the criteria for "best" in Subsection \@ref(leastsquares) below, but we suggest you read this only after covering the concept of a *residual* coming up in Subsection \@ref(model1points). 
+Going back to scatterplot in Figure \@ref(fig:numxplot1), let's improve on it by adding a "regression line" in Figure \@ref(fig:numxplot3). This is easily done by adding a new layer to the `ggplot` code that created Figure \@ref(fig:numxplot1): `+ geom_smooth(method = "lm")`. A regression line is a "best fitting" line in that of all possible lines you could draw on this plot, it is "best" in terms of some mathematical criteria. There is a formal definition for what "best" means, but we do not need to go into detail here. Suffice to say, this line minimizes errors in the prediction in the sense that the square of the distance between our prediction (the line) and the real data.  
 
 ```{r, echo=FALSE}
 set.seed(76)
 ```
 ```{r numxplot3, warning=FALSE, fig.cap="Regression line"}
-ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Relationship of teaching and beauty scores") +  
+ggplot(atlas_mob_jobs, aes(x = ann_avg_job_growth_2004_2013, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Average Job Growth Rate 2004-2013", y = "Mobility for Children of Parents in P25", 
+       title = "Relationship of mobility and job growth") +  
   geom_smooth(method = "lm")
 ```
 
-When viewed on this plot, the regression line is a visual summary of the relationship between two numerical variables, in our case the outcome variable `score` and the explanatory variable `bty_avg`. The positive slope of the blue line is consistent with our observed correlation coefficient of `r cor(evals_ch5$score, evals_ch5$bty_avg) %>% round(3)` suggesting that there is a positive relationship between `score` and `bty_avg`. We'll see later however that while the correlation coefficient is not equal to the slope of this line, they always have the same sign: positive or negative. 
+When viewed on this plot, the regression line is a visual summary of the relationship between two numerical variables, in our case the outcome variable `kfr_pooled_p25` and the explanatory variable `ann_avg_job_growth_2004_2013`. The positive slope of the blue line is consistent with our observed correlation coefficient of `r cor(atlas_mob_jobs$kfr_pooled_p25, atlas_mob_jobs$ann_avg_job_growth_2004_2013) %>% round(3)` suggesting that there is a positive relationship between `kfr_pooled_p25` and `ann_avg_job_growth_2004_2013`. We'll see later however that while the correlation coefficient is not equal to the slope of this line, they always have the same sign: positive or negative. 
 
-What are the grey bands surrounding the blue line? These are *standard error* bands, which can be thought of as error/uncertainty bands. Let's skip this idea for now and suppress these grey bars by adding the argument `se = FALSE` to `geom_smooth(method = "lm")`. We'll introduce standard errors in Chapter \@ref(sampling) on sampling distributions, use them for constructing *confidence intervals* and conducting *hypothesis tests* in Chapters \@ref(CIs) and \@ref(hypothesis-tests), and consider them when we revisit regression in Chapter \@ref(hypothesis-tests).
+You can barely see it. perhaps, but the blue line has some very thin grey bands surrounding it. What are those? These are *standard error* bands, which can be thought of as error/uncertainty bands. Let's skip this idea for now and suppress these grey bars by adding the argument `se = FALSE` to `geom_smooth(method = "lm")`. We'll briefly introduce standard errors below, but we can skip that for now.
 
 ```{r, echo=FALSE}
 set.seed(76)
 ```
 ```{r numxplot4, warning=FALSE, fig.cap="Regression line without error bands"}
-ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Relationship of teaching and beauty scores") +
+ggplot(atlas_mob_jobs, aes(x = ann_avg_job_growth_2004_2013, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Average Job Growth Rate 2004-2013", y = "Mobility for Children of Parents in P25", 
+       title = "Relationship of mobility and job growth") +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
@@ -360,13 +325,13 @@ ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
 **_Learning check_**
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Conduct a new exploratory data analysis with the same outcome variable $y$ being `score` but with `age` as the new explanatory variable $x$. Remember, this involves three things:
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Conduct a new exploratory data analysis with the same outcome variable $y$ being `kfr_pooled_p25` but with `poor_share2010` as the new explanatory variable $x$. Remember, this involves three things:
 
 a) Looking at the raw values.
 a) Computing summary statistics of the variables of interest.
 a) Creating informative visualizations.
 
-What can you say about the relationship between age and teaching scores based on this exploration?
+What can you say about the relationship between the share of people living under the poverty line in 2010 and mobility measures for children of parents in p25 based on this exploration?
 
 ```{block, type='learncheck', purl=FALSE}
 ```
@@ -385,57 +350,61 @@ However, when defining a line specifically for regression, like the blue regress
 * the intercept coefficient is $b_0$, or the value of $\widehat{y}$ when $x=0$, and 
 * the slope coefficient $b_1$, or the increase in $\widehat{y}$ for every increase of one in $x$.
 
-Why do we put a "hat" on top of the $y$? It's a form of notation commonly used in regression, which we'll introduce in the next Subsection \@ref(model1points) when we discuss *fitted values*. For now, let's ignore the hat and treat the equation of the line as you would from secondary school / high school algebra recognizing the slope and the intercept. We know looking at Figure \@ref(fig:numxplot4) that the slope coefficient corresponding to `bty_avg` should be positive. Why? Because as `bty_avg` increases, professors tend to roughly have higher teaching evaluation `scores`. However, what are the specific values of the intercept and slope coefficients? Let's not worry about computing these by hand, but instead let the computer do the work for us. Specifically, let's use R!
+Why do we put a "hat" on top of the $y$? It's a form of notation commonly used in regression, which we'll introduce in the next Subsection \@ref(model1points) when we discuss *fitted values*. For now, let's ignore the hat and treat the equation of the line as you would from secondary school / high school algebra recognizing the slope and the intercept. We know looking at Figure \@ref(fig:numxplot4) that the slope coefficient corresponding to `ann_avg_job_growth_2004_2013` should be positive. Why? Because as `ann_avg_job_growth_2004_2013` increases, professors tend to roughly have higher teaching evaluation `kfr_pooled_p25`. However, what are the specific values of the intercept and slope coefficients? Let's not worry about computing these by hand, but instead let the computer do the work for us. Specifically, let's use R!
 
-Let's get the value of the intercept and slope coefficients by outputting something called the *linear regression table*. We will fit the linear regression model to the `data` using the `lm()` function and save this to `score_model`. `lm` stands for "linear model." When we say "fit", we are saying find the best fitting line to this data.
+Let's get the value of the intercept and slope coefficients by outputting something called the *linear regression table*. We will fit the linear regression model to the `data` using the `lm()` function and save this to `mob_model`. `lm` stands for "linear model." When we say "fit", we are saying find the best fitting line to this data.
 
 The `lm()` function that "fits" the linear regression model is typically used as `lm(y ~ x, data = data_frame_name)` where:
 
-* `y` is the outcome variable, followed by a tilde (`~`). This is likely the key to the left of "1" on your keyboard. In our case, `y` is set to `score`.
-* `x` is the explanatory variable. In our case, `x` is set to `bty_avg`. We call the combination `y ~ x` a *model formula*. 
-* `data_frame_name` is the name of the data frame that contains the variables `y` and `x`. In our case, `data_frame_name` is the `evals_ch5` data frame.
+* `y` is the outcome variable, followed by a tilde (`~`). This is likely the key to the left of "1" on your keyboard. In our case, `y` is set to `kfr_pooled_p25`.
+* `x` is the explanatory variable. In our case, `x` is set to `ann_avg_job_growth_2004_2013`. We call the combination `y ~ x` a *model formula*. 
+* `data_frame_name` is the name of the data frame that contains the variables `y` and `x`. In our case, `data_frame_name` is the `atlas_mob_jobs` data frame.
 
 ```{r regtable-0}
-score_model <- lm(score ~ bty_avg, data = evals_ch5)
-score_model
+mob_model <- lm(kfr_pooled_p25 ~ ann_avg_job_growth_2004_2013, data = atlas_mob_jobs)
+mob_model
 ```
 
 This output is telling us that the `Intercept` coefficient $b_0$ of the regression line is 3.8803, and the slope coefficient for `by_avg` is 0.0666.  Therefore the blue regression line in Figure \@ref(fig:numxplot4) is 
 
-$$\widehat{\text{score}} = b_0 + b_{\text{bty avg}} \cdot\text{bty avg} = 3.8803 + 0.0666\cdot\text{ bty avg}$$ 
+$$\widehat{\text{mobilityp25}} = b_0 + b_{\text{avg job growth}} \cdot\text{avg job growth} = 34276.27 + 7782.82\cdot\text{ avg job growth}$$ 
 
 where
 
-* The intercept coefficient $b_0 = 3.8803$ means for instructors that had a hypothetical beauty score of 0, we would expect them to have on average a teaching score of 3.8803. In this case however, while the intercept has a mathematical interpretation when defining the regression line, there is no *practical* interpretation since `score` is an average of a panel of 6 students' ratings from 1 to 10, a `bty_avg` of 0 would be impossible. Furthermore, no instructors had a beauty score anywhere near 0 in this data.
-* Of more interest is the slope coefficient associated with `bty_avg`: $b_{\text{bty avg}} = +0.0666$. This is a numerical quantity that summarizes the relationship between the outcome and explanatory variables. Note that the sign is positive, suggesting a positive relationship between beauty scores and teaching scores, meaning as beauty scores go up, so also do teaching scores go up. The slope's precise interpretation is:
+* The intercept coefficient $b_0 = 34276.27$ means for instructors that had a hypothetical average job growth of 0, we would expect them to have on average mobility of \$ 34,276. 
+* Of more interest is the slope coefficient associated with `ann_avg_job_growth_2004_2013`: $b_{\text{bty avg}} = +7782.82$. This is a numerical quantity that summarizes the relationship between the outcome and explanatory variables. Note that the sign is positive, suggesting a positive relationship between job growth and mobility, meaning as average job growth goes up, so does the mobility measure. The slope's precise interpretation is:
 
-    > For every increase of 1 unit in `bty_avg`, there is an *associated* increase of, *on average*, 0.0666 units of `score`. 
+    > For every increase of 1 unit in `ann_avg_job_growth_2004_2013`, there is an *associated* increase of, *on average*, 7782.82 units of `kfr_pooled_p25`. 
+    
+A very important point to mention here is that you need to recall that the variable `ann_avg_job_growth_2004_2013` is coded such that a 1 unit increment is equivalent to increasing the average annual job growth by 100\%. Given that changing the average growth rate by 100\% is a very large change, perhaps we should choose a smaller change to get a sense of how much the correlation explains mobility. That is, we can interpret the previous set of results by dividing the coefficient on average job growth rate by 100, and saying:
+
+   > For every increase of 1\% in the average job growth rate `ann_avg_job_growth_2004_2013`, there is an *associated* increase of, *on average*, 77.82 units of `mobility`. 
 
 Such interpretations need be carefully worded:
 
-* We only stated that there is an *associated* increase, and not necessarily a *causal* increase. For example, perhaps it's not that beauty directly affects teaching scores, but instead younger instructors tend to be percieved as better teachers (perhaps because they are more energetic or use more modern techniques), and younger instructors are also perceived to be more beautiful. Avoiding such reasoning can be summarized by the adage "correlation is not necessarily causation." In other words, just because two variables are correlated, it doesn't mean one directly causes the other. We discuss these ideas more in Subsection \@ref(correlation-is-not-causation) and in Chapter \@ref(causality).  
-* We say that this associated increase is *on average* 0.0666 units of teaching `score` and not that the associated increase is *exactly* 0.0666 units of `score` across all values of `bty_avg`. This is because the slope is the average increase across all points as shown by the regression line in Figure \@ref(fig:numxplot4). 
+* We only stated that there is an *associated* increase, and not necessarily a *causal* increase. For example, perhaps it's not that job growth directly affects mobility, but instead areas with higher mobility attract firms to locate there, thereby increasing job creation. Avoiding such reasoning can be summarized by the adage "correlation is not necessarily causation." In other words, just because two variables are correlated, it doesn't mean one directly causes the other. We discuss these ideas more in Subsection \@ref(correlation-is-not-causation) and in following chapters.   
+* We say that this associated increase is *on average* 77.82 dollars of mobility `kfr_pooled_p25` and not that the associated increase is *exactly* 77.82 dollars of `kfr_pooled_p25` across all values of `ann_avg_job_growth_2004_2013`. This is because the slope is the average increase across all points as shown by the regression line in Figure \@ref(fig:numxplot4). 
 
 Now that we've learned how to compute the equation for the blue regression line in Figure \@ref(fig:numxplot4) and interpreted all its terms, let's take our modeling one step further. This time after fitting the model using the `lm()`, let's get something called the *regression table* using the `summary()` function:
 
 ```{r regtable}
 # Fit regression model:
-score_model <- lm(score ~ bty_avg, data = evals_ch5)
+mob_model <- lm(kfr_pooled_p25 ~ ann_avg_job_growth_2004_2013, data = atlas_mob_jobs)
 # Get regression results:
-summary(score_model)
+summary(mob_model)
 ```
 
 ```{r, echo = FALSE}
-coefs <- summary(score_model)$coefficients
+coefs <- summary(mob_model)$coefficients
 ```
-Note how we took the output of the model fit saved in `score_model` and used it as an input to the subsequent `summary()` function. The raw output of the `summary()` function above gives lots of information about the regression model that we won't cover in this introductory course (e.g., Multiple R-squared, F-statistic, etc.). We will only consider the "Coefficients" section of the output. We can print these relevant results only by accessing the `coefficients` object stored in the summary results.
+Note how we took the output of the model fit saved in `mob_model` and used it as an input to the subsequent `summary()` function. The raw output of the `summary()` function above gives lots of information about the regression model that we won't cover in this introductory course (e.g., Multiple R-squared, F-statistic, etc.). We will only consider the "Coefficients" section of the output. We can print these relevant results only by accessing the `coefficients` object stored in the summary results.
 
 ```{r, eval = FALSE}
-summary(score_model)$coefficients
+summary(mob_model)$coefficients
 ```
 
 ```{r numxplot4b, echo=FALSE}
-summary(score_model)$coefficients %>%
+summary(mob_model)$coefficients %>%
   knitr::kable(
     digits = 3,
     caption = "Linear regression table",
@@ -445,537 +414,18 @@ summary(score_model)$coefficients %>%
                 latex_options = c("HOLD_position"))
 ```
 
-For now since we are only using regression as an exploratory data analysis tool, we will only focus on the "Estimate" column that contains the estimates of the intercept and slope for the best fit line for our data. The remaining three columns refer to statistical concepts known as standard errors, t-statistics, and p-values, which we will cover in Parts III and IV of the book when we talk about statistical theory and inference.  
+For now since we are only using regression as an exploratory data analysis tool, we will only focus on the "Estimate" column that contains the estimates of the intercept and slope for the best fit line for our data. The remaining three columns refer to statistical concepts known as standard errors, t-statistics, and p-values. They are all interrelated, but we will briefly only talk about p-values at the end of this Chapter. For now, we can skip that..  
 
 ```{block, type='learncheck', purl=FALSE}
 **_Learning check_**
 ```
 
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Fit a new simple linear regression using `lm(score ~ age, data = evals_ch5)` where `age` is the new explanatory variable $x$. Get information about the "best-fitting" line from the regression table by applying the `summary()` function. How do the regression results match up with the results from your exploratory data analysis above? 
+**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Fit a new simple linear regression using `lm(kfr_pooled_p25 ~ poor_share2010, data = atlas_mob_jobs)` where `poor_share2010` is the new explanatory variable $x$. Get information about the "best-fitting" line from the regression table by applying the `summary()` function. How do the regression results match up with the results from your exploratory data analysis above? 
 
 ```{block, type='learncheck', purl=FALSE}
 ```
 
-
-### Observed/fitted values and residuals {#model1points}
-
-We just saw how to get the value of the intercept and the slope of the regression line from the regression table generated by `summary()`. Now instead, say we want information on individual points. In this case, we focus on one of the $n = 463$ instructors in this dataset, corresponding to a single row of `evals_ch5`. 
-
-For example, say we are interested in the 21st instructor in this dataset:
-
-```{r, echo=FALSE}
-index <- which(evals_ch5$bty_avg == 7.333 & evals_ch5$score == 4.9)
-
-
-score_model_data <- evals_ch5 %>% 
-  select(score, bty_avg) %>% 
-  mutate(score_hat = fitted(score_model),
-         residual = residuals(score_model)) %>% 
-  rownames_to_column("ID")
-
-target_point <- score_model_data %>% 
-  slice(index)
-
-x <- target_point$bty_avg
-y <- target_point$score
-y_hat <- target_point$score_hat
-resid <- target_point$residual
-evals_ch5[index,] %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Data for 21st instructor",
-    booktabs = TRUE
-  ) %>% 
-  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
-                latex_options = c("HOLD_position"))
-```
-
-What is the value on the blue line corresponding to this instructor's `bty_avg` of `r x`? In Figure \@ref(fig:numxplot5) we mark three values in particular corresponding to this instructor. 
-
-* Red circle: This is the *observed value* $y$ = `r y` and corresponds to this instructor's actual teaching score.
-* Red square: This is the *fitted value* $\widehat{y}$ and corresponds to the value on the regression line for $x$ = `r x`. This value is computed using the intercept and slope in the regression table above: $$\widehat{y} = b_0 + b_1 \cdot x = `r coefs[1,1]` + `r coefs[2,1]` * `r x` = `r y_hat`$$
-* Blue arrow: The length of this arrow is the *residual* and is computed by subtracting the fitted value $\widehat{y}$ from the observed value $y$. The residual can be thought of as the error or "lack of fit" of the regression line.  In the case of this instructor, it is $y - \widehat{y}$ = `r y` - `r y_hat` = `r y-y_hat`. In other words, the model was off by `r y-y_hat` teaching score units for this instructor. 
-
-```{r, echo=FALSE}
-set.seed(76)
-```
-```{r numxplot5, echo=FALSE, warning=FALSE, fig.cap="Example of observed value, fitted value, and residual"}
-best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_point() +
-  labs(x = "Beauty Score", y = "Teaching Score", 
-       title = "Relationship of teaching and beauty scores") + 
-  geom_smooth(method = "lm", se = FALSE) +
-  annotate("point", x = x, y = y, col = "red", size = 3) +
-  annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 3) +
-  annotate("segment", x = x, xend = x, y = y, yend = y_hat, color = "blue",
-           arrow = arrow(type = "closed", length = unit(0.02, "npc")))
-best_fit_plot
-```
-
-What if we want both
-
-1. the fitted value $\widehat{y} = b_0 + b_1 \cdot x$ and
-1. the residual $y - \widehat{y}$
-
-for not only the 21st instructor but for all `r nrow(evals_ch5)` instructors in the study? Recall that each instructor corresponds to one of the `r nrow(evals_ch5)` rows in the `evals_ch5` data frame and also one of the `r nrow(evals_ch5)` points in the regression plot in Figure \@ref(fig:numxplot4). 
-
-
-We could repeat the above calculations by hand 463 times, but that would be tedious and time consuming. Instead, let's use our data wrangling tools from Chapter \@ref(wrangling) and the functions `fitted()` and `residuals()` to create a data frame with these values. Similar to the `summary()` function, the `fitted()` and `residuals()` functions also take a model object as their input. `fitted()` calculates all the *fitted* $\hat{y}$ values by plugging in each observed $x$ value in the dataset into the regression equation, and `residuals()` similarly calculates all the residuals ($y - \hat{y}$) for each observation in the dataset. The following code will store these new $\hat{y}$ and residual variables, which we will name `score_hat` and `residual` respectively, along with their corresponding `score` and `bty_avg` values from the original data `evals_ch5`. 
-```{r}
-score_model_data <- evals_ch5 %>% 
-  select(score, bty_avg) %>% 
-  mutate(score_hat = fitted(score_model),
-         residual = residuals(score_model)) %>% 
-  rownames_to_column("ID")
-```
-Note that we also used the `rownames_to_column()` function from the `tibble` package (part of the `tidyverse` suite) to create a convenient ID column from the rownames. In the table below we only present the results for the 21st through the 24th instructors.
-
-```{r reg-points, echo=FALSE}
-set.seed(76)
-score_model_data %>%
-  mutate(ID = as.numeric(ID)) %>% 
-  filter(ID %in% seq(from = index, to = (index + 3)))  %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Regression points (for only 21st through 24th instructor)",
-    booktabs = TRUE
-  )
-```
-
-Let's recap what we're seeing in Table \@ref(tab:reg-points) in terms of the linear regression model (`score_model`) that we fit to the `evals_ch5` data:
-
-* The `ID` column represents the row number where this observation appears in the original `evals_ch5` data
-* The `score` column represents the observed value of the outcome variable $y$.
-* The `bty_avg` column represents the values of the explanatory variable $x$.
-* The `score_hat` column represents the fitted values $\widehat{y}$.
-* The `residual` column represents the residuals $y - \widehat{y}$.
-
-Just as we did for the 21st instructor in the `evals_ch5` dataset (in the first row of the table above), let's repeat the above calculations for the 24th instructor in the `evals_ch5` dataset (in the fourth row of the table above):
-
-* `score` = 4.4 is the observed value $y$ for this instructor.
-* `bty_avg` = 5.50 is the value of the explanatory variable $x$ for this instructor.
-* `score_hat` = 4.25 = `r coefs[1,1]` + `r coefs[2,1]` * $x$ = `r coefs[1,1]` + `r coefs[2,1]` * 5.50 is the fitted value $\widehat{y}$ for this instructor.
-* `residual` = 0.153 =  4.4 - 4.25 is the value of the residual for this instructor. In other words, the model was off by 0.153 teaching score units for this instructor.
-
-More development of this idea appears in Section \@ref(leastsquares) and we encourage you to read that section after you investigate residuals.
-
-
-
-***
-
-
-
-## One categorical explanatory variable {#model2}
-
-It's an unfortunate truth that life expectancy is not the same across various countries in the world; there are a multitude of factors that are associated with how long people live. International development agencies are very interested in studying these differences in the hope of understanding where governments should allocate resources to address this problem. In this section, we'll explore differences in life expectancy in two ways:
-
-1. Differences between continents: Are there significant differences in life expectancy, on average, between the five continents of the world: Africa, the Americas, Asia, Europe, and Oceania?
-1. Differences within continents: How does life expectancy vary within the world's five continents? For example, is the spread of life expectancy among the countries of Africa larger than the spread of life expectancy among the countries of Asia? 
-
-To answer such questions, we'll study the `gapminder` dataset in the `gapminder` package. Recall we mentioned this dataset in Subsection \@ref(gapminder) when we first studied the "Grammar of Graphics" introduced in Figure \@ref(fig:gapminder). This dataset has international development statistics such as life expectancy, GDP per capita, and population by country ($n$ = 142) for 5-year intervals between 1952 and 2007. 
-
-We'll use this data for linear regression again, but note that our explanatory variable $x$ is now categorical, and not numerical like when we covered simple linear regression in Section \@ref(model1). More precisely, we have:
-
-1. A numerical outcome variable $y$. In this case, life expectancy.
-1. A single categorical explanatory variable $x$. In this case, the continent the country is part of. 
-
-When the explanatory variable $x$ is categorical, the concept of a "best-fitting" line is a little different than the one we saw previously in Section \@ref(model1) where the explanatory variable $x$ was numerical. We'll study these differences shortly in Subsection \@ref(model2table), but first we conduct our exploratory data analysis.
-
-### Exploratory data analysis {#model2EDA}
-
-The data on the 142 countries can be found in the `gapminder` data frame included in the `gapminder` package. However, to keep things simple, let's `filter()` for only those observations/rows corresponding to the year 2007. Additionally, let's `select()` only the subset of the variables we'll consider in this chapter. We'll save this data in a new data frame called `gapminder2007`:
-
-```{r, warning=FALSE, message=FALSE}
-library(gapminder)
-gapminder2007 <- gapminder %>%
-  filter(year == 2007) %>%
-  select(country, lifeExp, continent, gdpPercap)
-```
-
-```{r, echo=FALSE}
-# Hidden: internally compute mean and median life expectancy
-lifeExp_worldwide <- gapminder2007 %>%
-  summarize(median = median(lifeExp), mean = mean(lifeExp))
-mean_africa <- gapminder2007 %>%
-  filter(continent == "Africa") %>%
-  summarize(mean_africa = mean(lifeExp)) %>%
-  pull(mean_africa)
-```
-
-Recall from Section \@ref(model1EDA) that there are three common steps in an exploratory data analysis:
-
-1. Most crucially: Looking at the raw data values.
-1. Computing summary statistics, like means, medians, and interquartile ranges.
-1. Creating data visualizations.
-
-Let's perform the first common step in an exploratory data analysis: looking at the raw data values. You can do this by using RStudio's spreadsheet viewer or by using the `glimpse()` command as introduced in Section \@ref(exploredataframes) on exploring data frames:
-
-```{r}
-glimpse(gapminder2007)
-```
-
-Observe that `Observations: 142` indicates that there are 142 rows/observations in `gapminder2007`, where each row corresponds to one country. In other words, the *observational unit* is an individual country. Furthermore, observe that the variable `continent` is of type `<fct>`, which stands for _factor_, which is R's way of encoding categorical variables.
-
-A full description of all the variables included in `gapminder` can be found by reading the associated help file (run `?gapminder` in the console). However, let's fully describe the `r ncol(gapminder2007)` variables we selected in `gapminder2007`:
-
-1. `country`: An identification text variable used to distinguish the 142 countries in the dataset.
-1. `lifeExp`: A numerical variable of that country's life expectancy at birth. This is the outcome variable $y$ of interest.
-1. `continent`: A categorical variable with five levels. Here "levels" corresponds to the possible categories: Africa, Asia, Americas, Europe, and Oceania. This is the explanatory variable $x$ of interest.
-1. `gdpPercap`: A numerical variable of that country's GDP per capita in US inflation-adjusted dollars that we'll use as another outcome variable $y$ in the Learning Check at the end of this subsection.
-
-Furthermore, let's look at a random sample of five out of the `r nrow(gapminder2007)` countries in Table \@ref(tab:model2-data-preview). Again, note due to the random nature of the sampling, you will likely end up with a different subset of 5 rows.
-
-```{r, eval=FALSE}
-gapminder2007 %>%
-  sample_n(size = 5)
-```
-```{r model2-data-preview, echo=FALSE}
-gapminder2007 %>%
-  sample_n(5) %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Random sample of 5 out of 142 countries",
-    booktabs = TRUE
-  ) %>%
-  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
-                latex_options = c("hold_position"))
-```
-
-Now that we've looked at the raw values in our `gapminder2007` data frame and got a sense of the data, let's move on to computing summary statistics. Let's once again apply the `skim()` function from the `skimr` package. Recall from our previous EDA that this function takes in a data frame, "skims" it, and returns commonly used summary statistics. Let's take our `gapminder2007` data frame, `select()` only the outcome and explanatory variables `lifeExp` and `continent`, and pipe them into the `skim()` function:
-
-```{r eval=FALSE}
-gapminder2007 %>%
-  select(lifeExp, continent) %>%
-  skim()
-```
-```
-Skim summary statistics
- n obs: 142 
- n variables: 2 
-── Variable type:factor ────────────────────────────────────────────────────────
-  variable missing complete   n n_unique                         top_counts ordered
- continent       0      142 142        5 Afr: 52, Asi: 33, Eur: 30, Ame: 25   FALSE
-── Variable type:numeric ───────────────────────────────────────────────────────
- variable missing complete   n  mean    sd    p0   p25   p50   p75 p100
-  lifeExp       0      142 142 67.01 12.07 39.61 57.16 71.94 76.41 82.6
-```
-
-The `skim()` output now reports summaries for categorical variables (`Variable type:factor`) separately from the numerical variables (`Variable type:numeric`). For the categorical variable `continent`, it reports:
-
-- `missing`, `complete`, and `n`,  which are the number of missing, complete, and total number of values as before, respectively.
-- `n_unique`: The number of unique levels to this variable, corresponding to Africa, Asia, Americas, Europe, and Oceania. This refers to the how many countries are in the data for each continent.
-- `top_counts`: In this case the top four counts: `Africa` has 52 countries, `Asia` has 33, `Europe` has 30, and `Americas` has 25. Not displayed is `Oceania` with 2 countries.
-- `ordered`: This tells us whether the categorical variable is "ordinal": whether there is an encoded hierarchy (like low, medium, high). In this case, `continent` is not ordered.
-
-Turning our attention to the summary statistics of the numerical variable `lifeExp`, we observe that the global median life expectancy in 2007 was `r lifeExp_worldwide$median %>% round(2)`. Thus, half of the world's countries (71 countries) had a life expectancy less than `r lifeExp_worldwide$median %>% round(2)`. The mean life expectancy of `r lifeExp_worldwide$mean %>% round(2)` is lower however. Why is the mean life expectancy lower than the median?
-
-We can answer this question by performing the last of the three common steps in an exploratory data analysis: creating data visualizations. Let's visualize the distribution of our outcome variable $y$ = `lifeExp` in Figure \@ref(fig:lifeExp2007hist).
-
-```{r lifeExp2007hist, echo=TRUE, warning=FALSE, fig.cap="Histogram of Life Expectancy in 2007."}
-ggplot(gapminder2007, aes(x = lifeExp)) +
-  geom_histogram(binwidth = 5, color = "white") +
-  labs(x = "Life expectancy", y = "Number of countries",
-       title = "Histogram of distribution of worldwide life expectancies")
-```
-
-We see that this data is *left-skewed*, also known as *negatively* \index{skew} skewed: there are a few countries with  low life expectancy that are bringing down the mean life expectancy. However, the median is less sensitive to the effects of such outliers; hence, the median is greater than the mean in this case.
-
-Remember, however, that we want to compare life expectancies both between continents and within continents. In other words, our visualizations need to incorporate some notion of the variable `continent`. We can do this easily with a faceted histogram. Recall from Section \@ref(facets) that facets allow us to split a visualization by the different values of another variable. We display the resulting visualization in Figure \@ref(fig:catxplot0b) by adding a \index{ggplot2!facet\_wrap()} `facet_wrap(~ continent, nrow = 2)` layer.
-
-```{r eval=FALSE} 
-ggplot(gapminder2007, aes(x = lifeExp)) +
-  geom_histogram(binwidth = 5, color = "white") +
-  labs(x = "Life expectancy", y = "Number of countries",
-       title = "Histogram of distribution of worldwide life expectancies") +
-  facet_wrap(~ continent, nrow = 2)
-```
-
-```{r catxplot0b, echo=FALSE, warning=FALSE, fig.cap="Life expectancy in 2007."}
-faceted_life_exp <- ggplot(gapminder2007, aes(x = lifeExp)) +
-  geom_histogram(binwidth = 5, color = "white") +
-  labs(x = "Life expectancy", y = "Number of countries",
-       title = "Histogram of distribution of worldwide life expectancies") +
-  facet_wrap(~ continent, nrow = 2)
-# Make the text black and reduce darkness of the grey in the facet labels
-if(knitr::is_latex_output()) {
-  faceted_life_exp + 
-    theme(strip.text = element_text(colour = 'black'),
-          strip.background = element_rect(fill = "grey93")
-    )
-} else {
-  faceted_life_exp
-}
-```
-
-
-
-Observe that unfortunately the distribution of African life expectancies is much lower than the other continents, while in Europe life expectancies tend to be higher and furthermore do not vary as much. On the other hand, both Asia and Africa have the most variation in life expectancies. There is the least variation in Oceania, but keep in mind that there are only two countries in Oceania: Australia and New Zealand.
-
-Recall that an alternative method to visualize the distribution of a numerical variable split by a categorical variable is by using a side-by-side boxplot. We map the categorical variable `continent` to the $x$-axis and the different life expectancies within each continent on the $y$-axis in Figure \@ref(fig:catxplot1).
-
-```{r catxplot1, warning=FALSE, fig.cap="Life expectancy in 2007."}
-ggplot(gapminder2007, aes(x = continent, y = lifeExp)) +
-  geom_boxplot() +
-  labs(x = "Continent", y = "Life expectancy (years)",
-       title = "Life expectancy by continent")
-```
-
-Some people prefer comparing the distributions of a numerical variable between different levels of a categorical variable using a boxplot instead of a faceted histogram. This is because we can make quick comparisons between the categorical variable's levels with imaginary horizontal lines. For example, observe in Figure \@ref(fig:catxplot1) that we can quickly convince ourselves that Oceania has the highest median life expectancies by drawing an imaginary horizontal line at $y$ = 80. Furthermore, as we observed in the faceted histogram in Figure \@ref(fig:catxplot0b), Africa and Asia have the largest variation in life expectancy as evidenced by their large interquartile ranges (the heights of the boxes).
-
-It’s important to remember however that the solid lines in the middle of the boxes correspond to the medians (the middle value) rather than the mean (the average). So for example, if you look at Asia, the solid line denotes the median life expectancy of around 72 years. This tells us that half of all countries in Asia have a life expectancy below 72 years whereas half have a life expectancy above 72 years.
-
-Let's compute the median and mean life expectancy for each continent with a little more data wrangling and display the results in Table \@ref(tab:catxplot0).
-
-```{r, eval=TRUE}
-lifeExp_by_continent <- gapminder2007 %>%
-  group_by(continent) %>%
-  summarize(median = median(lifeExp), mean = mean(lifeExp))
-```
-```{r catxplot0, echo=FALSE}
-lifeExp_by_continent %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Life expectancy by continent",
-    booktabs = TRUE
-  )
-```
-
-Observe the order of the second column `median` life expectancy: Africa is lowest, the Americas and Asia are next with similar medians, then Europe, then Oceania. This ordering corresponds to the ordering of the solid black lines inside the boxes in our side-by-side boxplot in Figure \@ref(fig:catxplot1). 
-
-Let's now turn our attention to the values in the third column `mean`. Using Africa's mean life expectancy of 54.8 as a *baseline for comparison*, let's start making relative comparisons to the life expectancies of the other four continents:
-
-1. The mean life expectancy of the Americas is 73.6 - 54.8 = 18.8 years higher.
-1. The mean life expectancy of Asia is 70.7 - 54.8 = 15.9 years higher.
-1. The mean life expectancy of Europe is 77.6 - 54.8 = 22.8 years higher.
-1. The mean life expectancy of Oceania is 80.7 - 54.8 = 25.9 years higher.
-
-Let's put these values in Table \@ref(tab:continent-mean-life-expectancies), which we'll revisit later on in this section.
-
-```{r continent-mean-life-expectancies, echo=FALSE}
-gapminder2007 %>%
-  group_by(continent) %>%
-  summarize(mean = mean(lifeExp)) %>%
-  mutate(`Difference versus Africa` = mean - mean_africa) %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Mean life expectancy by continent and relative differences from mean for Africa.",
-    booktabs = TRUE
-  ) %>%
-  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
-                latex_options = c("hold_position"))
-```
-
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-**_Learning check_**
-\vspace{-0.25in}
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Conduct a new exploratory data analysis with the same explanatory variable $x$ being `continent` but with `gdpPercap` as the new outcome variable $y$. Remember, this involves three things:
-
-1. Most crucially: Looking at the raw data values.
-1. Computing summary statistics, such as means, medians, and interquartile ranges.
-1. Creating data visualizations.
-
-What can you say about the differences in GDP per capita between continents based on this exploration?
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-\vspace{-0.25in}
-```
-
-### Linear regression {#model2table}
-
-In Subsection \@ref(model1table) we introduced *simple* linear regression, which involves modeling the relationship between a numerical outcome variable $y$ as a function of a numerical explanatory variable $x$, in our life expectancy example, we now have a categorical explanatory variable $x$ `continent`. While we still can fit a regression model, given our categorical explanatory variable we no longer have a concept of a "best-fitting" line, but rather "differences relative to a baseline for comparison."
-
-Before we fit our regression model, let's create a table similar to Table \@ref(tab:catxplot0), but
-
-1. Report the mean life expectancy for each continent.
-1. Report the difference in mean life expectancy *relative* to Africa's mean life expectancy of `r mean_africa` in the column "mean vs Africa"; this column is simply the "mean" column minus `r mean_africa`.
-
-Think back to your observations from the eyeball test of Figure \@ref(fig:catxplot1) at the end of the last subsection. The column "mean vs Africa" is the same idea of comparing a summary statistic to a baseline for comparison, in this case the countries of Africa, but using means instead of medians. 
-
-```{r continent-mean-life-expectancies-2, echo=FALSE}
-gapminder2007 %>%
-  group_by(continent) %>%
-  summarize(mean = mean(lifeExp)) %>%
-  mutate(`mean vs Africa` = mean - mean_africa) %>% 
-  knitr::kable(
-    digits = 3,
-    caption = "Mean life expectancy by continent",
-    booktabs = TRUE
-  ) %>%
-  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
-                latex_options = c("HOLD_position"))
-```
-
-Now, let's use the `summary()` function again to get the *regression table* for the  `gapminder2007` analysis: 
-
-```{r, eval=FALSE}
-lifeExp_model <- lm(lifeExp ~ continent, data = gapminder2007)
-summary(lifeExp_model)$coefficients
-```
-```{r, echo=FALSE}
-lifeExp_model <- lm(lifeExp ~ continent, data = gapminder2007)
-coefs <- summary(lifeExp_model)$coefficients
-```
-```{r catxplot4b, echo=FALSE}
-coefs %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Linear regression table",
-    booktabs = TRUE
-  ) %>% 
-  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
-                latex_options = c("HOLD_position"))
-```
-
-Just as before, we're only interested in the "Estimate" column, but unlike before, we now have 5 rows corresponding to 5 outputs in our table: an intercept like before, but also `continentAmericas`, `continentAsia`, `continentEurope`, and `continentOceania`. What are these values? First, we must describe the equation for fitted value $\widehat{y}$, which is a little more complicated when the $x$ explanatory variable is categorical:
-
-$$
-\begin{align}
-\widehat{\text{life exp}} &= b_0 + b_{\text{Amer}}\cdot\mathbb{1}_{\mbox{Amer}}(x) + b_{\text{Asia}}\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ b_{\text{Euro}}\cdot\mathbb{1}_{\mbox{Euro}}(x) + b_{\text{Ocean}}\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot\mathbb{1}_{\mbox{Amer}}(x) + 15.9\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ 22.8\cdot\mathbb{1}_{\mbox{Euro}}(x) + 25.9\cdot\mathbb{1}_{\mbox{Ocean}}(x)
-\end{align}
-$$
-
-Let's break this down. First, $\mathbb{1}_{A}(x)$ is what's known in mathematics as an "indicator function" that takes one of two possible values:
-
-$$
-\mathbb{1}_{A}(x) = \left\{
-\begin{array}{ll}
-1 & \text{if } x \text{ is in } A \\
-0 & \text{otherwise} \end{array}
-\right.
-$$
-
-In a statistical modeling context this is also known as a "dummy variable". In our case, let's consider the first such indicator variable:
-
-$$
-\mathbb{1}_{\mbox{Amer}}(x) = \left\{
-\begin{array}{ll}
-1 & \text{if } \text{country } x \text{ is in the Americas} \\
-0 & \text{otherwise}\end{array}
-\right.
-$$
-
-Now let's interpret the terms in the estimate column of the regression table. First $b_0 =$ `intercept = 54.8` corresponds to the mean life expectancy for countries in Africa, since for country $x$ in Africa we have the following equation:
-
-$$
-\begin{align}
-\widehat{\text{life exp}} &= b_0 + b_{\text{Amer}}\cdot\mathbb{1}_{\mbox{Amer}}(x) + b_{\text{Asia}}\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ b_{\text{Euro}}\cdot\mathbb{1}_{\mbox{Euro}}(x) + b_{\text{Ocean}}\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot\mathbb{1}_{\mbox{Amer}}(x) + 15.9\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ 22.8\cdot\mathbb{1}_{\mbox{Euro}}(x) + 25.9\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot 0 + 15.9\cdot 0 + 22.8\cdot 0 + 25.9\cdot 0\\
-&= 54.8
-\end{align}
-$$
-
-i.e. All four of the indicator variables are equal to 0. Recall we stated earlier that we would treat Africa as the baseline for comparison group. Furthermore, this value corresponds to the group mean life expectancy for all African countries in Table \@ref(tab:continent-mean-life-expectancies).
-
-Next, $b_{\text{Amer}}$ = `continentAmericas = 18.8` is the difference in mean life expectancy of countries in the Americas relative to Africa, or in other words, on average countries in the Americas had life expectancy 18.8 years greater. The fitted value yielded by this equation is:
-
-$$
-\begin{align}
-\widehat{\text{life exp}} &= b_0 + b_{\text{Amer}}\cdot\mathbb{1}_{\mbox{Amer}}(x) + b_{\text{Asia}}\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ b_{\text{Euro}}\cdot\mathbb{1}_{\mbox{Euro}}(x) + b_{\text{Ocean}}\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot\mathbb{1}_{\mbox{Amer}}(x) + 15.9\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ 22.8\cdot\mathbb{1}_{\mbox{Euro}}(x) + 25.9\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot 1 + 15.9\cdot 0 + 22.8\cdot 0 + 25.9\cdot 0\\
-&= 54.8 + 18.8\\
-&= 73.6
-\end{align}
-$$
-
-i.e. in this case, only the indicator function $\mathbb{1}_{\mbox{Amer}}(x)$ is equal to 1, but all others are 0. Recall that 73.6 corresponds to the group mean life expectancy for all countries in the Americas in Table \@ref(tab:continent-mean-life-expectancies).
-
-Similarly, $b_{\text{Asia}}$ = `continentAsia = 15.9` is the difference in mean life expectancy of Asian countries relative to Africa countries, or in other words, on average countries in the Asia had life expectancy 15.9 years greater than Africa. The fitted value yielded by this equation is:
-
-$$
-\begin{align}
-\widehat{\text{life exp}} &= b_0 + b_{\text{Amer}}\cdot\mathbb{1}_{\mbox{Amer}}(x) + b_{\text{Asia}}\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ b_{\text{Euro}}\cdot\mathbb{1}_{\mbox{Euro}}(x) + b_{\text{Ocean}}\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot\mathbb{1}_{\mbox{Amer}}(x) + 15.9\cdot\mathbb{1}_{\mbox{Asia}}(x)
-+ 22.8\cdot\mathbb{1}_{\mbox{Euro}}(x) + 25.9\cdot\mathbb{1}_{\mbox{Ocean}}(x)\\
-&= 54.8 + 18.8\cdot 0 + 15.9\cdot 1 + 22.8\cdot 0 + 25.9\cdot 0\\
-&= 54.8 + 15.9\\
-&= 70.7
-\end{align}
-$$
-
-i.e. in this case, only the indicator function $\mathbb{1}_{\mbox{Asia}}(x)$ is equal to 1, but all others are 0. Recall that 70.7 corresponds to the group mean life expectancy for all countries in Asia in Table \@ref(tab:continent-mean-life-expectancies). The same logic applies to $b_{\text{Euro}} = 22.8$ and $b_{\text{Ocean}} = 25.9$; they correspond to the "offset" in mean life expectancy for countries in Europe and Oceania, relative to the mean life expectancy of the baseline group for comparison of African countries.
-
-Let's generalize this idea a bit. If we fit a linear regression model using a categorical explanatory variable $x$ that has $k$ levels, a regression model will return an intercept and $k - 1$ "slope" coefficients. When $x$ is a numerical explanatory variable the interpretation is of a "slope" coefficient, but when $x$ is categorical the meaning is a little trickier. They are *offsets* relative to the baseline. 
-
-In our case, since there are $k = 5$ continents, the regression model returns an intercept corresponding to the baseline for comparison Africa and $k - 1 = 4$ slope coefficients corresponding to the Americas, Asia, Europe, and Oceania. Africa was chosen as the baseline by R for no other reason than it is first alphabetically of the 5 continents. You can manually specify which continent to use as baseline instead of the default choice of whichever comes first alphabetically, but we leave that to a more advanced course. (The `forcats` package is particularly nice for doing this and we encourage you to explore using it.)
-
-
-
-```{block, type='learncheck', purl=FALSE}
-**_Learning check_**
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Fit a new linear regression using `lm(gdpPercap ~ continent, data = gapminder2007)` where `gdpPercap` is the new outcome variable $y$. Get information about the "best-fitting" line from the regression table by applying the `summary()` function. How do the regression results match up with the results from your exploratory data analysis above? 
-
-```{block, type='learncheck', purl=FALSE}
-```
-
-### Observed/fitted values and residuals {#model2points}
-
-Recall in Subsection \@ref(model1points) we defined the following three concepts:
-
-1. Observed values $y$, or the observed value of the outcome variable
-1. Fitted values $\widehat{y}$, or the value on the regression line for a given $x$ value
-1. Residuals $y - \widehat{y}$, or the error between the observed value and the fitted value
-
-Let's use similar code (from Subsection \@ref(model1points)) to obtain these values for the `lifeExp_model` fit to the `gapminder2007` dataset: 
-
-```{r}
-lifeExp_model_data <- gapminder2007 %>% 
-  select(country, lifeExp, continent) %>% 
-  mutate(lifeExp_hat = fitted(lifeExp_model),
-         residual = residuals(lifeExp_model))
-```
-
-```{r lifeExp-reg-points, echo=FALSE}
-lifeExp_model_data %>%
-  slice(1:10) %>%
-  knitr::kable(
-    digits = 3,
-    caption = "Regression points (First 10 out of 142 countries)",
-    booktabs = TRUE
-  ) %>% 
-  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16), 
-                latex_options = c("HOLD_position"))
-```
-
-Observe in Table \@ref(tab:lifeExp-reg-points) that `lifeExp_hat` contains the fitted values $\hat{y} = \widehat{lifeExp}$. If you look closely, there are only 5 possible values for `lifeExp_hat`. These correspond to the five mean life expectancies for the 5 continents that we displayed in Table \@ref(tab:continent-mean-life-expectancies) and computed using the "Estimate" column of the regression results in Table \@ref(tab:catxplot4b). 
-
-The `residual` column is simply $y - \widehat{y}$ = `lifeexp - lifeexp_hat`.
-These values can be interpreted as that particular country's deviation from the
-mean life expectancy of the respective continent's mean. For example, the first
-row of Table \@ref(tab:lifeExp-reg-points) corresponds to Afghanistan, and the residual of 
-$y - \widehat{y} = 43.8 - 70.7 = -26.9$ is telling us that Afghanistan's life expectancy is a whopping 26.9 years lower than the mean life expectancy of all Asian countries. This can in part be explained by the many years of war that country has suffered.
-
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-**_Learning check_**
-\vspace{-0.25in}
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Using either the sorting functionality of RStudio's spreadsheet viewer or using the data wrangling tools you learned in Chapter \@ref(wrangling), identify the five countries with the five smallest (most negative) residuals? What do these negative residuals say about their life expectancy relative to their continents?
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Repeat this process, but identify the five countries with the five largest (most positive) residuals. What do these positive residuals say about their life expectancy relative to their continents?
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-\vspace{-0.25in}
-```
+Investigating the residuals of these linear regressions is usually a good idea, but I will leave that for your Econometric classes. If you want to see how to explore the residuals in R, you can look [here](https://nustat.github.io/intro-stat-ds/5-regression.html#model1points).
 
 
 
@@ -1024,9 +474,9 @@ As we suggested in Subsection \@ref(model1EDA), interpreting coefficients that a
 
 ### Correlation is not necessarily causation {#correlation-is-not-causation}
 
-You'll note throughout this chapter we've been very cautious in making statements of the "associated effect" of explanatory variables on the outcome variables, for example our statement from Subsection \@ref(model1table) that "for every increase of 1 unit in `bty_avg`, there is an *associated* increase of, *on average*, `r coefs[2,1]` units of `score`." We stay this because we are careful not to make *causal* statements. So while beauty score `bty_avg` is positively correlated with teaching `score`, does it directly cause effects on teaching score.
+You'll note throughout this chapter we've been very cautious in making statements of the "associated effect" of explanatory variables on the outcome variables, for example our statement from Subsection \@ref(model1table) that "for every increase of 1 unit in `ann_avg_job_growth_2004_2013`, there is an *associated* increase of, *on average*, `r coefs[2,1]` units of `kfr_pooled_p25`." We say this because we are careful not to make *causal* statements. So while average job growth rate `ann_avg_job_growth_2004_2013` is positively correlated with teaching `kfr_pooled_p25`, it does not imply that it directly cause mobility to increase.
 
-For example, let's say an instructor has their `bty_avg` reevaluated, but only after taking steps to try to boost their beauty score. Does this mean that they will suddenly be a better instructor? Or will they suddenly get higher teaching scores? Maybe? 
+For example, let's say a neighbrhood has their `ann_avg_job_growth_2004_2013` increase, but only after taking steps to try to boost public investment in the area. Does this mean that they will suddenly be a better neighborhood for kids of low income parents? Maybe? 
 
 Here is another example, a not-so-great medical doctor goes through their medical records and finds that patients who slept with their shoes on tended to wake up more with headaches. So this doctor declares "Sleeping with shoes on cause headaches!" 
 
@@ -1054,141 +504,227 @@ So as we said, alcohol will both cause people to be more likely to sleep with th
 Establishing causation is a tricky problem and frequently takes either carefully designed experiments or methods to control for the effects of potential confounding variables.  Both these approaches attempt either to remove all confounding variables or take them into account as best they can, and only focus on the behavior of an outcome variable in the presence of the levels of the other variable(s). Be careful as you read studies to make sure that the writers aren't falling into this fallacy of correlation implying causation.  If you spot one, you may want to send them a link to [Spurious Correlations](http://www.tylervigen.com/spurious-correlations).
 
 
-### Best-fitting line {#leastsquares}
-
-Regression lines are also known as "best-fitting" lines. But what do we mean by "best"? Let's unpack the criteria that is used in regression to determine "best." Recall Figure \@ref(fig:numxplot4), where for an instructor with a beauty score of $x = 7.333$ we mark the *observed value* $y$ with a circle, the *fitted value* $\widehat{y}$ with a square, and the *residual* $y - \widehat{y}$ with an arrow.
-
-We re-display Figure \@ref(fig:numxplot4) in the top-left plot of Figure \@ref(fig:best-fitting-line). Furthermore, let's repeat this for three more arbitrarily chosen course's instructors:
-
-1. A course whose instructor had a "beauty" score $x$ = 2.333 and teaching score $y$ = 2.7. The residual in this case is $2.7 - 4.036 = -1.336$, which we mark with a new `r if_else(!knitr::is_latex_output(), "blue", "")` arrow in the top-right plot.
-1. A course whose instructor had a "beauty" score $x = 3.667$ and teaching score $y = 4.4$. The residual in this case is $4.4 - 4.125 = 0.2753$, which we mark with a new `r if_else(!knitr::is_latex_output(), "blue", "")` arrow in the bottom-left plot.
-1. A course whose instructor had a "beauty" score $x = 6$ and teaching score $y = 3.8$. The residual in this case is $3.8 - 4.28 = -0.4802$, which we mark with a new `r if_else(!knitr::is_latex_output(), "blue", "")` arrow in the bottom-right plot.
-
-```{r best-fitting-line, fig.height=8, fig.width=8, echo=FALSE, warning=FALSE, fig.cap="Example of observed value, fitted value, and residual."}
-# First residual
-best_fit_plot <- ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
-  geom_point(size = 0.8, color = "grey") +
-  labs(x = "Beauty Score", y = "Teaching Score") +
-  geom_smooth(method = "lm", se = FALSE) +
-  annotate("point", x = x, y = y, col = "red", size = 2) +
-  annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 2) +
-  annotate("segment", x = x, xend = x, y = y, yend = y_hat, color = "blue",
-           arrow = arrow(type = "closed", length = unit(0.02, "npc")))
-p1 <- best_fit_plot + labs(title = "First instructor's residual")
-# Second residual
-index <- which(evals_ch5$bty_avg == 2.333 & evals_ch5$score == 2.7)
-target_point <- score_model_data %>% 
-  slice(index)
-
-x <- target_point$bty_avg
-y <- target_point$score
-y_hat <- target_point$score_hat
-resid <- target_point$residual
-
-best_fit_plot <- best_fit_plot +
-  annotate("point", x = x, y = y, col = "red", size = 2) +
-  annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 2) +
-  annotate("segment", x = x, xend = x, y = y, yend = y_hat, color = "blue",
-           arrow = arrow(type = "closed", length = unit(0.02, "npc")))
-p2 <- best_fit_plot + labs(title = "Adding second instructor's residual")
-# Third residual
-index <- which(evals_ch5$bty_avg == 3.667 & evals_ch5$score == 4.4)
-target_point <- score_model_data %>% 
-  slice(index)
-x <- target_point$bty_avg
-y <- target_point$score
-y_hat <- target_point$score_hat
-resid <- target_point$residual
-best_fit_plot <- best_fit_plot +
-  annotate("point", x = x, y = y, col = "red", size = 2) +
-  annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 2) +
-  annotate("segment", x = x, xend = x, y = y, yend = y_hat,
-           color = "blue",
-           arrow = arrow(type = "closed", length = unit(0.02, "npc")))
-p3 <- best_fit_plot + labs(title = "Adding third instructor's residual")
-index <- which(evals_ch5$bty_avg == 6 & evals_ch5$score == 3.8)
-target_point <- score_model_data %>% 
-  slice(index)
-x <- target_point$bty_avg
-y <- target_point$score
-y_hat <- target_point$score_hat
-resid <- target_point$residual
-best_fit_plot <- best_fit_plot +
-  annotate("point", x = x, y = y, col = "red", size = 2) +
-  annotate("point", x = x, y = y_hat, col = "red", shape = 15, size = 2) +
-  annotate("segment", x = x, xend = x, y = y, yend = y_hat, color = "blue",
-           arrow = arrow(type = "closed", length = unit(0.02, "npc")))
-p4 <- best_fit_plot + labs(title = "Adding fourth instructor's residual")
-p1 + p2 + p3 + p4 + plot_layout(nrow = 2)
-```
-
-Now say we repeated this process of computing residuals for all 463 courses' instructors, then we squared all the residuals, and then we summed them. We call this quantity the *sum of squared residuals*\index{sum of squared residuals} and it is a measure of the _lack of fit_ of a model. Larger values of the sum of squared residuals indicate a bigger lack of fit. This corresponds to a worse fitting model.
-
-If the regression line fits all the points perfectly, then the sum of squared residuals is 0. This is because if the regression line fits all the points perfectly, then the fitted value $\widehat{y}$ equals the observed value $y$ in all cases, and hence the residual $y-\widehat{y}$ = 0 in all cases, and the sum of even a large number of 0's is still 0.
-
-Furthermore, of all possible lines we can draw through the cloud of 463 points, the regression line minimizes this value. In other words, the regression and its corresponding fitted values $\widehat{y}$ minimizes the sum of the squared residuals:
-
-$$
-\sum_{i=1}^{n}(y_i - \widehat{y}_i)^2
-$$
-
-Let's use our data wrangling tools from Chapter \@ref(wrangling) to compute the sum of squared residuals exactly:
-
-```{r}
-# Fit regression model:
-score_model <- lm(score ~ bty_avg, data = evals_ch5)
-
-# Get regression points:
-score_model_data <- evals_ch5 %>% 
-  select(score, bty_avg) %>% 
-  mutate(score_hat = fitted(score_model),
-         residual = residuals(score_model)) %>% 
-  rownames_to_column("ID")
-
-# Compute sum of squared residuals
-score_model_data %>%
-  mutate(squared_residuals = residual^2) %>%
-  summarize(sum_of_squared_residuals = sum(squared_residuals))
-```
-
-Any other straight line drawn in the figure would yield a sum of squared residuals greater than 132. This is a mathematically guaranteed fact that you can prove using calculus and linear algebra. That's why alternative names for the linear regression line are the *best-fitting line* as well as the *least-squares line*. Why do we square the residuals (i.e. the arrow lengths)? We do this so that both positive and negative deviations of the same amount are treated equally.
-
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-**_Learning check_**
-\vspace{-0.25in}
-```
-
-**`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`** Note in the following plot there are 3 points marked with dots along with:
-
-* The "best" fitting solid regression line `r if_else(knitr::is_latex_output(), "", "in blue")`
-* An arbitrarily chosen dotted `r if_else(knitr::is_latex_output(), "", "red")` line 
-* Another arbitrarily chosen dashed `r if_else(knitr::is_latex_output(), "", "green")` line
-
-```{r three-lines, fig.cap="Regression line and two others.", out.width="80%", echo=FALSE}
-example <- tibble(
-  x = c(0, 0.5, 1),
-  y = c(2, 1, 3)
-)
-ggplot(example, aes(x = x, y = y)) +
-  geom_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
-  geom_hline(yintercept = 2.5, col = "red", linetype = "dotted", size = 1) +
-  geom_abline(intercept = 2, slope = -1, col = "forestgreen", 
-              linetype = "dashed", size = 1) +
-  geom_point(size = 4)
-```
-
-Compute the sum of squared residuals by hand for each line and show that of these three lines, the regression line `r if_else(knitr::is_latex_output(), "", "in blue")` has the smallest value.
-
-
-```{block, type='learncheck', purl=FALSE}
-\vspace{-0.25in}
-\vspace{-0.25in}
-```
-
 ***
 
+
+## Two numerical explanatory variables {#model3}
+
+Let's first consider a *multiple regression* model with two numerical explanatory variables. We will continue with our previous example coming from the `atlas` data. 
+
+In this section, we'll fit a regression model where we have 
+
+1. A numerical outcome variable $y$, the mobility measure for children of parents in the percentile 25th.
+1. Two explanatory variables:
+    1. One numerical explanatory variable $x_1$, average job growth rate between 2003 and 2014.
+    1. Another numerical explanatory variable $x_2$, the percentage of the population below the poverty line in 2010.
+
+
+### Exploratory data analysis {#model3EDA}
+
+Let's do something similar to what we did before, but include the variable of the share of the population below the poverty line in 2010 `poor_share2010` in the data that we keep track off, and call it `atlas_mob_jobs_poor`.
+
+```{r, warning=FALSE, message=FALSE}
+atlas_mob_jobs_poor <- atlas %>%
+  select(tract, county, state, kfr_pooled_p25, ann_avg_job_growth_2004_2013, poor_share2010)
+```
+
+Recall the three common steps in an exploratory data analysis we saw in Subsection \@ref(model1EDA):
+
+1. Looking at the raw data values.
+1. Computing summary statistics.
+1. Creating data visualizations.
+
+Let us know skim the data with the `skim()` function:
+
+```{r, eval=FALSE}
+atlas_mob_jobs_poor %>%
+  select(kfr_pooled_p25, ann_avg_job_growth_2004_2013, poor_share2010) %>%
+  skim()
+```
+
+```
+Skim summary statistics
+ n obs: 73278 
+ n variables: 2 
+── Variable type:numeric ───────────────────────────────────────────────────────
+ variable missing complete   n mean   sd   p0  p25  p50 p75 p100
+  kfr_pooled_p25                    1267         0.983 34443.     8169.      0     28973      33733.      39167.     105732.
+    ann_avg_job_growth_2004_2013      2614         0.964     0.0153    0.0762 -0.607    -0.0189     0.00850     0.0410      1.34  
+   poor_share2010                     345         0.995     0.151     0.127   0         0.0591     0.116       0.205       1
+```
+
+Observe the summary statistics for the min and max of the variable `poor_share2010` are 0 and 1, respectively. This should be a **flag** for you that the share is once more measured as 0 being 0\% and 1 being 100\%. Note that the average share of population living below the poverty line in 2010 is 15.1\%, and that 25% of neighborhoods have a poverty share of 5.91\% or less, while 75% of neighborhoods had a poverty share of 20.5\% or less.
+
+Since our outcome variable `kfr_pooled_p25` and the explanatory variables `ann_avg_job_growth_2004_2013` and `poor_share2010` are numerical, we can compute the correlation coefficient between the different possible pairs of these variables. First, we can run the `cor()` command as seen in Subsection \@ref(model1EDA) twice, once for each explanatory variable:
+
+```{r, eval=FALSE}
+cor(atlas_mob_jobs_poor$kfr_pooled_p25, atlas_mob_jobs_poor$ann_avg_job_growth_2004_2013, use = "pairwise.complete.obs")
+
+cor(atlas_mob_jobs_poor$kfr_pooled_p25, atlas_mob_jobs_poor$poor_share2010, use = "pairwise.complete.obs")
+```
+
+Or we can simultaneously compute them by returning a *correlation matrix* which we display in Table \@ref(tab:model3-correlation). \index{correlation (coefficient)} We can read off the correlation coefficient for any pair of variables by looking them up in the appropriate row/column combination.
+
+```{r, eval=FALSE}
+atlas_mob_jobs_poor %>%
+  select(kfr_pooled_p25, ann_avg_job_growth_2004_2013, poor_share2010) %>% 
+  cor()
+```
+```{r model3-correlation, echo=FALSE}
+atlas_mob_jobs_poor %>% 
+  select(kfr_pooled_p25, ann_avg_job_growth_2004_2013, poor_share2010) %>% 
+  cor(use = "pairwise.complete.obs") %>% 
+  knitr::kable(
+    digits = 3,
+    caption = "Correlation coefficients between mobility, job growth and poverty rate.", 
+    booktabs = TRUE
+  ) %>% 
+  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
+                latex_options = c("hold_position"))
+```
+
+For example, the correlation coefficient of:
+
+1. `kfr_pooled_p25` with itself is 1 as we would expect based on the definition of the correlation coefficient.
+1. `kfr_pooled_p25` with `ann_avg_job_growth_2004_2013` is 0.072. This indicates a very weak positive linear relationship.
+1. `kfr_pooled_p25` with `poor_share2010` is -0.544. This is suggestive of a strong negative linear relationship. At least, much stronger than the one between `kfr_pooled_p25` and `ann_avg_job_growth_2004_2013`.
+1. As an added bonus, we can read off the correlation coefficient between the two explanatory variables of `ann_avg_job_growth_2004_2013` and `poor_share2010` as -0.063. 
+
+Let's visualize the relationship of the outcome variable with each of the two explanatory variables in two separate plots in Figure \@ref(fig:2numxplot1).
+
+```{r, eval=FALSE}
+ggplot(atlas_mob_jobs_poor, aes(x = ann_avg_job_growth_2004_2013, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Average Job Growth 2003-2014", y = "Mobility for Children of Parents in P25 (in $)", 
+       title = "Mobility and job growth") +
+  geom_smooth(method = "lm", se = FALSE)
+  
+ggplot(atlas_mob_jobs_poor, aes(x = poor_share2010, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Proverty Share in 2010", y = "Mobility for Children of Parents in P25 (in $)", 
+       title = "Mobility and poverty share") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+```{r 2numxplot1, echo=FALSE, fig.cap="Relationship between mobility and job growth/poverty share."}
+model3_mob_jobs <- ggplot(atlas_mob_jobs_poor, aes(x = ann_avg_job_growth_2004_2013, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Average Job Growth 2003-2014", y = "Mobility for Children of Parents in P25 (in $)", 
+       title = "Mobility and job growth") +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(0, 60000))
+model3_mob_pov <- ggplot(atlas_mob_jobs_poor, aes(x = poor_share2010, y = kfr_pooled_p25)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Proverty Share in 2010", y = "Mobility for Children of Parents in P25 (in $)", 
+       title = "Mobility and poverty share") +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(0, 60000)) +
+  theme(axis.title.y = element_blank())
+model3_mob_jobs + model3_mob_pov
+```
+
+Observe there is a weak positive relationship between mobility and job growth: as job growth increases so also does mobility but in a fairly flat rate.  This is consistent with the weak positive correlation coefficient of 0.072 we computed earlier. In the case of poverty share, the strong negative relationship appear here, which depicts the -0.544 correlation coefficient that we estimated above. 
+
+However, the two plots in Figure \@ref(fig:2numxplot1) only focus on the relationship of the outcome variable with each of the two explanatory variables *separately*. To visualize the *joint* relationship of all three variables simultaneously, we need a 3-dimensional (3D) scatterplot as seen in Figure \@ref(fig:3D-scatterplot). Because there are many datapoints in the `atlas` data, I subset this to data for the state of North Carolina (`state==37`). These points in the `atlas_mob_jobs_poor` data frame are marked with a `r if_else(knitr::is_latex_output(), "", "blue")` point where
+
+1. The numerical outcome variable $y$ `kfr_pooled_p25` is on the vertical axis
+1. The two numerical explanatory variables, $x_1$ `poor_share2010` and $x_2$ `ann_avg_job_growth_2004_2013`, are on the two axes that form the bottom plane.
+
+```{r 3D-scatterplot, echo=FALSE, fig.cap="3D scatterplot and regression plane.", out.width = "90%"}
+mob_model2 <- lm(kfr_pooled_p25 ~ ann_avg_job_growth_2004_2013 + poor_share2010, data = atlas%>%filter(state==37))
+plotPlane(mob_model2, "poor_share2010", "ann_avg_job_growth_2004_2013", col=rgb(0,0,1,0.1), drawArrows=TRUE, alength=0, acol="red", alty=1,alwd=1, theta=25, phi=0,
+          x1lab = "Poor Share 2010", x2lab = "Avg.Job Growth",
+          ylab = "Mobility P25")
+```
+
+Furthermore, we also include the *regression plane*\index{regression plane}. Recall from above that regression lines are "best-fitting" in that of all possible lines we can draw through a cloud of points, the regression line minimizes the *sum of squared residuals*\index{sum of squared residuals}. This concept also extends to models with two numerical explanatory variables. The difference is instead of a "best-fitting" line, we now have a "best-fitting" plane that similarly minimizes the sum of squared residuals. Head to [here](https://beta.rstudioconnect.com/connect/#/apps/3214/) to open an interactive version of similar plane (using different data) in your browser.
+
+
+### Regression plane {#model3table}
+
+Let's now fit a regression model and get the regression table corresponding to the regression plane in Figure \@ref(fig:3D-scatterplot). We'll consider a model fit with a formula of the form `y ~ x1 + x2`, where `x1` and `x2` represent our two explanatory variables `ann_avg_job_growth_2004_2013` and `poor_share2010`. 
+
+Just like we did in Chapter \@ref(regression), let's get the regression table for this model using our two-step process and display the results in Table \@ref(tab:model3-table-output).
+
+1. We first "fit" the linear regression model using the `lm(y ~ x1 + x2, data)` function and save it in `mob_model2`.
+1. We get the regression table by applying the `summary()` function to `mob_model2`.
+
+```{r, eval=FALSE}
+# Fit regression model:
+mob_model2 <- lm(kfr_pooled_p25 ~ ann_avg_job_growth_2004_2013 + poor_share2010, data = atlas_mob_jobs_poor)
+# Get regression table:
+summary(mob_model2)$coefficients
+```
+```{r model3-table-output, echo=FALSE}
+mob_model2 <- lm(kfr_pooled_p25 ~ ann_avg_job_growth_2004_2013 + poor_share2010, data = atlas_mob_jobs_poor)
+credit_line <- summary(mob_model2)$coefficients[, 1]
+
+summary(mob_model2)$coefficients %>% 
+  knitr::kable(
+    digits = 3,
+    caption = "Multiple regression table", 
+    booktabs = TRUE
+  ) %>% 
+  kable_styling(font_size = ifelse(knitr:::is_latex_output(), 10, 16),
+                latex_options = c("hold_position"))
+```
+
+Let's interpret the three values in the `Estimate` column. First, the `Intercept` value is -\$39,714. This intercept represents the mobility for children of parents in p25 in neighborhoods in which  `ann_avg_job_growth_2004_2013` is 0\% and `poor_share2010` of 0\%. In our data however, the intercept has limited practical interpretation since no neighborhood had `ann_avg_job_growth_2004_2013` or `poor_share2010` values of 0\%. Rather, the intercept is used to situate the regression plane in 3D space. 
+
+Second, the `ann_avg_job_growth_2004_2013` value is \$3,684. Taking into account all the other explanatory variables in our model, if you increase job growth in a neighborhood from 0\% to 100\% (`ann_avg_job_growth_2004_2013` from 0 to 1 unit), there is an associated increase of on average \$3,684 in economic mobility for p25. Notice once more, that this is **equivalent** to saying that increasing job growth by 1\% has an associated average increase of mobility of \$36.84 - which definitely seems like a small amount. Just as we did in Subsection \@ref(model1table), we are cautious to *not* imply causality as we saw in Subsection \@ref(correlation-is-not-causation) that "correlation is not necessarily causation." We do this merely stating there was an *associated* increase. 
+
+Furthermore, we preface our interpretation with the statement "taking into account all the other explanatory variables in our model."  Here, by all other explanatory variables we mean `poor_share2010`. We do this to emphasize that we are now jointly interpreting the associated effect of multiple explanatory variables in the same model at the same time. 
+
+Third, `poor_share2010` = -\$36,371. Taking into account all the other explanatory variables in our model, for every increase of one unit in the variable `poor_share2010`, in other words decreasing the share poor in a neighborhood from 0\% to 100\%, there is an associated decrease of on average \$36,371 in mobility. Once more, this is equivalent to saying that a reduction of 1\% in the share poor is associated with an increase of \$363.71 in economic mobility.
+
+Putting these results together, the equation of the regression plane that gives us fitted values $\widehat{y}$ = $\widehat{\text{mobility}}$ is:
+
+$$
+\begin{aligned}
+\widehat{y} &= b_0 + b_1 \cdot x_1 +  b_2 \cdot x_2\\
+\widehat{\text{mobility}} &= b_0 + b_{\text{avg job growth}} \cdot \text{avg job growth} + b_{\text{pov rate}} \cdot \text{pov rate}\\
+&= 39714 + 3684 \cdot\text{avg job growth} - 36371 \cdot\text{pov rate}
+\end{aligned}
+$$
+
+Recall in the right-hand plot of Figure \@ref(fig:2numxplot1) that when plotting the relationship between `kfr_pooled_p25` and `poor_share2010` in isolation, there appeared to be a *positive* relationship of. In the last discussed multiple regression however, when *jointly* modeling the relationship between `kfr_pooled_p25`, `ann_avg_job_growth_2004_2013`, and `poor_share2010`, there appears to be a *weaker* positive relationship of `kfr_pooled_p25` and `ann_avg_job_growth_2004_2013` as evidenced by the slope for `ann_avg_job_growth_2004_2013` of \$3,684 versus the initial \$7,783.  
+
+
+## How to read p-values
+
+Now that you know what the **coefficients** in a regression table mean, let's briefly discuss now how to asses if the relationship you estimated (the coefficients) estimated with sufficient precision or not. Let's recap our latest regression table. We had this: 
+
+```{r}
+summary(mob_model2)$coefficients
+```
+
+We will now focus on the last column of these tables - the one that says **Pr(>|t|)**. These numbers are called **p-values**. This is a big topic and I will not do it justice. In fact, I will be very loose in this explanation as this is not a course in statistics, but I do want to give you the intuition for how to read it. If you want to dig more, please see [here](https://nustat.github.io/intro-stat-ds/9-sampling.html) and [here](https://nustat.github.io/intro-stat-ds/11-pvalues.html).
+
+In essence, when we run a regression like the one above, we usually have at hand a sample of observations out of a universe. For example, in the `atlas` instance, we do not have information on all the neighborhoods in the US, although we do have most of them in the data. But that means that we could have ended with a different set of observations (or neighborhoods) in an alternative world that is slightly different from the one we actually see. 
+
+To assess how much of an issue this is, we use p-values. I will not get into any details of how you can calculate p-values, but the idea is fairly simple: a p-value is the probability that you would observe data that is as extreme as the data you do if, in fact, the true slope (or coefficient) was zero.
+
+Put another way, if we imagine that there is absolutely **no real** relationship between our variable(s) $x$ and our outcome $y$, how often would we find data that looks like this or even more extreme in the apparent relationship? The answer is the p-value. Why is that useful? Because if the p-value is sufficiently low it is a very simple way to assess our confidence in the slope we are estimating. 
+
+:::: {.blackbox data-latex=""}
+::: {.center data-latex=""}
+**Important!**
+:::
+
+**p-values**: probability that you would observe data that is as extreme as the data you do if, in fact, the true slope (or coefficient) were zero.
+
+**interpretation**: rule of thumb is to say that numbers below 0.05 are evidence that the slope is *not* produced by random chance.
+::::
+
+
+### An Example
+
+Let's present our latest regression table for the multivariate case once more. We had this table: 
+
+```{r}
+summary(mob_model2)$coefficients
+```
+
+Notice that the **p-values** for all three estimates (the intercept, and our coefficients for `ann_avg_job_growth_2004_2013` and `poor_share2010`) are 0. What does that mean? Well, that means that it would be very very unlikely that we could get data like the one we have (or more extreme) if the intercept was 0, or if the coefficient of `ann_avg_job_growth_2004_2013` were 0, or if the coefficient for `poor_share2010` was 0. That is, in a loose way, we believe these estimates are not just coincidence. If those numbers would be higher than 0.05 we should perhaps trust those numbers a bit less, as there would be a higher probability that they were produced almost by chance.
 
 
 ## Conclusion
@@ -1198,8 +734,4 @@ Compute the sum of squared residuals by hand for each line and show that of thes
 
 As we suggested in Subsection \@ref(model1EDA), interpreting coefficients that are not close to the extreme values of -1, 0, and 1 can be somewhat subjective. To help develop your sense of correlation coefficients, we suggest you play the following 80's-style video game called "Guess the correlation" at http://guessthecorrelation.com/.
 
-
-### What's to come?
-
-In this chapter, you've studied the term _basic regression_, where you fit models that only have one explanatory variable. In Chapter \@ref(multiple-regression), we'll study *multiple regression*, where our regression models can now have more than one explanatory variable! In particular, we'll consider two scenarios: regression models with one numerical and one categorical explanatory variable and regression models with two numerical explanatory variables. This will allow you to construct more sophisticated and more powerful models, all in the hopes of better explaining your outcome variable $y$.
 
