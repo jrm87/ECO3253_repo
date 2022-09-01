@@ -23,7 +23,7 @@
 <meta name="author" content="Jonathan Moreno-Medina" />
 
 
-<meta name="date" content="2022-08-29" />
+<meta name="date" content="2022-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -261,6 +261,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="wrangling.html"><a href="wrangling.html#conclusion-2"><i class="fa fa-check"></i><b>4.5</b> Conclusion</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="wrangling.html"><a href="wrangling.html#additional-resources-2"><i class="fa fa-check"></i><b>4.5.1</b> Additional resources</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>5</b> Simple and Multivariate Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="regression.html"><a href="regression.html#needed-packages-1"><i class="fa fa-check"></i>Needed packages</a></li>
+<li class="chapter" data-level="5.1" data-path="regression.html"><a href="regression.html#model1"><i class="fa fa-check"></i><b>5.1</b> One numerical explanatory variable</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="regression.html"><a href="regression.html#model1EDA"><i class="fa fa-check"></i><b>5.1.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="5.1.2" data-path="regression.html"><a href="regression.html#model1table"><i class="fa fa-check"></i><b>5.1.2</b> Simple linear regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="regression.html"><a href="regression.html#related-topics"><i class="fa fa-check"></i><b>5.2</b> Related topics</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="regression.html"><a href="regression.html#correlationcoefficient"><i class="fa fa-check"></i><b>5.2.1</b> Correlation coefficient</a></li>
+<li class="chapter" data-level="5.2.2" data-path="regression.html"><a href="regression.html#correlation-is-not-causation"><i class="fa fa-check"></i><b>5.2.2</b> Correlation is not necessarily causation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="regression.html"><a href="regression.html#model3"><i class="fa fa-check"></i><b>5.3</b> Two numerical explanatory variables</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="regression.html"><a href="regression.html#model3EDA"><i class="fa fa-check"></i><b>5.3.1</b> Exploratory data analysis</a></li>
+<li class="chapter" data-level="5.3.2" data-path="regression.html"><a href="regression.html#model3table"><i class="fa fa-check"></i><b>5.3.2</b> Regression plane</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="regression.html"><a href="regression.html#how-to-read-p-values"><i class="fa fa-check"></i><b>5.4</b> How to read p-values</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="regression.html"><a href="regression.html#an-example"><i class="fa fa-check"></i><b>5.4.1</b> An Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="regression.html"><a href="regression.html#conclusion-3"><i class="fa fa-check"></i><b>5.5</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="regression.html"><a href="regression.html#additional-resources-basic-regression"><i class="fa fa-check"></i><b>5.5.1</b> Additional resources</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -704,6 +731,10 @@ Figure 3.4: Delay scatterplot with alpha=0.2
 <h3><span class="header-section-number">3.3.3</span> Summary<a href="viz.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Scatterplots display the relationship between two numerical variables. They are among the most commonly used plots because they can provide an immediate way to see the trend in one variable versus another. However, if you try to create a scatterplot where either one of the two variables is not numerical, you might get strange results. Be careful!</p>
 <p>With medium to large data sets, you may need to play around with the different modifications one can make to a scatterplot. This tweaking is often a fun part of data visualization, since you’ll have the chance to see different relationships come about as you make subtle changes to your plots.</p>
+<p>Last thing: remember Figure <a href="viz.html#fig:gapminder">3.1</a>? Here is the code of how we did that. It has a few pieces that you would need to figure out on your own, but you should get the essence by now. In particular, in the first line we pass on a filtered data for the year 2007. I’ll explain that more in the next Section <a href="wrangling.html#wrangling">4</a> on Data Wrangling. Still, try it out!</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="viz.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder<span class="sc">%&gt;%</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>), <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp, <span class="at">size=</span>pop, <span class="at">col=</span>continent)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="viz.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="viz.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;GDP per capita&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Life expectancy&quot;</span>)</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -737,8 +768,8 @@ Figure 3.5: Example histogram.
 <div id="geomhistogram" class="section level3 hasAnchor" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Histograms via geom_histogram<a href="viz.html#geomhistogram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s now present the <code>ggplot()</code> code to plot your first histogram! Unlike with scatterplots and linegraphs, there is now only one variable being mapped in <code>aes()</code>: the single numerical variable <code>temp</code>. The y-aesthetic of a histogram gets computed for you automatically. Furthermore, the geometric object layer is now a <code>geom_histogram()</code></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="viz.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="viz.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="viz.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="viz.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <pre><code>## Warning: Removed 1267 rows containing non-finite values (stat_bin).</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:weather-histogram"></span>
@@ -749,8 +780,8 @@ Figure 3.6: Histogram of mobility for children of p25 in the US.
 </div>
 <p>Let’s unpack the messages R sent us first. The first message is telling us that the histogram was constructed using <code>bins = 30</code>, in other words 30 equally spaced bins. This is known in computer programming as a default value; unless you override this default number of bins with a number you specify, R will choose 30 by default. We’ll see in the next section how to change this default number of bins. The second message is telling us once again that there are some missing values: that because one row has a missing <code>NA</code> value for <code>kfr_pooled_p25</code>, it was omitted from the histogram. R is just giving us a friendly heads up that this was the case.</p>
 <p>Now’s let’s unpack the resulting histogram in Figure <a href="viz.html#fig:weather-histogram">3.6</a>. Observe that values less than $12,000 as well as values above $80,000 are rather rare. However, because of the large number of bins, its hard to get a sense for which range of temperatures is covered by each bin; everything is one giant amorphous blob. So let’s add white vertical borders demarcating the bins by adding a <code>color = "white"</code> argument to <code>geom_histogram()</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="viz.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="viz.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="viz.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="viz.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:weather-histogram-2"></span>
 <img src="_main_files/figure-html/weather-histogram-2-1.png" alt="Histogram of mobility for children of p25 in the US with white borders." width="\textwidth" />
 <p class="caption">
@@ -758,8 +789,8 @@ Figure 3.7: Histogram of mobility for children of p25 in the US with white borde
 </p>
 </div>
 <p>We can now better associate ranges of mobility to each of the bins. We can also vary the color of the bars by setting the <code>fill</code> argument. Run <code>colors()</code> to see all 657 possible choice of colors!</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="viz.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="viz.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="viz.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="viz.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:weather-histogram-3"></span>
 <img src="_main_files/figure-html/weather-histogram-3-1.png" alt="Histogram of mobility for children of p25 in the US with white borders." width="\textwidth" />
 <p class="caption">
@@ -775,8 +806,8 @@ Figure 3.8: Histogram of mobility for children of p25 in the US with white borde
 <li>By adjusting the width of the bins via the <code>binwidth</code> argument to <code>geom_histogram()</code>.</li>
 </ol>
 <p>Using the first method, we have the power to specify how many bins we would like to cut the x-axis up in. As mentioned in the previous section, the default number of bins is 30. We can override this default, to say 40 bins, as follows:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="viz.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
-<span id="cb22-2"><a href="viz.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="viz.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="viz.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-24"></span>
 <img src="_main_files/figure-html/unnamed-chunk-24-1.png" alt="Histogram with 40 bins." width="\textwidth" />
 <p class="caption">
@@ -784,8 +815,8 @@ Figure 3.9: Histogram with 40 bins.
 </p>
 </div>
 <p>Using the second method, instead of specifying the number of bins, we specify the width of the bins by using the <code>binwidth</code> argument in the <code>geom_histogram()</code> layer. For example, let’s set the width of each bin to be 10°F.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="viz.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
-<span id="cb23-2"><a href="viz.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4000</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="viz.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="viz.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4000</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-25"></span>
 <img src="_main_files/figure-html/unnamed-chunk-25-1.png" alt="Histogram with binwidth 10." width="\textwidth" />
 <p class="caption">
@@ -814,13 +845,13 @@ Figure 3.10: Histogram with binwidth 10.
 <div id="geombar" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Barplots<a href="viz.html#geombar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Histograms are tools to visualize the distribution of numerical variables. Another common task is visualize the distribution of a categorical variable. This is a simpler task, as we are simply counting different categories, also known as <em>levels</em>, of a categorical variable. Often the best way to visualize these different counts, also known as <em>frequencies</em>, is with a barplot (also known as a barchart). One complication, however, is how your data is represented: is the categorical variable of interest “pre-counted” or not? For example, run the following code that manually creates two data frames representing a collection of fruit: 3 apples and 2 oranges.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="viz.html#cb24-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
-<span id="cb24-2"><a href="viz.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fruit =</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>)</span>
-<span id="cb24-3"><a href="viz.html#cb24-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-4"><a href="viz.html#cb24-4" aria-hidden="true" tabindex="-1"></a>fruits_counted <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
-<span id="cb24-5"><a href="viz.html#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fruit =</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>),</span>
-<span id="cb24-6"><a href="viz.html#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">number =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb24-7"><a href="viz.html#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="viz.html#cb25-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
+<span id="cb25-2"><a href="viz.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fruit =</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb25-3"><a href="viz.html#cb25-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-4"><a href="viz.html#cb25-4" aria-hidden="true" tabindex="-1"></a>fruits_counted <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
+<span id="cb25-5"><a href="viz.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fruit =</span> <span class="fu">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>),</span>
+<span id="cb25-6"><a href="viz.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">number =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb25-7"><a href="viz.html#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>We see both the <code>fruits</code> and <code>fruits_counted</code> data frames represent the same collection of fruit. Whereas <code>fruits</code> just lists the fruit individually…</p>
 <pre><code>## # A tibble: 5 x 1
 ##   fruit 
@@ -840,8 +871,8 @@ Figure 3.10: Histogram with binwidth 10.
 <div id="barplots-via-geom_bar-or-geom_col" class="section level3 hasAnchor" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> Barplots via geom_bar or geom_col<a href="viz.html#barplots-via-geom_bar-or-geom_col" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s generate barplots using these two different representations of the same basket of fruit: 3 apples and 2 oranges. Using the <code>fruits</code> data frame where all 5 fruits are listed individually in 5 rows, we map the <code>fruit</code> variable to the x-position aesthetic and add a <code>geom_bar()</code> layer.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="viz.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fruits, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> fruit)) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="viz.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="viz.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fruits, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> fruit)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="viz.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:geombar"></span>
 <img src="_main_files/figure-html/geombar-1.png" alt="Barplot when counts are not pre-counted" width="\textwidth" />
 <p class="caption">
@@ -849,8 +880,8 @@ Figure 3.11: Barplot when counts are not pre-counted
 </p>
 </div>
 <p>However, using the <code>fruits_counted</code> data frame where the fruit have been “pre-counted”, we map the <code>fruit</code> variable to the x-position aesthetic as with <code>geom_bar()</code>, but we also map the <code>count</code> variable to the y-position aesthetic, and add a <code>geom_col()</code> layer.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="viz.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fruits_counted, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> fruit, <span class="at">y =</span> number)) <span class="sc">+</span></span>
-<span id="cb28-2"><a href="viz.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="viz.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> fruits_counted, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> fruit, <span class="at">y =</span> number)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="viz.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:geomcol"></span>
 <img src="_main_files/figure-html/geomcol-1.png" alt="Barplot when counts are pre-counted" width="\textwidth" />
 <p class="caption">
@@ -864,8 +895,8 @@ Figure 3.12: Barplot when counts are pre-counted
 </ul>
 <p>Let’s now go back to the <code>atlas</code> data frame and visualize the distribution of the categorical variable <code>state</code>. In other words, let’s visualize the number of neighborhoodsin the data belonging to each state. Recall from Section <a href="getting-started.html#exploredataframes">2.7.4</a> when you first explored the <code>atlas</code> data frame you saw that each row corresponds to a neighborhood. In other words the <code>atlas</code> data frame is more like the <code>fruits</code> data frame than the <code>fruits_counted</code> data frame above, and thus we should use <code>geom_bar()</code> instead of <code>geom_col()</code> to create a barplot. Much like a <code>geom_histogram()</code>, there is only one variable in the <code>aes()</code> aesthetic mapping: the variable <code>state</code> gets mapped to the <code>x</code>-position.</p>
 
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="viz.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href="viz.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="viz.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="viz.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:flightsbar"></span>
 <img src="_main_files/figure-html/flightsbar-1.png" alt="Number of neighborhoods by State in the atlas data using geom_bar" width="\textwidth" />
 <p class="caption">
@@ -900,11 +931,11 @@ Figure 3.13: Number of neighborhoods by State in the atlas data using geom_bar
 <div id="argument-specification" class="section level3 hasAnchor" number="3.6.2">
 <h3><span class="header-section-number">3.6.2</span> Argument specification<a href="viz.html#argument-specification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Run the following two segments of code. First this:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="viz.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href="viz.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
-<p>then this:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="viz.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atlas, <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="viz.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
 <span id="cb31-2"><a href="viz.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p>then this:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="viz.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(atlas, <span class="fu">aes</span>(<span class="at">x =</span> state)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="viz.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <p>You’ll notice that that both code segments create the same barplot, even though in the second segment we omitted the <code>data =</code> and <code>mapping =</code> code argument names. This is because the <code>ggplot()</code> by default assumes that the <code>data</code> argument comes first and the <code>mapping</code> argument comes second. So as long as you specify the data frame in question first and the <code>aes()</code> mapping second, you can omit the explicit statement of the argument names <code>data =</code> and <code>mapping =</code>.</p>
 <p>Going forward for the rest of this book, all <code>ggplot()</code> will be like the second segment above: with the <code>data =</code> and <code>mapping =</code> explicit naming of the argument omitted and the default ordering of arguments respected.</p>
 </div>
