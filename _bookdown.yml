@@ -10,6 +10,7 @@ rmd_files: [
   "03-getting-started.Rmd",
   "02-visualization.Rmd",
   "03-wrangling.Rmd",
+  "05-regression.Rmd",
   "91-appendixA.Rmd",
   "project1.Rmd"
 ]
