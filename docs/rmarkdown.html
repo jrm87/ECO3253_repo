@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Statistical Background | Economics of Public and Social Issues</title>
+  <title>Chapter 6 RMarkdown / Quarto output | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Statistical Background | Economics of Public and Social Issues" />
+  <meta property="og:title" content="Chapter 6 RMarkdown / Quarto output | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Statistical Background | Economics of Public and Social Issues" />
+  <meta name="twitter:title" content="Chapter 6 RMarkdown / Quarto output | Economics of Public and Social Issues" />
   
   <meta name="twitter:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rmarkdown.html"/>
-<link rel="next" href="project1.html"/>
+<link rel="prev" href="regression.html"/>
+<link rel="next" href="appendixA.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -356,52 +356,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appendixA" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">A</span> Statistical Background<a href="appendixA.html#appendixA" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="basic-statistical-terms" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">A.1</span> Basic statistical terms<a href="appendixA.html#basic-statistical-terms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="mean" class="section level3 hasAnchor" number="7.1.1">
-<h3><span class="header-section-number">A.1.1</span> Mean<a href="appendixA.html#mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The mean, also known as (AKA) the average, is the most commonly reported measure of center. It is commonly called the “average” though this term can be a little ambiguous. The mean is the sum of all of the data elements divided by how many elements there are. If we have <span class="math inline">\(n\)</span> data points, the mean is given by: <span class="math display">\[\overline{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}\]</span></p>
-<p>Note that you will often see shorthand notation for a sum of numbers using <span class="math inline">\(\sum\)</span> notation. For example, we could rewrite the formula for <span class="math inline">\(\bar{x}\)</span> as:</p>
-<p><span class="math display">\[\bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}=\frac{\sum_{i = 1}^n x_i}{n}\]</span></p>
-<p>We’ve simply replaced the subscript on each <span class="math inline">\(x\)</span> with a generic index <span class="math inline">\(i\)</span>, and use the <span class="math inline">\(\sum\)</span> notation to indicate we are summing <span class="math inline">\(x\)</span>s with indices (i.e. subscripts) that go from 1 to <span class="math inline">\(n\)</span>. When summing numbers in statistics, we’re almost always dealing with indices that start with the value 1 and go up to a value equal to a sample size (e.g. <span class="math inline">\(n\)</span>), so often you will see an even more shorthand version, where it’s assumed you’re summing from <span class="math inline">\(i = 1\)</span> to <span class="math inline">\(i = n\)</span>:</p>
-<p><span class="math display">\[\bar{x} = \frac{\sum x_i}{n}\]</span></p>
-</div>
-<div id="median" class="section level3 hasAnchor" number="7.1.2">
-<h3><span class="header-section-number">A.1.2</span> Median<a href="appendixA.html#median" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The median is calculated by first sorting a variable’s data from smallest to largest. After sorting the data, the middle element in the list is the <strong>median</strong>. If the middle falls between two values, then the median is the mean of those two values.</p>
-</div>
-<div id="standard-deviation" class="section level3 hasAnchor" number="7.1.3">
-<h3><span class="header-section-number">A.1.3</span> Standard deviation<a href="appendixA.html#standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We will next discuss the <strong>standard deviation</strong> of a sample dataset pertaining to one variable. The formula can be a little intimidating at first but it is important to remember that it is essentially a measure of how far to expect a given data value is from its mean:</p>
-<p><span class="math display">\[Standard \, deviation = \sqrt{\frac{(x_1 - \overline{x})^2 + (x_2 - \overline{x})^2 + \cdots + (x_n - \overline{x})^2}{n - 1}} = \sqrt{\frac{\sum_{i= 1}^n(x_i - \overline{x})^2 }{n - 1}}\]</span></p>
-</div>
-<div id="five-number-summary" class="section level3 hasAnchor" number="7.1.4">
-<h3><span class="header-section-number">A.1.4</span> Five-number summary<a href="appendixA.html#five-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>five-number summary</strong> consists of five values: minimum, first quartile AKA 25<sup>th</sup> percentile, second quartile AKA median AKA 50<sup>th</sup> percentile, third quartile AKA 75<sup>th</sup>, and maximum. The quartiles are calculated as</p>
-<ul>
-<li>first quartile (<span class="math inline">\(Q_1\)</span>): the median of the first half of the sorted data</li>
-<li>third quartile (<span class="math inline">\(Q_3\)</span>): the median of the second half of the sorted data</li>
-</ul>
-<p>The <em>interquartile range</em> is defined as <span class="math inline">\(Q_3 - Q_1\)</span> and is a measure of how spread out the middle 50% of values is. The five-number summary is not influenced by the presence of outliers in the ways that the mean and standard deviation are. It is, thus, recommended for skewed datasets.</p>
-</div>
-<div id="appPercentiles" class="section level3 hasAnchor" number="7.1.5">
-<h3><span class="header-section-number">A.1.5</span> Percentiles or rank<a href="appendixA.html#appPercentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Just as you can sort the values of a variable form smallest to larges and find the middle element to get the median, you are dividing all the values into two groups with the same number of observations.</p>
-<p>If you do that but instead of dividing into 2 groups, you divide it into 4 groups, you get each of the quartiles.</p>
-<p>If you divide the sorted observations into <strong>100 groups</strong> of equal number of observations, you get the <strong>percentiles</strong>. Depending on the application, the percentile can be read as the rank in the distribution.</p>
-</div>
-<div id="appDistributions" class="section level3 hasAnchor" number="7.1.6">
-<h3><span class="header-section-number">A.1.6</span> Distribution<a href="appendixA.html#appDistributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>distribution</strong> of a variable/dataset corresponds to generalizing patterns in the dataset. It often shows how frequently elements in the dataset appear. It shows how the data varies and gives some information about where a typical element in the data might fall. Distributions are most easily seen through data visualization.</p>
-</div>
-<div id="outliers" class="section level3 hasAnchor" number="7.1.7">
-<h3><span class="header-section-number">A.1.7</span> Outliers<a href="appendixA.html#outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Outliers</strong> correspond to values in the dataset that fall far outside the range of “ordinary” values. In regards to a boxplot (by default), they correspond to values below <span class="math inline">\(Q_1 - (1.5 * IQR)\)</span> or above <span class="math inline">\(Q_3 + (1.5 * IQR)\)</span>.</p>
-<p>Note that these terms (aside from <strong>Distribution</strong>) only apply to quantitative variables.</p>
+<div id="rmarkdown" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> RMarkdown / Quarto output<a href="rmarkdown.html#rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>How do you put normal writing, analysis, code and output into one file in a simple way? Enter RMarkdown/Quarto! Throughout this semester you will deliver your projects in the form of a RMarkdown or Quarto file. There are several cool options when you use this type of output, but I will only briefly describe what you need submit your work. You are encourage to dig deeper if you want to <a href="https://rmarkdown.rstudio.com/lesson-1.html">here for RMarkdown</a> and <a href="https://quarto.org/docs/get-started/hello/rstudio.html">here for Quarto</a>. I will focus here on Quarto for practical purposes.</p>
+<blockquote>
+<p>RMarkdown and Quarto are almost the same thing for our purposes. Quarto is a new tool that the folks from RStudio developed, but it uses pretty much the same format as RMarkdown, so I will use them interchangably.</p>
+</blockquote>
+<div id="how-to-create-an-output-file" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> How to create an output file<a href="rmarkdown.html#how-to-create-an-output-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are several options when creating a Quarto file. You would go to the New file symbol (white page with green plus), and select the <strong>Quarto Document</strong> option</p>
+<p><img src="images/quarto_newfile.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Then you select the title for the project you want to create, and add your name for the authorship. Leave all other default options unchanged, including the HTML option. Then click <strong>Create</strong></p>
+<p><img src="images/quarto_newdocument.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>You should have a new Quarto document now. Save it a name by clicking on the floppy disk.</p>
+<p>Now just try to render the file. This will create the final output in a readable fashion. To do that, click on <strong>Render</strong> (it as a blue arrow on the top).</p>
+<div id="error-when-rendering-file" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Error when rendering file<a href="rmarkdown.html#error-when-rendering-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Maybe you clicked on <strong>Render</strong> and got this message in the **Background Jobs” tab, by the console:</p>
+<pre><code>Error in loadNamespace(x) : there is no package called ‘jsonlite’
+Calls: .main ... loadNamespace -&gt; withRestarts -&gt; withOneRestart -&gt; doWithOneRestart
+Execution halted
 
+R installation:
+  Version: 4.2.1
+  Path: /opt/R/4.2.1/lib/R
+  LibPaths:
+    - /cloud/lib/x86_64-pc-linux-gnu-library/4.2
+    - /opt/R/4.2.1/lib/R/library
+  rmarkdown: (None)
+
+The rmarkdown package is not available in this R installation.
+Install with install.packages(&quot;rmarkdown&quot;)</code></pre>
+<p>If that is the case, it’s because the package <code>rmarkdown</code> is not installed. So go ahead and install it by running:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="rmarkdown.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
+<p>Now click on <strong>Render</strong> once more. It should work, and you should see a new html window with your document.</p>
+<p>Once you Render you should see a new pop up window with the output html site, in which this example, would be something like this:</p>
+<p><img src="images/quarto_output.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>You will also this in the tab <strong>Background Jobs</strong>:</p>
+<p><img src="images/quarto_finaldoc.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Notice the text after <em>Browse at:</em>. That is an address that you can use to watch the final output if you cannot see it anymore.</p>
 </div>
+</div>
+<div id="add-new-code" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Add new code<a href="rmarkdown.html#add-new-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You add code by adding ‘chunks’ of code. You do that by clicking on <strong>Insert</strong>, then <strong>Code Chunk</strong>, and then <strong>R</strong>.</p>
+<p>Also, notice that if you add to the first line of the chunk a line like this <code>#| echo:false</code>, then when you render you will not see the code, but only the output of the code. This is convenient when the output is too long or distracting, or when you don’t want to show the code necessarily.</p>
+<p><img src="images/quarto_codechunk.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+</div>
+<div id="add-a-title" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Add a title<a href="rmarkdown.html#add-a-title" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you want to add a new title, just type in the main text the following <code>##</code> (notice the space), and that will give you a Header (or title). You can get subtitles by typing three instead of two pound symbols: <code>###</code>.</p>
+</div>
+<div id="add-an-image" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Add an image<a href="rmarkdown.html#add-an-image" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What if you want to add an image? For example, you might have downloaded an image like this from the Opportunity Atlas website:</p>
+<p><img src="images/fips_tract.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>How do you add it? Well, you need to do it in two steps. The first, is to <strong>upload</strong> the image to the directory. To do that, go to the <strong>Files</strong> tab, and click on <strong>Upload</strong>, and select your image:</p>
+<p><img src="images/quarto_imageupload.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p><img src="images/quarto_imageupload2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>You should now see your image in the <strong>Files</strong> tab. Now, you can add the image to the document by clicking on the image symbol on the top (close to the <strong>Insert</strong> option). Then browse and select the image you just uploaded, add a caption for it, and add it. You should then see it in the main document.</p>
+<p><img src="images/quarto_imageupload3.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p><img src="images/quarto_imageupload4.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+</div>
+<div id="submit-your-work" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Submit your work<a href="rmarkdown.html#submit-your-work" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There is no need to submit anything for <a href="project1.html#project1">Project 1</a>. I will check the RStudio site on Thursday morning, and check your progress on project 1.</p>
+
 </div>
 </div>
 
@@ -412,8 +432,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="project1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendixA.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -444,7 +464,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/91-appendixA.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-rmarkdown.Rmd",
 "text": "Edit"
 },
 "history": {

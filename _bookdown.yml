@@ -11,6 +11,7 @@ rmd_files: [
   "02-visualization.Rmd",
   "03-wrangling.Rmd",
   "05-regression.Rmd",
+  "06-rmarkdown.Rmd",
   "91-appendixA.Rmd",
   "project1.Rmd"
 ]

@@ -35,8 +35,8 @@ tab:model3-correlation
 fig:2numxplot1
 fig:3D-scatterplot
 tab:model3-table-output
-fig:unnamed-chunk-82
-fig:unnamed-chunk-83
+fig:unnamed-chunk-94
+fig:unnamed-chunk-95
 lec1_geomobility
 parental-and-children-income-rank
 interpreting-the-regression-line
@@ -118,6 +118,13 @@ how-to-read-p-values
 an-example
 conclusion-3
 additional-resources-basic-regression
+rmarkdown
+how-to-create-an-output-file
+error-when-rendering-file
+add-new-code
+add-a-title
+add-an-image
+submit-your-work
 appendixA
 basic-statistical-terms
 mean
