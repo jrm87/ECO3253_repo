@@ -28,7 +28,7 @@ The R data file that you will use in this assignment, `atlas.rds`, contains an e
 
 ## Instructions {-}
 
-You will work on RStudio Cloud for this project. Write the narrative within a RMarkdown file in the **project1** tab in RStudio Cloud.
+You will work on RStudio Cloud for this project. Write the narrative within a Quarto/RMarkdown file in the **project1** tab in RStudio Cloud.
 
 The deliverables for Part 1 and Part 2 are the following: 
 
@@ -37,8 +37,7 @@ The deliverables for Part 1 and Part 2 are the following:
 
 > Notice that Part 2 includes Part 1
 
-The Markdown file is where you will write your narrative, run all your analysis, and the output of each code block should be visible. The output should include references, graphs, maps, and tables. 
- 
+I created a Section to help you get up to speed with [Quarto/RMarkdown here](#rmarkdown). The Quarto/RMarkdown file is where you will write your narrative, run all your analysis, and the output of each code block should be visible. The output should include references, graphs, maps, and tables. 
 
 ### Specific questions to address in your narrative {-}
 
