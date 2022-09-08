@@ -72,7 +72,7 @@ Or to see all the variables for that tract:
 View(atlas_lynwood)
 ```
 
-See the cheat-sheet Section \@ref(cheatsheetproject1) below for further help.
+See the [Cheat-sheet Section](#cheatsheetproject1) below for further help.
 
 4.	What is the standard deviation of upward mobility (population-weighted) in your home county? Is it larger or smaller than the standard deviation across tracts in your state? Across tracts in the country? What do you learn from these comparisons?
 
@@ -86,7 +86,7 @@ See the cheat-sheet Section \@ref(cheatsheetproject1) below for further help.
 
 9.	Open question: formulate a hypothesis for why you see the variation in upward mobility for children who grew up in the Census tracts near your home and provide correlational evidence testing that hypothesis.  
 
-For this question, many covariates have been provided to you in the `atlas.rds` file, which are described in the Table under the Data Description section (Section \@ref(description)).  
+For this question, many covariates have been provided to you in the `atlas.rds` file, which are described in the Table under the [Data Description section](#description).  
 
 10.	Putting together all the analyses you did above, what have you learned about the determinants of economic opportunity where you grew up?  Identify one or two key lessons or takeaways that you might discuss with a policymaker or journalist if asked about your hometown. Mention any important caveats to your conclusions; for example, can we conclude that the variable you identified as a key predictor in the question above has a causal effect (i.e., changing it would change upward mobility) based on that analysis? Why or why not?
 
@@ -102,11 +102,11 @@ knitr::include_graphics("images/milwaukee_mob.png")
 knitr::include_graphics("images/la_incratesblack.png")
 ```
 
-*Notes*:  This figure is from the non-technical summary of the Opportunity Atlas and was discussed in Lecture 1.
+*Notes*:  This figure is from the non-technical summary of the Opportunity Atlas and was discussed in Section \@ref(lec1_geomobility).
 
 ***
 
-## Data Description {- description}
+## Data Description {- #description}
 
 The data consist of n = 73,278 U.S. Census tracts.  For more details on the construction of the variables included in this data set, please see [Chetty, Raj, John Friedman, Nathaniel Hendren, Maggie R. Jones, and Sonya R. Porter. 2018. “The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility.”](https://opportunityinsights.org/wp-content/uploads/2018/10/atlas_paper.pdf), NBER Working Paper No. 25147.  
 
