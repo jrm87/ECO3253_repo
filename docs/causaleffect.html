@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 RMarkdown / Quarto output | Economics of Public and Social Issues</title>
+  <title>Chapter 2 The Causal Effect of Neighborhoods | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 RMarkdown / Quarto output | Economics of Public and Social Issues" />
+  <meta property="og:title" content="Chapter 2 The Causal Effect of Neighborhoods | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 RMarkdown / Quarto output | Economics of Public and Social Issues" />
+  <meta name="twitter:title" content="Chapter 2 The Causal Effect of Neighborhoods | Economics of Public and Social Issues" />
   
   <meta name="twitter:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regression.html"/>
-<link rel="next" href="appendixA.html"/>
+<link rel="prev" href="lec1_geomobility.html"/>
+<link rel="next" href="getting-started.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -371,71 +371,203 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rmarkdown" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> RMarkdown / Quarto output<a href="rmarkdown.html#rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>How do you put normal writing, analysis, code and output into one file in a simple way? Enter RMarkdown/Quarto! Throughout this semester you will deliver your projects in the form of a RMarkdown or Quarto file. There are several cool options when you use this type of output, but I will only briefly describe what you need submit your work. You are encourage to dig deeper if you want to <a href="https://rmarkdown.rstudio.com/lesson-1.html">here for RMarkdown</a> and <a href="https://quarto.org/docs/get-started/hello/rstudio.html">here for Quarto</a>. I will focus here on Quarto for practical purposes.</p>
-<blockquote>
-<p>RMarkdown and Quarto are almost the same thing for our purposes. Quarto is a new tool that the folks from RStudio developed, but it uses pretty much the same format as RMarkdown, so I will use them interchangably.</p>
-</blockquote>
-<div id="how-to-create-an-output-file" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> How to create an output file<a href="rmarkdown.html#how-to-create-an-output-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are several options when creating a Quarto file. You would go to the New file symbol (white page with green plus), and select the <strong>Quarto Document</strong> option</p>
-<p><img src="images/quarto_newfile.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Then you select the title for the project you want to create, and add your name for the authorship. Leave all other default options unchanged, including the HTML option. Then click <strong>Create</strong></p>
-<p><img src="images/quarto_newdocument.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>You should have a new Quarto document now. Save it a name by clicking on the floppy disk.</p>
-<p>Now just try to render the file. This will create the final output in a readable fashion. To do that, click on <strong>Render</strong> (it as a blue arrow on the top).</p>
-<div id="error-when-rendering-file" class="section level3 hasAnchor" number="7.1.1">
-<h3><span class="header-section-number">7.1.1</span> Error when rendering file<a href="rmarkdown.html#error-when-rendering-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Maybe you clicked on <strong>Render</strong> and got this message in the **Background Jobs” tab, by the console:</p>
-<pre><code>Error in loadNamespace(x) : there is no package called ‘jsonlite’
-Calls: .main ... loadNamespace -&gt; withRestarts -&gt; withOneRestart -&gt; doWithOneRestart
-Execution halted
-
-R installation:
-  Version: 4.2.1
-  Path: /opt/R/4.2.1/lib/R
-  LibPaths:
-    - /cloud/lib/x86_64-pc-linux-gnu-library/4.2
-    - /opt/R/4.2.1/lib/R/library
-  rmarkdown: (None)
-
-The rmarkdown package is not available in this R installation.
-Install with install.packages(&quot;rmarkdown&quot;)</code></pre>
-<p>If that is the case, it’s because the package <code>rmarkdown</code> is not installed. So go ahead and install it by running:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="rmarkdown.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
-<p>Now click on <strong>Render</strong> once more. It should work, and you should see a new html window with your document.</p>
-<p>Once you Render you should see a new pop up window with the output html site, in which this example, would be something like this:</p>
-<p><img src="images/quarto_output.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>You will also this in the tab <strong>Background Jobs</strong>:</p>
-<p><img src="images/quarto_finaldoc.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Notice the text after <em>Browse at:</em>. That is an address that you can use to watch the final output if you cannot see it anymore.</p>
+<div id="causaleffect" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> The Causal Effect of Neighborhoods<a href="causaleffect.html#causaleffect" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="causaleffect.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>The national map from the Opportunity Atlas shows rates of upward mobility across America The statistic we are focusing on specifically is the average income in adulthood of kids who grow up in families at the 25th percentile of the parental income distribution. The red colors are areas with lower levels of upward mobility and blue colors are areas with higher levels of upward mobility.</p></li>
+<li><p>For instance, we can look at the household income in adulthood for children from low-income families in South Boston.</p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="images/boston_mob.png" alt="Household Income for Children of Low Income Parents in South Boston" width="90%" />
+<p class="caption">
+Figure 2.1: Household Income for Children of Low Income Parents in South Boston
+</p>
 </div>
+<ul>
+<li><p>In areas like Roxbury, you see outcomes that are on par with some of the lowest upward mobility places in the United States.</p></li>
+<li><p>There is significant local variation across Census tracts in South Boston. This type of variation gives us a potential way to learn about what is driving the difference between the blue and the red areas.</p></li>
+</ul>
 </div>
-<div id="add-new-code" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Add new code<a href="rmarkdown.html#add-new-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You add code by adding ‘chunks’ of code. You do that by clicking on <strong>Insert</strong>, then <strong>Code Chunk</strong>, and then <strong>R</strong>.</p>
-<p>Also, notice that if you add to the first line of the chunk a line like this <code>#| echo:false</code>, then when you render you will not see the code, but only the output of the code. This is convenient when the output is too long or distracting, or when you don’t want to show the code necessarily.</p>
-<p><img src="images/quarto_codechunk.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div id="causal-effects-of-neighborhoods-vs.-sorting" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Causal Effects of Neighborhoods vs. Sorting<a href="causaleffect.html#causal-effects-of-neighborhoods-vs.-sorting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>There are two different explanations for the variation in children’s outcomes across areas.</p>
+<ul>
+<li>Sorting</li>
+<li>Causal effects</li>
+</ul></li>
+<li><p>Sorting reflects the simple observation that different people live in different areas. Geographic patterns in upward mobility may reflect the sorting of people across places.</p></li>
+<li><p>If sorting is the main explanation for the patterns we have seen, then the types of policies that we would use to address this issue of equality of opportunity would be people-focused.</p></li>
+<li><p>The causal effects explanation reflects the idea that if we were to take a given child and put that child in the red-colored part of the map versus the blue-colored part of the map, we’d see different outcomes for that given child. Under that causal effect explanation, we might actually want to have policies that target the red-colored places on the map.</p></li>
+</ul>
 </div>
-<div id="add-a-title" class="section level2 hasAnchor" number="7.3">
-<h2><span class="header-section-number">7.3</span> Add a title<a href="rmarkdown.html#add-a-title" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If you want to add a new title, just type in the main text the following <code>##</code> (notice the space), and that will give you a Header (or title). You can get subtitles by typing three instead of two pound symbols: <code>###</code>.</p>
+<div id="identifying-causal-effects-of-neighborhoods" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Identifying Causal Effects of Neighborhoods<a href="causaleffect.html#identifying-causal-effects-of-neighborhoods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>An ideal experiment would be to assign children to neighborhoods at random. Social scientists approximate that sort of ideal experiment with a “quasi-experimental” design, where we come as close to an experiment as we can with the data that we have on-hand.</p></li>
+<li><p>To identify the causal effect of neighborhoods, Chetty and co-authors use a quasi-experimental approach to study three million families who move across Census tracts in observational data. In these data, there are many families who move with their kids across neighborhoods. We exploit variation in the age of the child when a family moves in order to isolate the causal effect of environment.</p></li>
+<li><p>Under an “identification assumption” that makes this as good as an experiment, this research design allows us to estimate the causal effect of neighborhoods on children’s long run outcomes.</p></li>
+<li><p>For example, imagine a hypothetical set of families that moved from Roxbury, where children from low-income families have an average adult income of \23,000 to Savin Hill, where children from low-income families have an average adult income over $40,000, with kids of different ages, starting with families who moved when their child is exactly two years old. The first dot in the figure below plots what our estimates imply about the impact of this move for their earnings.</p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="images/child_move.png" alt="Income Gain from Moving to a Better Neighborhood" width="90%" />
+<p class="caption">
+Figure 2.2: Income Gain from Moving to a Better Neighborhood
+</p>
 </div>
-<div id="add-an-image" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Add an image<a href="rmarkdown.html#add-an-image" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>What if you want to add an image? For example, you might have downloaded an image like this from the Opportunity Atlas website:</p>
-<p><img src="images/fips_tract.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>How do you add it? Well, you need to do it in two steps. The first, is to <strong>upload</strong> the image to the directory. To do that, go to the <strong>Files</strong> tab, and click on <strong>Upload</strong>, and select your image:</p>
-<p><img src="images/quarto_imageupload.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p><img src="images/quarto_imageupload2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>You should now see your image in the <strong>Files</strong> tab. Now, you can add the image to the document by clicking on the image symbol on the top (close to the <strong>Insert</strong> option). Then browse and select the image you just uploaded, add a caption for it, and add it. You should then see it in the main document.</p>
-<p><img src="images/quarto_imageupload3.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p><img src="images/quarto_imageupload4.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>We then repeat that analysis for kids who moved when they’re three, four, five and so on. Those are the other dots in the figure.</p></li>
+<li><p>The figure shows a very clear declining pattern. The later you make that move from Roxbury to Savin Hill, the less of a gain you get.</p></li>
+<li><p>There are three key lessons that you can see from this chart.</p>
+<ul>
+<li>Where you grow up really matters.<br />
+</li>
+<li>Childhood environment seems to matter more than where you live as an adult.</li>
+<li>Every extra year of exposure to a better childhood environment improves kids’ long-term outcomes.</li>
+</ul></li>
+<li><p>We use the data on all three million families who move across all the different neighborhoods in America to see how the age at which a child moves to a place where we see average incomes of kids who grew up there from birth impacts how much of that gain they pick up.</p></li>
+<li><p>We use a linear regression to regress the child’s own income in adulthood on the average incomes of the kids we see in the destination versus the origin Census tract. We run a separate regression for kids who move at each of these different ages.</p></li>
+</ul>
 </div>
-<div id="submit-your-work" class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Submit your work<a href="rmarkdown.html#submit-your-work" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There is no need to submit anything for <a href="project1.html#project1">Project 1</a>. I will check the RStudio site on Thursday morning, and check your progress on project 1.</p>
+<div id="stating-and-assessing-the-identification-assumption-for-the-movers-research-design" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Stating and assessing the identification assumption for the movers research design<a href="causaleffect.html#stating-and-assessing-the-identification-assumption-for-the-movers-research-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Every quasi-experimental design relies on an identification assumption to make it as good as a randomized experiment.</p></li>
+<li><p>In this case, the identification assumption is that the timing of a child’s move to a better or worse area is unrelated to other determinants of the child’s outcomes. Under that assumption, we can interpret the variation as a pure causal effect of moving at different ages.</p></li>
+<li><p>There are two possible concerns in making this assumption.</p></li>
+<li><p>First, the families who move when their children are young may just be different from the families who move when their children are older.</p></li>
+<li><p>To address this first concern, we compare siblings’ outcomes within the same family, in order to control for family effects. We get the same results comparing across siblings within a family, which demonstrates that the results cannot be driven by differences between families who are moving when their kids are young and families who are moving when their kids are old.</p></li>
+<li><p>The second concern with our identification assumption has to do with time-varying factors that are related to where a family moves.</p></li>
+<li><p>To address this second concern, we use differences in neighborhood effects across subgroups to implement what we call “placebo tests.” In the Opportunity Atlas data, there is variation across neighborhoods and subgroups, such as gender, racial group, and so forth that allows us to run this analysis.</p></li>
+<li><p>For example, imagine you have a family that has a son and a daughter. We measure what happens to those kids’ outcomes when they move to a place where boys have particularly good outcomes. We find that their son’s outcomes improve in proportion to the number of years they’re growing up there, but their daughter’s outcomes don’t change at all.</p></li>
+<li><p>We find that kid’s outcomes converge to the full distribution of outcomes that you see in the destination to which they’re moving in a very precise way, which rules out this type of bias.</p></li>
+</ul>
+</div>
+<div id="why-does-upward-mobility-differ-across-areas" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Why Does Upward Mobility Differ Across Areas?<a href="causaleffect.html#why-does-upward-mobility-differ-across-areas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>What is driving these differences in mobility across places? Why do some places produce much better outcomes for disadvantaged kids than others?</li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="images/mob_jobs.png" alt="Income Gain from Moving to a Better Neighborhood" width="90%" />
+<p class="caption">
+Figure 2.3: Income Gain from Moving to a Better Neighborhood
+</p>
+</div>
+<ul>
+<li><p>There’s not much of a relationship between upward mobility and rates of job growth.</p></li>
+<li><p>Some cities with high job growth and low upward mobility are importing talent from other parts of America, so the kids who grew up there aren’t benefiting.</p></li>
+<li><p>High mobility is not fundamentally about indicators of the labor market strength, as measured by variables like job growth as well as wage growth, types of jobs, or types of industry.</p></li>
+</ul>
+</div>
+<div id="the-five-strongest-correlates-of-upward-mobility" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> The Five Strongest Correlates of Upward Mobility<a href="causaleffect.html#the-five-strongest-correlates-of-upward-mobility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>The five strongest correlates of upward mobility that we have found are:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>Segregation</p>
+<ul>
+<li>Places that are more segregated, by race or by income, tend to have significantly lower levels of upward mobility. In very segregated places, like Atlanta, low-income people of all races have poor chances of climbing the income ladder.</li>
+<li>One explanation is that segregation matters because it creates differences in resources, particularly schools.</li>
+<li>A different explanation is that the mechanism is spillovers in mentoring and knowledge.</li>
+</ul></li>
+<li><p>Income Inequality</p>
+<ul>
+<li>Places with a smaller middle class tend to have much less mobility across generations. As we have more inequality within a generation, it might also become harder for kids to climb up across generations.</li>
+</ul></li>
+<li><p>School Quality</p>
+<ul>
+<li>Places with better schools have higher rates of upward mobility.</li>
+</ul></li>
+<li><p>Family Structure</p>
+<ul>
+<li>Areas with more single parents have significantly lower rates of upward mobility. This is the strongest predictor in the data.</li>
+<li>Upward mobility is lower in a community with a lot of single parents, even for children who are growing up in two-parent households. It is not about whether your own parents are married or not, but rather the rate of single-parent households in the broader community.</li>
+</ul></li>
+<li><p>Social Capital</p>
+<ul>
+<li>Social capital is a bit of a nebulous and complicated concept.</li>
+<li>“It takes a village to raise a child.” Will someone else help you out even if you’re not doing well?</li>
+</ul></li>
+</ol>
+<ul>
+<li>These correlational analyses must be interpreted cautiously. It just gives you clues about what might be going on.</li>
+</ul>
+</div>
+<div id="policy-interest-in-increasing-upward-mobility" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Policy Interest in Increasing Upward Mobility<a href="causaleffect.html#policy-interest-in-increasing-upward-mobility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>As a result of putting out these studies in the past four or five years, we have seen a real shift in the national conversation to focus on income mobility and the role of childhood environment, much of it coming through the media.</p></li>
+<li><p>A lot of local areas started to focus on these issues in a very systematic way. One example is Charlotte, N.C.</p></li>
+<li><p>Charlotte is a unique city in that it ranks lowest—50th out of 50—in terms of rates of upward mobility for kids born into low-income families despite being a very successful economy by all traditional measures.</p></li>
+<li><p>Charlotte formed a task force and a commission to focus with all its government agencies, local philanthropies, and so forth to make increasing upward mobility for kids growing up in Charlotte a central priority for the city.</p></li>
+<li><p>Our research group at Harvard has now started to team up with the Charlotte local government and local actors to try to address this problem.</p></li>
+<li><p>The release of the Opportunity Atlas data was really critical for doing this, because those data change the scale of the problem. It allows us to examine data at the level of Census tract, which collapses the scale of the problem.</p></li>
+</ul>
+</div>
+<div id="policies-to-improve-upward-mobility" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Policies to Improve Upward Mobility<a href="causaleffect.html#policies-to-improve-upward-mobility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>There are two different conceptual approaches that try to improve outcomes.</li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="images/improve_mob.png" alt="Two Approaches to Increasing Moibility" width="90%" />
+<p class="caption">
+Figure 2.4: Two Approaches to Increasing Moibility
+</p>
+</div>
+<ul>
+<li><p>The first is a Moving to Opportunity approach. The simplest thing that you can do to help low-income kids do better is to provide them better access to those neighborhoods.</p></li>
+<li><p>A different approach is Place-Based Investments. The idea is to take the places that are in the red colors of the map and turn them blue.</p></li>
+<li><p>There’s no way we’ll ever be able to achieve full scale purely through the Moving to Opportunity approach. Ultimately, the long run path is to improve low-opportunity places.</p></li>
+</ul>
+</div>
+<div id="affordable-housing-policies-in-the-united-states" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Affordable Housing Policies in the United States<a href="causaleffect.html#affordable-housing-policies-in-the-united-states" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>In the U.S., we spend a tremendous amount of money in the US on affordable housing policies to help low-income families move to better neighborhoods.</p></li>
+<li><p>These policies include subsidized housing vouchers to rent better apartments.</p></li>
+<li><p>There are also many efforts to create mixed-income affordable housing development, like the low-income housing tax credit.</p></li>
+<li><p>Are these types of housing policies effective in increasing social mobility? Does this Moving to Opportunity sort of approach work? How can we make it better?</p></li>
+<li><p>A very useful benchmark to start from is to think about the simplest alternative to address any problem, which is to just give people cash. Which policy will have a greater impact on kids’ rates of upward mobility, giving you $1,000 in cash or a $1,000 voucher to move to a higher opportunity neighborhood?</p></li>
+<li><p>The conventional economics answer from a traditional economic point of view is that cash grants of an equivalent dollar amount are strictly better than giving someone a voucher specifically focused on housing.</p></li>
+<li><p>Vouchers work out to be more effective than giving people cash, which violates the standard economic model.</p></li>
+</ul>
+</div>
+<div id="a-framework-for-studying-the-effects-of-housing-vouchers" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> A Framework for Studying the Effects of Housing Vouchers<a href="causaleffect.html#a-framework-for-studying-the-effects-of-housing-vouchers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>What is the impact of giving a family a housing voucher, the $10,000 of assistance to rent an apartment or a house, on kids’ rates of upward mobility that is kids’ earnings in adulthood?</p></li>
+<li><p>Imagine that you have 10,000 different children and we will number them <span class="math inline">\(i=1,…,10000\)</span>. Let us call child <span class="math inline">\(i\)</span>’s earnings <span class="math inline">\(Y_i\)</span>. We are going to define <span class="math inline">\(Y_i (V=1)\)</span> as child i’s earnings if the family gets a housing voucher and <span class="math inline">\(Y_i (V=0)\)</span> as the child’s earnings if the family does not get a voucher.</p></li>
+<li><p><span class="math inline">\(Y_i (V=1)\)</span> and <span class="math inline">\(Y_i (V=0)\)</span> are just two different hypothetical numbers. If your family had gotten a voucher, your earnings are <span class="math inline">\(Y_i (V=1)\)</span>, which might be $20,000 a year in the average case. If your family didn’t get a voucher, your earnings are <span class="math inline">\(Y_i (V=0)\)</span>, which might another number like $15,000 a year.</p></li>
+<li><p>The objective of the empirical analysis is to estimate the difference <span class="math inline">\(Y_i (V=1)-Y_i (V=0)\)</span>. That difference is the causal effect of getting the voucher on kids’ earnings. Let’s call that <span class="math inline">\(G_i\)</span>. My goal is to estimate that <span class="math inline">\(G_i=Y_i (V=1)-Y_i (V=0)\)</span>.</p></li>
+<li><p>The fundamental problem in empirical science is that you don’t observe <span class="math inline">\(Y_i (V=1)\)</span> and <span class="math inline">\(Y_i (V=0)\)</span> for the same person. The gold standard solution that people have come up with in order to solve that problem is to run a randomized experiment.</p></li>
+</ul>
+</div>
+<div id="randomized-experiments" class="section level2 hasAnchor" number="2.11">
+<h2><span class="header-section-number">2.11</span> Randomized Experiments<a href="causaleffect.html#randomized-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Suppose you take those 10,000 kids and you flip a coin to determine if each of them gets a voucher or not. Then you compute the average level of earnings for the 5,000 who randomly got a voucher and the 5,000 who randomly did not get a voucher. The difference between those two averages gives you an estimate of <span class="math inline">\(G_i\)</span>, the average treatment effect of getting a voucher.</p></li>
+<li><p>The randomized experiment works because it ensures that the two groups are identical, except for the fact that one of them got the vouchers and one of them didn’t. Everything else is going to be similar about them, which allows you to isolate just the causal effect of getting the voucher itself.</p></li>
+<li><p>Suppose you just compared the average earnings of people who applied versus people who didn’t. The core problem is that there is no guarantee that any difference in earnings that you see between those two groups is driven by getting the voucher itself.</p></li>
+</ul>
+</div>
+<div id="non-compliance-in-randomized-experiments" class="section level2 hasAnchor" number="2.12">
+<h2><span class="header-section-number">2.12</span> Non-Compliance in Randomized Experiments<a href="causaleffect.html#non-compliance-in-randomized-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>A common practical problem that we face in randomized experiments when we try to do this in the field is called <strong>noncompliance</strong>, when subjects don’t comply with the treatment protocol.</p></li>
+<li><p>For instance, in the voucher case there’s no guarantee that all families given a voucher are going to use it to rent a new apartment.</p></li>
+<li><p>You can adjust the estimated impact for the rate of compliance by dividing the <strong>Estimated Impact</strong> by the <strong>Compliance Rate</strong>:</p></li>
+</ul>
+<p><span class="math display">\[\text{True Effect}=\frac{\text{Estimated Impact}}{\text{Compliance Rate}}\]</span></p>
+<p>In the previous example, we would do</p>
+<p><span class="math display">\[\text{True Effect}=\frac{\text{Estimated Impact}}{\text{Compliance Rate}}=\frac{1000}{0.5}=2000\]</span></p>
+<ul>
+<li>An important issue is that this estimate is the implied effect for the compliers—the families who would comply with the experimental protocol. A separate question is what would the effect have been for the people who chose not to comply? The local average treatment effect (<strong>LATE</strong>) applies to a certain set of <strong>compliers</strong>, but It may not apply to noncompliers. From a policy perspective, we typically care about the treatment effect for the compliers typically.</li>
+</ul>
 
 </div>
 </div>
@@ -447,8 +579,8 @@ Install with install.packages(&quot;rmarkdown&quot;)</code></pre>
           </div>
         </div>
       </div>
-<a href="regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="appendixA.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lec1_geomobility.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-started.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -479,7 +611,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-rmarkdown.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-causaleff-neigh.Rmd",
 "text": "Edit"
 },
 "history": {
