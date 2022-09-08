@@ -7,6 +7,7 @@ rmd_files: [
   "index.Rmd",
   "00-schedule.Rmd",
   "01-intro.Rmd",
+  "02-causaleff-neigh.Rmd",
   "03-getting-started.Rmd",
   "02-visualization.Rmd",
   "03-wrangling.Rmd",
