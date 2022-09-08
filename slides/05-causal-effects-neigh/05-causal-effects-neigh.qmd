@@ -12,6 +12,29 @@ institute: ECO3253, UTSA
 date: "Fall 2022"
 ---
 
+## Plan for today
+
+Reminder: Today is deadline for submission
+
+1. Clarifications about project
+1. Causal effects of neighborhoods
+1. Regression Analysis (work in couples for 15 mins)
+
+## Clarifications for project
+
+1. No need to submit anything. I will use time stamps for your work. Remember you should use the **project1** tab
+
+2. When you create the Quarto/RMarkdown file, **do not change anything besides title and author** between the `---` lines (this is called YAML code).
+
+```
+---
+title: "Project 1"
+author: "Your name here"
+format: html
+editor: visual
+---
+```
+
 ## Causal Effects of Neighborhoods vs. Sorting
 ```{r setup_getting_started, include=FALSE, purl=FALSE}
 library(pacman)
@@ -191,6 +214,10 @@ A few weeks ago Chetty and co-authors published a paper and a website exploring 
 - Moving to Opportunity: Provide Affordable Housing in High-Opportunity Areas
 
 - Place-Based Investments: Increase Upward Mobility in Low-Opportunity Areas
+
+## Check the correlation yourself
+
+Check the section on correlation
 
 # Moving to Opportunity
 
