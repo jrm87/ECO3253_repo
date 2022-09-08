@@ -207,6 +207,17 @@ A few weeks ago Chetty and co-authors published a paper and a website exploring 
 
 - [https://socialcapital.org/](https://socialcapital.org/)
 
+## Check the correlation yourself
+
+Go to the Section on [Simple and Multivariate Regression](https://jrm87.github.io/ECO3253_repo/regression.html) and check for yourself the correlation of `kfr_pooled_p25` and at least one of these: 
+
+- `gsmn_math_g3_2013`
+- `ann_avg_job_growth_2004_2013`
+- `frac_coll_plus2000`
+- `frac_coll_plus2010`
+- `med_hhinc1990`
+
+
 # Policies to Improve Upward Mobility
 
 ## Two Approaches to Increasing Upward Mobility
@@ -214,10 +225,6 @@ A few weeks ago Chetty and co-authors published a paper and a website exploring 
 - Moving to Opportunity: Provide Affordable Housing in High-Opportunity Areas
 
 - Place-Based Investments: Increase Upward Mobility in Low-Opportunity Areas
-
-## Check the correlation yourself
-
-Check the section on correlation
 
 # Moving to Opportunity
 
