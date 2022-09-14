@@ -1,4 +1,4 @@
-# The Causal Effect of Neighborhoods {#causaleffect}
+# The Causal Effect of Neighborhoods {#lec2_causaleffect}
 
 ## Introduction 
 
