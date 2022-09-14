@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Statistical Background | Economics of Public and Social Issues</title>
+  <title>Chapter 3 Policies to Increase Upward Mobility | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Statistical Background | Economics of Public and Social Issues" />
+  <meta property="og:title" content="Chapter 3 Policies to Increase Upward Mobility | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Statistical Background | Economics of Public and Social Issues" />
+  <meta name="twitter:title" content="Chapter 3 Policies to Increase Upward Mobility | Economics of Public and Social Issues" />
   
   <meta name="twitter:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rmarkdown.html"/>
-<link rel="next" href="project1.html"/>
+<link rel="prev" href="lec2_causaleffect.html"/>
+<link rel="next" href="getting-started.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -384,52 +384,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appendixA" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">A</span> Statistical Background<a href="appendixA.html#appendixA" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="basic-statistical-terms" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">A.1</span> Basic statistical terms<a href="appendixA.html#basic-statistical-terms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="mean" class="section level3 hasAnchor" number="9.1.1">
-<h3><span class="header-section-number">A.1.1</span> Mean<a href="appendixA.html#mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The mean, also known as (AKA) the average, is the most commonly reported measure of center. It is commonly called the “average” though this term can be a little ambiguous. The mean is the sum of all of the data elements divided by how many elements there are. If we have <span class="math inline">\(n\)</span> data points, the mean is given by: <span class="math display">\[\overline{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}\]</span></p>
-<p>Note that you will often see shorthand notation for a sum of numbers using <span class="math inline">\(\sum\)</span> notation. For example, we could rewrite the formula for <span class="math inline">\(\bar{x}\)</span> as:</p>
-<p><span class="math display">\[\bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}=\frac{\sum_{i = 1}^n x_i}{n}\]</span></p>
-<p>We’ve simply replaced the subscript on each <span class="math inline">\(x\)</span> with a generic index <span class="math inline">\(i\)</span>, and use the <span class="math inline">\(\sum\)</span> notation to indicate we are summing <span class="math inline">\(x\)</span>s with indices (i.e. subscripts) that go from 1 to <span class="math inline">\(n\)</span>. When summing numbers in statistics, we’re almost always dealing with indices that start with the value 1 and go up to a value equal to a sample size (e.g. <span class="math inline">\(n\)</span>), so often you will see an even more shorthand version, where it’s assumed you’re summing from <span class="math inline">\(i = 1\)</span> to <span class="math inline">\(i = n\)</span>:</p>
-<p><span class="math display">\[\bar{x} = \frac{\sum x_i}{n}\]</span></p>
-</div>
-<div id="median" class="section level3 hasAnchor" number="9.1.2">
-<h3><span class="header-section-number">A.1.2</span> Median<a href="appendixA.html#median" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The median is calculated by first sorting a variable’s data from smallest to largest. After sorting the data, the middle element in the list is the <strong>median</strong>. If the middle falls between two values, then the median is the mean of those two values.</p>
-</div>
-<div id="standard-deviation" class="section level3 hasAnchor" number="9.1.3">
-<h3><span class="header-section-number">A.1.3</span> Standard deviation<a href="appendixA.html#standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We will next discuss the <strong>standard deviation</strong> of a sample dataset pertaining to one variable. The formula can be a little intimidating at first but it is important to remember that it is essentially a measure of how far to expect a given data value is from its mean:</p>
-<p><span class="math display">\[Standard \, deviation = \sqrt{\frac{(x_1 - \overline{x})^2 + (x_2 - \overline{x})^2 + \cdots + (x_n - \overline{x})^2}{n - 1}} = \sqrt{\frac{\sum_{i= 1}^n(x_i - \overline{x})^2 }{n - 1}}\]</span></p>
-</div>
-<div id="five-number-summary" class="section level3 hasAnchor" number="9.1.4">
-<h3><span class="header-section-number">A.1.4</span> Five-number summary<a href="appendixA.html#five-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>five-number summary</strong> consists of five values: minimum, first quartile AKA 25<sup>th</sup> percentile, second quartile AKA median AKA 50<sup>th</sup> percentile, third quartile AKA 75<sup>th</sup>, and maximum. The quartiles are calculated as</p>
+<div id="lec3_mto-placebased" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Policies to Increase Upward Mobility<a href="lec3_mto-placebased.html#lec3_mto-placebased" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="the-moving-to-opportunity-experiment" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> The Moving to Opportunity Experiment<a href="lec3_mto-placebased.html#the-moving-to-opportunity-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>first quartile (<span class="math inline">\(Q_1\)</span>): the median of the first half of the sorted data</li>
-<li>third quartile (<span class="math inline">\(Q_3\)</span>): the median of the second half of the sorted data</li>
+<li><p>The Moving to Opportunity experiment was implemented in the Clinton administration, by the Housing and Urban Development agency, from 1994 to 1998 in five major cities in the United States: Baltimore, Boston, Chicago, L.A., and New York. The Housing and Urban Development agency randomly assigned 4,600 families to three different groups. The experimental group was offered a housing voucher that required them to move to a low-poverty census tract (less than 10% poverty rate). The Section 8 voucher group was offered the same value of housing voucher but with no restrictions. The control group was not offered a voucher.</p></li>
+<li><p>There was non-compliance and 48% of families assigned to the experimental voucher group actually used the voucher to move to a new place in a low-poverty census tract, and 66% of the Section 8 group used the voucher to lease a new place.</p></li>
+<li><p>Several papers have been written on the Moving to Opportunity experiment. Early research found little effects of moving on earnings and employment rates for adults and older children. Motivated by the experiment on moving between neighborhoods, this experiment was reassessed to look for exposure effects among children.</p></li>
 </ul>
-<p>The <em>interquartile range</em> is defined as <span class="math inline">\(Q_3 - Q_1\)</span> and is a measure of how spread out the middle 50% of values is. The five-number summary is not influenced by the presence of outliers in the ways that the mean and standard deviation are. It is, thus, recommended for skewed datasets.</p>
+<p><img src="images/mto_below13.png" width="90%" /></p>
 </div>
-<div id="appPercentiles" class="section level3 hasAnchor" number="9.1.5">
-<h3><span class="header-section-number">A.1.5</span> Percentiles or rank<a href="appendixA.html#appPercentiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Just as you can sort the values of a variable form smallest to larges and find the middle element to get the median, you are dividing all the values into two groups with the same number of observations.</p>
-<p>If you do that but instead of dividing into 2 groups, you divide it into 4 groups, you get each of the quartiles.</p>
-<p>If you divide the sorted observations into <strong>100 groups</strong> of equal number of observations, you get the <strong>percentiles</strong>. Depending on the application, the percentile can be read as the rank in the distribution.</p>
+<div id="reevaluating-the-moving-to-opportunities-experiment-with-a-big-data-approach" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Reevaluating the Moving to Opportunities Experiment with a Big Data Approach<a href="lec3_mto-placebased.html#reevaluating-the-moving-to-opportunities-experiment-with-a-big-data-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>The hypothesis was that earlier studies didn’t find an effect because they didn’t look at kids who were young enough. Childhood exposure effects look at impacts proportional to how long a child was exposed to a better environment. The new question was does the MTO experiment, the Moving to Opportunity approach, improve outcomes for children who moved particularly when they were very young?</p></li>
+<li><p>To revaluate this experiment, the data from HUD was linked to tax records to follow young children over a long period of time.</p></li>
+<li><p>The way these bars are constructed is that the grey bar always represents the mean for the control group. The blue bar then adds the effect of being in the Section 8 group to the mean for the control group to display the mean for the Section 8 group. The red bar does the same but for the experimental group. These calculations are made adjusting for non-compliance.</p></li>
+<li><p>There’s a very clear difference in the earnings in adulthood for the kids who were assigned to the experimental group relative to Section 8 group relative to the control group. The values below the means are the p-values, which is a way of stating the likelihood that these differences occur due to random variation in the data as opposed to a real casual effect.</p></li>
+<li><p>To interpret these results it’s possible to think of them in two different ways. First, what is the percentage change between the control and the other groups? The difference in earnings between the control group and the experimental group is about a 30% increase, which is large. However, in a real world sense earning about $15,000 a year is still not a large income. One way to tell this story is that there is a large effect but another way to look at it is that this approach isn’t going to help people reach the middle class; it only seems to bring people out of extreme poverty.</p></li>
+<li><p>Below are the results of this analysis for several other outcomes. All graphs are constructed in the way explained above. Neighborhood quality measures the poverty rate in the neighborhood these children live in as adults.</p></li>
+</ul>
+<p><img src="images/mto_below13-2.png" width="90%" /></p>
+<ul>
+<li>On a wide variety of dimensions, it really seems like the Moving to Opportunity intervention actually does work in quite a significant way in improving outcomes for kids who were young. However if this approach is applied to older children (over the age of 13 at the time of the experiment) or adults, then all of these impacts disappear. That is consistent with the previous literature that found little to no effect of this experiment on adults and older children.</li>
+</ul>
 </div>
-<div id="appDistributions" class="section level3 hasAnchor" number="9.1.6">
-<h3><span class="header-section-number">A.1.6</span> Distribution<a href="appendixA.html#appDistributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <strong>distribution</strong> of a variable/dataset corresponds to generalizing patterns in the dataset. It often shows how frequently elements in the dataset appear. It shows how the data varies and gives some information about where a typical element in the data might fall. Distributions are most easily seen through data visualization.</p>
+<div id="the-three-limits-of-randomized-controlled-trials" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> The Three Limits of Randomized Controlled Trials<a href="lec3_mto-placebased.html#the-three-limits-of-randomized-controlled-trials" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>There are three limits to randomized controlled trials.</p></li>
+<li><p>First is attrition. When long-term experiments are conducted, it’s very hard to follow people over long periods of time. However, big data can help address this problem by systematically tracking people via things such as tax records.</p></li>
+<li><p>Second is sample sizes. It’s difficult and expensive to run large experiments however lots of data is needed to have precise statistically analysis. Big data actually cannot solve this problem because while the cost of data has fallen, the cost of running an experiment has not.</p></li>
+<li><p>Third is generalizability. Experiments are always conducted in specific settings and that means that those results don’t always apply to other settings. There’s actually no way to know before hand if the results of an experiment will generalize to some other location with different conditions.</p></li>
+</ul>
 </div>
-<div id="outliers" class="section level3 hasAnchor" number="9.1.7">
-<h3><span class="header-section-number">A.1.7</span> Outliers<a href="appendixA.html#outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Outliers</strong> correspond to values in the dataset that fall far outside the range of “ordinary” values. In regards to a boxplot (by default), they correspond to values below <span class="math inline">\(Q_1 - (1.5 * IQR)\)</span> or above <span class="math inline">\(Q_3 + (1.5 * IQR)\)</span>.</p>
-<p>Note that these terms (aside from <strong>Distribution</strong>) only apply to quantitative variables.</p>
+<div id="how-quasi-experimental-methods-can-address-randomized-controlled-trial-limitations" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> How Quasi-Experimental Methods can Address Randomized Controlled Trial Limitations<a href="lec3_mto-placebased.html#how-quasi-experimental-methods-can-address-randomized-controlled-trial-limitations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Quasi-experimental methods using big data can address some of the limitations of randomized controlled trials. The way to think about quasi-experiments is that what they are doing is approximating experimental conditions by comparing groups that are similar. It’s like the same idea, at a conceptual level, as the experiment. Rather than achieving comparability by randomizing, a quasi-experiment makes a reasonable identification assumption.</p></li>
+<li><p>Quasi-experiments can be much larger which allows them to reach greater levels of statistically precision than randomized controlled trials. With larger samples, one can also run the analysis separately subgroups, such as by race, to that the findings are very generalizable.</p></li>
+<li><p>The limitation of the quasi-experimental method is that it relies on a stronger assumption. One must believe that the two groups in the quasi-experiment are comparable to each other whereas in a randomized controlled trial all you have to believe is that randomization occurred.</p></li>
+</ul>
+</div>
+<div id="implications-for-housing-voucher-policies" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Implications for Housing Voucher Policies<a href="lec3_mto-placebased.html#implications-for-housing-voucher-policies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>The first implication of this evidence is that vouchers should be targeted at families with young children. What the US tends to do currently is put families on wait lists, when they have a kid, to get a housing voucher. Often, those wait lists can be incredibly long; sometimes they can be as long as 10 years. What’s going to happen there is that families get on the wait list when their kids are relatively young. They finally get to move when their kids are older, exactly when it has less benefit. Thus the current US system seems to have this large inefficiency of not targeting the right group.</p></li>
+<li><p>Second, it’s very important to explicitly design these policies to help families move to affordable, high-opportunity areas. The families who had to find a low-poverty census tract to live in to use their voucher are the ones that saw the biggest improvements for their kids. This is especially important because it turns out that something like 80% of the 2.1 million vouchers that are issued by the US government each year are currently used in very high-poverty, low-opportunity neighborhoods. This is possibly happening because moving to opportunity is too expensive. To examine that point look at the following chart.</p></li>
+<li><p>This it the price of buying opportunity for children in Seattle. Each dot here represents a different census tract or a different neighborhood in Seattle and the vertical axis is the measures of upward mobility. The horizontal axis is median two-bedroom rent in that neighborhood in 2015. There is a strong upward-sloping relationship, which shows that more expensive areas tend to be better for kids. However at each median rent there is a lot of variety in outcomes. Take a place like the Central District (shown above), which is where a lot of families with housing vouchers in Seattle currently live. It has poor outcomes. However, Normandy Park is actually less expensive than the Central District but produces dramatically better outcomes for children. This is the idea of an “opportunity bargain” which is currently being used in a pilot study.</p></li>
+</ul>
+<p><img src="images/price_opp_seattle.png" width="90%" /></p>
+</div>
+<div id="the-stability-of-historical-measures-of-opportunity" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> The Stability of Historical Measures of Opportunity<a href="lec3_mto-placebased.html#the-stability-of-historical-measures-of-opportunity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>On concern is that this data is outdated. To prove that the historical estimates useful predictors of opportunity for children who are growing up in these neighborhoods now this study also examined the accuracy of the predictive power of the data. The methodology was to predict outcomes for kids in 1990 using data that is only one year old, then to predict outcomes for kids in 1990 using data that is two years old. The process was repeated for a total of 10 years. Using data that was 10 years old had a 90% accuracy rate, which is not perfect but still highly informative.</li>
+</ul>
+</div>
+<div id="the-creating-moves-to-opportunity-pilot-in-seattle" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> The Creating Moves to Opportunity Pilot in Seattle<a href="lec3_mto-placebased.html#the-creating-moves-to-opportunity-pilot-in-seattle" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>A current pilot project is being run in Seattle using all of the previous findings. The pilot provides information to tenants on which neighborhoods might provide better opportunities for their children. It also recruits landlords to accepting tenants with housing vouchers by simplifying the process of dealing with the housing authority. Finally, it offers housing search assistance.</li>
+</ul>
+</div>
+<div id="three-concerns-about-the-cmto-approach" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Three Concerns about the CMTO Approach<a href="lec3_mto-placebased.html#three-concerns-about-the-cmto-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>There are three important potential concerns with the Moving to Opportunity approach.</p></li>
+<li><p>First there is a large cost to the housing voucher program. However, one also has to consider the improved outcomes of children in the future and what that will contribute to future taxes. These children can also have lower incarceration rates and they might depend less on the welfare system so there are lower social costs as well from implementing this policy. Analysis from the Moving to Opportunities experiment showed that the incremental cost of providing vouchers relative to having a family in traditional public housing is actually negative. That is, taxpayers in the long run will actually save money from this program because they’ll end up benefiting more down the road than it cost them to pay for the program in the beginning.</p></li>
+<li><p>The second concern is negative spillovers. Some might be concerned that the integration of lower income families into neighborhoods hurts the higher income families living there already. This, I think, is the most important concern from a political point of view. That can be evaluated by looking at how the outcomes of the rich vary across areas in relation to the outcomes of the poor. Empirically, more integrated cities do not have worse outcomes for the rich, on average.</p></li>
+<li><p>The third concern is a simple limit to scalability. It is impossible to move everyone from one neighborhood to another and expect to have significant effects. Ultimately, this means that a policy-based approach will need to use strategies to improve low-mobility neighborhoods as well as use the moving to opportunity approach.</p></li>
+</ul>
+</div>
+<div id="the-idea-behind-place-based-investment" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> The Idea Behind Place Based Investment<a href="lec3_mto-placebased.html#the-idea-behind-place-based-investment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>The goal with place-based investment is to figure out what makes high mobility areas into what they are and change the low mobility areas to resemble the high mobility areas. The first step to do this is to look at key predictors of differences in mobility across places. There are four strong predictors.</p></li>
+<li><p>The strongest predictor these differences are differences in poverty rates. Places that have less concentrated poverty tend to have better outcomes for low-income kids. Another way to say this is that the more mixed-income areas have better outcomes for low-income kids.</p></li>
+<li><p>The second predictor is more stable family structures. That means these places have a larger share of two-parent families.</p></li>
+<li><p>The third predictor is more social capital. Social capital can be defined as connections between low and high-income people. This is the kind place where somebody else might help you out even if you’re not doing well. One example was Salt Lake City with the Mormon Church.</p></li>
+<li><p>The fourth predictor, as you might expect intuitively, is better school quality.</p></li>
+<li><p>The limitation of this type of correlational analysis is that it gives you a sense of what factors might be associated with these differences in outcomes across places, but it doesn’t indicated which of these things have a causal effect. Current research is attempting to figure what actually is having a casual effect in these neighborhoods.</p></li>
+<li><p>Researchers have found that these correlations hold at an incredibly granular level. Once the poverty rate in one specific neighborhood is accounted for, the poverty rate of the next closest neighborhood has practically no predictive power on children’s mobility. This is important because it indicates that environment matters in a very local way. Rerunning this correlation using city blocks rather than census tracts yields that only the poverty rates in the blocks within a .6 mile radius of the block of interest matter in predicting children’s outcomes. This evidence should motivate policy makers to look at addressing mobility not on a national scale but on a local scale.</p></li>
+</ul>
+</div>
+<div id="place-based-intervention-policies" class="section level2 hasAnchor" number="3.10">
+<h2><span class="header-section-number">3.10</span> Place Based Intervention Policies<a href="lec3_mto-placebased.html#place-based-intervention-policies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>There are lots of efforts by local governments, by non-profits, lots of people who care about these issues in the United States and elsewhere to try to revitalize neighborhoods. The problem there is very little systematic evidence to date on which of these programs actually work and which of them don’t work. The reason this data doesn’t exist at the moment is that just because neighborhoods get new houses or better schools doesn’t mean that the people living there originally are better off, it could be that better off people moved into the area once the neighborhood was improved. Currently social scientists are working on ways to track these people, who lived in neighborhoods before interventions, across time.</p></li>
+<li><p>Other work at the moment is focusing on building a pipeline for economic opportunity, starting from interventions at very early ages which could be things related to family stability or prenatal care, things like that, to early childhood education. This process would continue throughout childhood with different programs as children age. Throughout this whole process, affordable housing is key since as neighborhoods are improved then more people want to move into the area, which drives up prices, and drives out the original inhabitants.</p></li>
+<li><p>Other issues with this approach are price and scalability. These large interventions can be incredibly expensive. Also, when many interventions are implemented at the same time then it can be difficult to pinpoint which interventions are the most important to improve children’s outcomes.</p></li>
+<li><p>Harlem Children’s Zone is an example of building a pipeline through its Promise Academy, which offers much more support than a typical school in this neighborhood. Other programs such as Becoming a Man or Credible Messengers seek to build social capital by providing mentoring to minority youth. Other programs that are examples of place-based investments include Peer Forward and the Harmony Project.</p></li>
+<li><p>Place based investments are also being investigated using historical data. Census Bureau records actually exist going back to the 1950s, which has allowed social scientists to identify individuals who were affected by government programs such as the Harlem Children’s Zone or the Hope IV Demolitions, when HUD demolished lots of public housing projects to build mixed income housing in other areas. Social scientists are still working on getting through all of this data to be able to study these historical events using a quasi-experimental design.</p></li>
+<li><p>In conclusion, lots of work is currently being done to pinpoint what place-based investments might be the most efficient but at the moment no one knows what the best solution is.</p></li>
+</ul>
 
-</div>
 </div>
 </div>
 
@@ -440,8 +490,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="project1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lec2_causaleffect.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-started.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -472,7 +522,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/91-appendixA.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-mto-placebased.Rmd",
 "text": "Edit"
 },
 "history": {
