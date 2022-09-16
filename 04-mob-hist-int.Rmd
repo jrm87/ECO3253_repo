@@ -35,13 +35,13 @@ knitr::include_graphics("images/lec4_hist_mob/lec4_dist_childparent3.png")
 
 ## What Policies Can Increase Economic Mobility?
 
-- Since 1940, there have been two major changes in the American economy at the big-picture level. First, the total economic growth rate is lower. Second, there is less equal distribution of that growth, with more going to higher-income people than lower0income compared to the past. 
+- Since 1940, there have been two major changes in the American economy at the big-picture level. First, the total economic growth rate is lower. Second, there is less equal distribution of that growth, with more going to higher-income people than lower-income compared to the past. 
 
 ```{r , echo=FALSE, out.width = '90%'}
 knitr::include_graphics("images/lec4_hist_mob/lec4_goldin_katz2.png")
 ```
 
-- This chart is from “The Race between Education and Technology” by Larry Katz and Claudia Goldin. The blue bars show how much household income grew for people between 1947 to 1973 based on which income quintile they were in. The lowest quintile saw growth of three percent in these years, which means that their incomes doubled in about 25 years. The red bars show the same statistic but for 1973 to 2013. The red bars are generally lower, which reflects that income growth has slowed in the whole economy. The red bars are also less equally distributed than the blue. This shows two big changes in the American economy in the past thirty years relative to before: lower growth rates and growing inequality.
+- This chart is from [“The Race between Education and Technology”](https://www.hup.harvard.edu/catalog.php?content=reviews&isbn=9780674035300) by Larry Katz and Claudia Goldin. The blue bars show how much household income grew for people between 1947 to 1973 based on which income quintile they were in. The lowest quintile saw growth of three percent in these years, which means that their incomes doubled in about 25 years. The red bars show the same statistic but for 1973 to 2013. The red bars are generally lower, which reflects that income growth has slowed in the whole economy. The red bars are also less equally distributed than the blue. This shows two big changes in the American economy in the past thirty years relative to before: lower growth rates and growing inequality.
 
 ```{r , echo=FALSE, out.width = '90%'}
 knitr::include_graphics("images/lec4_hist_mob/lec4_piketty_saez_zucman17.png")
