@@ -48,7 +48,7 @@ We will construct a graphical regression discontinuity analysis, focusing on the
 
     d. Produce a histogram of the number of schools by total school enrollment.  Note that you must collapse the data by school to produce this graph.  
 
-4.	Regression analysis.  Run the regressions that correspond to your three graphs in 4a and 4b to quantify the discontinuities that you see in the data.  In estimating these regressions, use all the observations with school enrollment less than 80.  Report a 95% confidence interval for each of these estimates.  See Table 2a and 2b for more guidance.  
+4.	Regression analysis.  Run the regressions that correspond to your three graphs in 4a and 4b to quantify the discontinuities that you see in the data.  In estimating these regressions, use all the observations with school enrollment less than 80.  Report a 95% confidence interval for each of these estimates.  See Table in the [Data Description Section](#descriptionproject2) and the [cheat sheet](#cheatsheetproject2) for more guidance.
 
 5.	Recall that any quasi experiment requires an identification assumption to make it as good as an experiment.  What is the identification assumption for regression discontinuity design?  Explain whether your graphs in 4c and 4d are consistent with that assumption.  
  
