@@ -15,8 +15,8 @@ fig:histogramexample
 fig:weather-histogram
 fig:weather-histogram-2
 fig:weather-histogram-3
-fig:unnamed-chunk-31
-fig:unnamed-chunk-32
+fig:unnamed-chunk-39
+fig:unnamed-chunk-40
 fig:geombar
 fig:geomcol
 fig:flightsbar
@@ -25,7 +25,7 @@ fig:filter
 fig:select
 fig:selectfig
 fig:dplyr-cheatsheet
-tab:unnamed-chunk-64
+tab:unnamed-chunk-72
 tab:five-random-courses
 fig:correlation1
 fig:numxplot1
@@ -39,8 +39,8 @@ tab:model3-correlation
 fig:2numxplot1
 fig:3D-scatterplot
 tab:model3-table-output
-fig:unnamed-chunk-102
-fig:unnamed-chunk-103
+fig:unnamed-chunk-110
+fig:unnamed-chunk-111
 lec1_geomobility
 parental-and-children-income-rank
 interpreting-the-regression-line
@@ -73,6 +73,13 @@ the-creating-moves-to-opportunity-pilot-in-seattle
 three-concerns-about-the-cmto-approach
 the-idea-behind-place-based-investment
 place-based-intervention-policies
+lec4_mob-hist-int
+a-historical-perspective-on-the-american-dream
+measuring-the-american-dream
+what-policies-can-increase-economic-mobility
+policies-to-revive-absolute-mobility
+trends-in-upward-mobility-international-comparisons
+restoring-the-american-dream-two-approaches
 getting-started
 why-r-again
 why-are-we-learning-r-i-wanted-to-learn-about-economics-of-public-and-social-issues
