@@ -9,11 +9,13 @@ rmd_files: [
   "01-intro.Rmd",
   "02-causaleff-neigh.Rmd",
   "03-mto-placebased.Rmd",
+  "04-mob-hist-int.Rmd",
   "03-getting-started.Rmd",
   "02-visualization.Rmd",
   "03-wrangling.Rmd",
   "05-regression.Rmd",
   "06-rmarkdown.Rmd",
   "91-appendixA.Rmd",
-  "project1.Rmd"
+  "project1.Rmd",
+  "project2.Rmd"
 ]
