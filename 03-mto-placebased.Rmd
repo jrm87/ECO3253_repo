@@ -9,7 +9,7 @@
 - Several papers have been written on the Moving to Opportunity experiment. Early research found little effects of moving on earnings and employment rates for adults and older children. Motivated by the experiment on moving between neighborhoods, this experiment was reassessed to look for exposure effects among children.
 
 ```{r , echo=FALSE, out.width = '90%'}
-knitr::include_graphics("images/mto_below13.png")
+knitr::include_graphics("images/lec3_mto_placebased/lec3_mto_below13.png")
 ```
 
 
@@ -28,7 +28,7 @@ knitr::include_graphics("images/mto_below13.png")
 - Below are the results of this analysis for several other outcomes. All graphs are constructed in the way explained above. Neighborhood quality measures the poverty rate in the neighborhood these children live in as adults. 
 
 ```{r , echo=FALSE, out.width = '90%'}
-knitr::include_graphics("images/mto_below13-2.png")
+knitr::include_graphics("images/lec3_mto_placebased/lec3_mto_below13-2.png")
 ```
 
 - On a wide variety of dimensions, it really seems like the Moving to Opportunity intervention actually does work in quite a significant way in improving outcomes for kids who were young. However if this approach is applied to older children (over the age of 13 at the time of the experiment) or adults, then all of these impacts disappear. That is consistent with the previous literature that found little to no effect of this experiment on adults and older children.
@@ -61,7 +61,7 @@ knitr::include_graphics("images/mto_below13-2.png")
 
 
 ```{r , echo=FALSE, out.width = '90%'}
-knitr::include_graphics("images/price_opp_seattle.png")
+knitr::include_graphics("images/lec3_mto_placebased/lec3_mob_seattle_rent3.png")
 ```
 
 
