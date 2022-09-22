@@ -1,0 +1,284 @@
+---
+title: "Causal Effect of College"
+subtitle: "Economics of Public and Social Issues"
+format: 
+  beamer: 
+      aspectratio: 169
+      navigation: horizontal
+      colortheme: rose
+      urlcolor: blue
+      slide-level: 2
+author: Jonathan Moreno-Medina
+institute: ECO3253, UTSA
+date: "Fall 2022"
+---
+
+## Plan for today
+
+```{r setup_getting_started, include=FALSE, purl=FALSE}
+library(pacman)
+p_load(
+  broom, tidyverse,
+  ggplot2, ggthemes, ggforce, viridis, extrafont, gridExtra,
+  dplyr, here, magrittr
+)
+chap <- 2
+lc <- 0
+rq <- 0
+# **`r paste0("(LC", chap, ".", (lc <- lc + 1), ")")`**
+# **`r paste0("(RQ", chap, ".", (rq <- rq + 1), ")")`**
+
+knitr::opts_chunk$set(
+  tidy = FALSE, 
+  out.width = '\\textwidth', 
+  fig.height = 4,
+  fig.align='center',
+  warning = FALSE
+  )
+
+options(scipen = 99, digits = 3)
+
+# Set random number generator see value for replicable pseudorandomness. Why 76?
+# https://www.youtube.com/watch?v=xjJ7FheCkCU
+set.seed(76)
+#alternative way of loading data:
+#githubURL <- ("https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/rds/trials.rds")
+#download.file(githubURL,"trials.rds", method="curl")
+#data <- readRDS("trials.rds")
+```
+
+
+1. Returns to College
+1. Regression Discontinuity Design (method also for Project 2)
+1. Policies for Access
+
+# Returns to College
+
+## Earnings by Age
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/earnings_age.png")
+```
+
+## Earnings across time by education group
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/relative_earnings.png")
+```
+
+## Causal Effects of Colleges
+
+- What is the causal effect of a college degree on earnings? Why does this matter?
+
+    - Suppose differences in earnings outcomes between students with a HS diploma and a college degree were purely driven by selection of who gets in
+
+- Then increases access to postsecondary education would have no impact on earnings gaps
+
+    - Do different colleges matter? E.g., 4-year v. community college? Why does this matter? 
+
+    - Suppose differences in earnings outcomes between 4-year & 2-year college students were purely driven by selection 
+
+    - Then reducing segregation across colleges would have no impact on mobility
+
+
+## Implications for Public Policy
+
+- If differences reflect causal effects, we can think of policies that can have a big impact on earning gaps and mobility:
+    
+    - Changes in admissions policies
+
+    - Changes in financial aid policies
+
+    - College-readiness programs
+
+## Estimating the Causal Effects of Colleges
+
+- Ideal experiment to estimate each college’s causal effect: compare earnings at age 30 after random assignment of students to colleges
+
+- Lacking such an experiment, need to find quasi-experimental variation that effectively allocates comparable students to different colleges
+
+- Challenging problem because one needs one experiment per college
+
+    - Example: Zimmerman (2014) estimates causal effects by exploiting admissions cutoffs at Florida International University (**Regression Discontinuity Design**)
+
+## Regression Discontinuity Methods
+
+- Another quasi-experimental method to uncover causality instead of only correlation of outcomes
+
+- Zimmerman (2014) compares students just above and just below state-level GPA cutoff for admission to the Florida State University System 
+
+
+## Admission Rules at FIU 
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/zimmerman1.png")
+```
+
+
+## Admission Rule for Students with Scores Below 970 in SAT
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/zimmerman2.png")
+```
+
+
+## Regression Discontinuity
+
+- We can say that students with a 2.9 & 3.1 GPA (& same SAT test score) are really similar in dimensions that matter for their labor market outcomes (e.g, skills, college-readiness, etc.)
+
+- However, students with 2.9 GPA are denied admission and students with a 3.1 GPA are granted admission
+
+- We can argue that the only reason why students are on either side of the GPA cutoff is by chance
+
+- Given that these two very similar groups of students only differ in their admission status, we can compare their outcomes in the future and attribute any differences to the effect of  admission
+
+## Florida International University Admissions and Attendance Rates Around FIU GPA Admissions Cutoffs
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/zimmerman3.png")
+```
+
+## Regression Discontinuity Methods
+
+- Zimmerman compares students just above and just below state-level GPA cutoff for admission to the Florida State University System 
+
+    - Those with GPA just above cutoff are “treatment” group and those below are “control”
+
+    - Control group typically attends a two-year community college instead of FIU
+
+## Regression Discontinuity Methods
+
+- Key identification assumption to estimate causal effects: all other determinants of earnings are balanced on either side of the cutoff
+
+    - Any difference in earnings at the threshold must then be due to the discrete jump in chance of attending FIU instead of community college
+
+- Assumption is plausible because admission threshold was not publicized
+
+    - If cutoffs were well publicized, may worry that students just above cutoff are different from those below (“manipulation” of running variable)
+
+- Evaluate validity of assumption by making sure observable characteristics are similar on both sides of cutoff
+
+## Tests for Covariate Balance Around GPA Admissions Cutoffs
+
+Race Shares:
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/zimmerman4.png")
+```
+
+## Tests for Covariate Balance Around GPA Admissions Cutoffs
+
+Gender:
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/zimmerman5.png")
+```
+
+## Mean Quarterly Earnings 8-14 Years after HS Graduation Around FIU GPA Admissions Cutoffs
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/zimmerman6.png")
+```
+
+## Causal Effect of Colleges
+
+- Ideally, we would estimate causal effect of every college relative to every other college using a method analogous to the one we just discussed
+
+- This is infeasible in practice $\rightarrow$ use earnings controlling for SAT scores and parent income as an estimate of each college’s causal effect
+
+- At least in case of Florida International University, this simple regression estimate matches quasi-experimental estimate
+
+- Therefore use these estimates to gauge portion of variation in earnings that is due to colleges’ causal effects when analyzing impacts on mobility
+
+# Policies for Access
+
+## College Attendance Rates vs. Parent Income Percentile
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/parentrank_college.png")
+```
+
+## Income Composition of Ivy Leagues
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/access_ivy.png")
+```
+
+## Income and College Access
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/income_access.png")
+```
+
+## Increasing Applications from High-Achieving, Low-Income Students 
+
+- There is some scope to increase low and middle-income shares at highly selective colleges by admitting and enrolling more high-achieving, lower-income students
+
+- Under-representation of low-income students at these colleges is partly driven by lower application rates of well qualified low-income students
+
+- This “undermatching” phenomenon is not simply explained by differences in costs of attendance [Hoxby and Avery 2013]
+
+## Cost of Attending College
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/cost_attending.png")
+```
+
+## University of Michigan HAIL Experiment
+
+- Alternative hypothesis: lack of information or application support for low-income students limits their applications even when tuition cost is low [Hoxby and Turner 2013]
+
+- **Dynarski et al. (2018)** test this hypothesis in a recent experiment at the University of Michigan that exploits big data for targeting
+
+    - Provide information about applying to U of M to high-achieving (GPA > 3.3, SAT > 1100) students from low-income families (incomes < $47K)
+
+    - Identify all such students in the state of Michigan using administrative data from schools on GPAs, SAT scores (mandatory in Michigan), and eligibility for free/reduced price lunch
+
+    - 2,000 students meet these criteria each year; 50% randomly assigned to receive treatment of additional information and support
+    
+## HAIL Scholarship Mailings Sent to Students in the Treatment Group
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/dynarski1.png")
+```
+
+## Excerpt of HAIL Scholarship Mailings Sent to Parents of Students in the Treatment Group
+
+Dear Parent or Guardian of <<first name>> <<last name>>:
+
+Since your child is an excellent student, we want to offer a potentially transformative college opportunity: 
+
+If <<first name>> applies and is admitted to the University of Michigan - Ann Arbor, your child will be awarded the HAIL Scholarship covering the entire cost of U-M tuition and fees for four years. This is an offer we are delighted to make, worth approximately $60,000. Furthermore, after a review of their financial aid applications, your student will likely be eligible for additional aid to cover other costs such as housing and textbooks.
+
+Sincerely,
+Kedra Ishop, PhD
+Associate Vice President
+Office of Enrollment Management
+
+## Effect of HAIL Scholarship on **Application** to University of Michigan
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/dynarski2.png")
+```
+
+
+## Effect of HAIL Scholarship on **Admission** to University of Michigan
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/dynarski3.png")
+```
+
+
+## Effect of HAIL Scholarship on **Enrollment** at University of Michigan
+
+```{r, echo=FALSE, out.width = '80%'}
+knitr::include_graphics("../../images/lec6_higher_ed/dynarski4.png")
+```
+
+## Implications from the HAIL Experiment
+
+- Main lesson: removing cost and informational barriers for high-achieving, low-income students can increase their access to highly selective colleges significantly
+
+- However, such policies are probably insufficient to desegregate higher education system by themselves
+
+- Higher education system can play an important role in increasing social mobility, but requires active effort to undo disparities that emerge before college
