@@ -23,7 +23,7 @@
 <meta name="author" content="Jonathan Moreno-Medina" />
 
 
-<meta name="date" content="2022-09-16" />
+<meta name="date" content="2022-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -571,7 +571,7 @@ d. Produce a histogram of the number of schools by total school enrollment.  Not
 <p>You can create datasets that are based on summaries of other data. For example, to create a dataset by school instead of by grade (as the original <code>grade5.rds</code> is), you can use the function <code>group_by</code> and select the variables that you want to use for the summary, proceeded by the function <code>summarise</code>, in which you include the specific statistic you want to create. Int he following example, we want the average of the variable <code>school_enrollment</code> by school:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="project2.html#cb113-1" aria-hidden="true" tabindex="-1"></a>narrow_data_school <span class="ot">&lt;-</span> narrow_data<span class="sc">%&gt;%</span></span>
 <span id="cb113-2"><a href="project2.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(schlcode)<span class="sc">%&gt;%</span></span>
-<span id="cb113-3"><a href="project2.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(by_school, <span class="at">school_enrollment =</span> <span class="fu">mean</span>(school_enrollment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<span id="cb113-3"><a href="project2.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">school_enrollment =</span> <span class="fu">mean</span>(school_enrollment, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <blockquote>
 <p>Notice that we used the <code>na.rm=TRUE</code> option to avoid any complications coming from missing values.</p>
 </blockquote>

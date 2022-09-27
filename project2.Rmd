@@ -162,7 +162,7 @@ You can create datasets that are based on summaries of other data. For example, 
 ```{r, eval=FALSE}
 narrow_data_school <- narrow_data%>%
   group_by(schlcode)%>%
-  summarise(by_school, school_enrollment = mean(school_enrollment, na.rm = TRUE))
+  summarise(school_enrollment = mean(school_enrollment, na.rm = TRUE))
 ```
 > Notice that we used the `na.rm=TRUE` option to avoid any complications coming from missing values.
 
