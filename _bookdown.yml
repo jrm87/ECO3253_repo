@@ -10,6 +10,8 @@ rmd_files: [
   "02-causaleff-neigh.Rmd",
   "03-mto-placebased.Rmd",
   "04-mob-hist-int.Rmd",
+  "05-mob-ed.Rmd",
+  "06-ed-higher.Rmd",
   "03-getting-started.Rmd",
   "02-visualization.Rmd",
   "03-wrangling.Rmd",

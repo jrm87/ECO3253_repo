@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Project 1 | Economics of Public and Social Issues</title>
+  <title>Chapter 6 The Causal Effect of Colleges | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Project 1 | Economics of Public and Social Issues" />
+  <meta property="og:title" content="Chapter 6 The Causal Effect of Colleges | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Project 1 | Economics of Public and Social Issues" />
+  <meta name="twitter:title" content="Chapter 6 The Causal Effect of Colleges | Economics of Public and Social Issues" />
   
   <meta name="twitter:description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="appendixA.html"/>
-<link rel="next" href="project2.html"/>
+<link rel="prev" href="lec5_mob-ed.html"/>
+<link rel="next" href="getting-started.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -430,597 +430,175 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="project1" class="section level1 unnumbered hasAnchor">
-<h1>Project 1<a href="project1.html#project1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="stories-from-the-atlas-describing-data-using-maps-regressions-and-correlations" class="section level2 unnumbered hasAnchor">
-<h2>Stories from the Atlas: Describing Data using Maps, Regressions, and Correlations<a href="project1.html#stories-from-the-atlas-describing-data-using-maps-regressions-and-correlations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lec6_ed-higher" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> The Causal Effect of Colleges<a href="lec6_ed-higher.html#lec6_ed-higher" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="causal-effects-of-colleges" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Causal Effects of Colleges<a href="lec6_ed-higher.html#causal-effects-of-colleges" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p><strong>Posted</strong>: Friday, August 25, 2022</p></li>
-<li><p><strong>Part 1</strong>: Due at midnight on Wednesday, September 7, 2022</p></li>
-<li><p><strong>Part 2</strong>: Due at midnight on Wednesday, September 14, 2022</p></li>
+<li>What fraction of the earnings variation across colleges that is due to causal effects as opposed to selection?
+<ul>
+<li>Only selection: students who come to Harvard are a very highly selected group of people and they presumably would have done quite well even if they had gone to college somewhere else.
+<ul>
+<li>Reducing segregation across colleges through changes in admissions rules would have no impact on economic mobility.</li>
+</ul></li>
+<li>Causal effect: value added from attending Harvard; going to Harvard changes your earnings relative to going to your local state school.
+<ul>
+<li>Changes in admission policies could have a big impact on mobility.</li>
+</ul></li>
+</ul></li>
 </ul>
-<p>The <a href="https://www.opportunityatlas.org/">Opportunity Atlas</a> is a freely available interactive mapping tool that traces the roots of outcomes such as poverty and incarceration back to the neighborhoods in which children grew up.</p>
-<p>Policymakers, journalists, and the public have begun to explore the Opportunity Atlas, casting new light on the geography of upward mobility in communities across the country. As an example, see Jasmine Garsd’s <a href="https://www.npr.org/2018/10/04/654085265/the-american-dream-one-block-can-make-all-the-difference">analysis</a> for the New York City neighborhood of Brownsville in Brooklyn.</p>
-<p>In this first empirical project, you will use the Opportunity Atlas mapping tool and the underlying data to describe equality of opportunity in your hometown and across the United States. (If you grew up outside the United States, you may select a community in which you have spent some time, such as San Antonio, TX.)</p>
-<p>The end product will be a short narrative (or story) in which you describe what you have learned from the Atlas, in which you will weave in the narrative along with the data analysis. Below is a list of specific analyses and questions that your narrative must address. The document should contain references, graphs, and maps.</p>
-<p>This project focuses on the following methods for descriptive data analysis. (The later empirical projects you will do in this class will be focused on causal inference and prediction).</p>
-<ol style="list-style-type: decimal">
-<li><p>Data visualization. Maps are a powerful way to present descriptive statistics for data with a geographic component. You will use maps to display upward mobility statistics for the Census tracts in your hometown.</p></li>
-<li><p>Regression and correlation analysis. You will use linear regressions and correlation coefficients to quantify the statistical relationship between upward mobility and potential explanatory variables.</p></li>
-</ol>
-<p>The R data file that you will use in this assignment, <code>atlas.rds</code>, contains an extract of the Opportunity Atlas data. It is also merged on several other variables, which you may use for the correlational analysis.</p>
-<p>You can load the data by using the usual line:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="project1.html#cb89-1" aria-hidden="true" tabindex="-1"></a>atlas <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">gzcon</span>(<span class="fu">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds&quot;</span>)))</span></code></pre></div>
 </div>
-<div id="instructions" class="section level2 unnumbered hasAnchor">
-<h2>Instructions<a href="project1.html#instructions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You will work on RStudio Cloud for this project. Write the narrative within a Quarto/RMarkdown file in the <strong>project1</strong> tab in RStudio Cloud.</p>
-<p>The deliverables for Part 1 and Part 2 are the following:</p>
-<ol style="list-style-type: decimal">
-<li><strong>Part 1</strong>: points 1 to 5</li>
-<li><strong>Part 2</strong>: points 1 to 10 - this should include any feedback you received for Part 1</li>
-</ol>
-<blockquote>
-<p>Notice that Part 2 includes Part 1</p>
-</blockquote>
-<p>I created a Section to help you get up to speed with <a href="rmarkdown.html#rmarkdown">Quarto/RMarkdown here</a>. The Quarto/RMarkdown file is where you will write your narrative, run all your analysis, and the output of each code block should be visible. The output should include references, graphs, maps, and tables.</p>
-<div id="specific-questions-to-address-in-your-narrative" class="section level3 unnumbered hasAnchor">
-<h3>Specific questions to address in your narrative<a href="project1.html#specific-questions-to-address-in-your-narrative" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ol style="list-style-type: decimal">
-<li>Start by looking up the city where you grew up on the <a href="https://www.opportunityatlas.org/">Opportunity Atlas</a>. Zoom in to the Census tracts around your home.<br />
-Figure 1 in your narrative should be a map of the Census tracts in your hometown from the Opportunity Atlas. Examples for Milwaukee, WI (where Professor Chetty grew up) and Los Angeles, CA (discussed in Lecture 1) are shown on the next page. The text of your narrative should describe what you see, and what data are being visualized.</li>
-</ol>
-<p>Examine the patterns for a number of different groups (e.g., lowest income children, high income children) and outcomes (e.g., earnings in adulthood, incarceration rates). Only choose one or two of these to include in your narrative.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p>(To answer this question, read the <a href="https://opportunityinsights.org/wp-content/uploads/2018/10/atlas_paper.pdf">Opportunity Atlas manuscript</a>) What period do the data you are analyzing come from? Are you concerned that the neighborhoods you are studying may have changed for kids now growing up there? What evidence do Chetty et al. (2018) provide suggesting that such changes are or are not important? What type of data could you use to test whether your neighborhood has changed in recent years?</p></li>
-<li><p>Now turn to the <code>atlas.rds</code> data set. How does average upward mobility, pooling races and genders, for children with parents at the 25th percentile (<code>kfr pooled_p25</code>) in your home Census tract compare to mean (population-weighted, using <code>count_pooled</code>) upward mobility in your state and in the U.S. overall? Do kids where you grew up have better or worse chances of climbing the income ladder than the average child in America?</p></li>
-</ol>
-<p><strong>Hint</strong>: The Opportunity Atlas website will give you the tract, county, and state FIPS codes for your home address. For example, searching for “Lynwood Road, Verona, New Jersey” will display Tract 34013021000, Verona, NJ. The first two digits refer to the state code, the next three digits refer to the county code, and the last 6 digits refer to the tract code. In R, you can list these observations with the function <code>filter()</code> as follows (assuming you called the data as atlas as in Table 2). If you only want to see <code>kfr_pooled_p25</code>:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="project1.html#cb90-1" aria-hidden="true" tabindex="-1"></a>atlas_lynwood<span class="ot">&lt;-</span>atlas<span class="sc">%&gt;%</span></span>
-<span id="cb90-2"><a href="project1.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="dv">34</span> <span class="sc">&amp;</span> county <span class="sc">==</span> <span class="dv">013</span> <span class="sc">&amp;</span> tract <span class="sc">==</span> <span class="dv">021000</span>)</span>
-<span id="cb90-3"><a href="project1.html#cb90-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-4"><a href="project1.html#cb90-4" aria-hidden="true" tabindex="-1"></a>atlas_lynwood<span class="sc">%&gt;%</span></span>
-<span id="cb90-5"><a href="project1.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(kfr_pooled_p25)</span></code></pre></div>
-<p>Or to see all the variables for that tract:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="project1.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(atlas_lynwood)</span></code></pre></div>
-<p>See the <a href="project1.html#cheatsheetproject1">Cheat-sheet Section</a> below for further help.</p>
-<ol start="4" style="list-style-type: decimal">
-<li><p>What is the standard deviation of upward mobility (population-weighted) in your home county? Is it larger or smaller than the standard deviation across tracts in your state? Across tracts in the country? What do you learn from these comparisons?</p></li>
-<li><p>Now let’s turn to downward mobility: repeat questions (3) and (4) looking at children who start with parents at the 75th and 100th percentiles. How do the patterns differ?</p></li>
-<li><p>Using a linear regression, estimate the relationship between outcomes of children at the 25th and 75th percentile for the Census tracts in your home county. Generate a scatter plot to visualize this regression. Do areas where children from low-income families do well generally have better outcomes for those from high-income families, too?</p></li>
-<li><p>Next, examine whether the patterns you have looked at above are similar by race. If there is not enough racial heterogeneity in the area of interest (i.e., data is missing for most racial groups), then choose a different area to examine.</p></li>
-<li><p>Using the Census tracts in your home county, can you identify any covariates which help explain some of the patterns you have identified above? Some examples of covariates you might examine include housing prices, income inequality, fraction of children with single parents, job density, etc. For 2 or 3 of these, report estimated correlation coefficients along with their 95% confidence intervals.</p></li>
-<li><p>Open question: formulate a hypothesis for why you see the variation in upward mobility for children who grew up in the Census tracts near your home and provide correlational evidence testing that hypothesis.</p></li>
-</ol>
-<p>For this question, many covariates have been provided to you in the <code>atlas.rds</code> file, which are described in the Table under the <a href="project1.html#description">Data Description section</a>.</p>
-<ol start="10" style="list-style-type: decimal">
-<li>Putting together all the analyses you did above, what have you learned about the determinants of economic opportunity where you grew up? Identify one or two key lessons or takeaways that you might discuss with a policymaker or journalist if asked about your hometown. Mention any important caveats to your conclusions; for example, can we conclude that the variable you identified as a key predictor in the question above has a causal effect (i.e., changing it would change upward mobility) based on that analysis? Why or why not?</li>
-</ol>
-<hr />
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-122"></span>
-<img src="images/milwaukee_mob.png" alt="Household Income in Adulthood for Children Raised in Low-Income Households in Milwaukee, WI" width="90%" />
-<p class="caption">
-Figure A.1: Household Income in Adulthood for Children Raised in Low-Income Households in Milwaukee, WI
-</p>
+<div id="estimating-the-causal-effects-of-colleges" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Estimating the Causal Effects of Colleges<a href="lec6_ed-higher.html#estimating-the-causal-effects-of-colleges" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ideal experiment to estimate this causal effect: randomly assign kids to all of the different colleges in the U.S. and compare their earnings at age 30.
+<ul>
+<li>Instead: quasi-experimental design that effectively allocates comparable students to different colleges.</li>
+</ul></li>
+<li>We need to find some source of variation that allows quasi-random allocation of students across colleges, to compare students at college A to college B.
+<ul>
+<li>3,000 colleges in the U.S., 3,000 different causal effects.</li>
+<li>Ideal: 3,000 different experiments comparing college A to college B, college B to college C…</li>
+</ul></li>
+</ul>
 </div>
-<p><em>Notes</em>: This figure shows household income at ages 31-37 for low income children who grew up in Census tracts near Milwaukee, WI. The image was saved from www.opportunity-atlas.org by first searching for “Milwaukee, WI” and then clicking on the “download as image” button.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-123"></span>
-<img src="images/la_incratesblack.png" alt="Incarceration Rates for Black Men Raised in the Lowest-Income Households in Los Angeles, CA" width="90%" />
-<p class="caption">
-Figure A.2: Incarceration Rates for Black Men Raised in the Lowest-Income Households in Los Angeles, CA
-</p>
+<div id="regression-discontinuity-methods" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Regression Discontinuity Methods<a href="lec6_ed-higher.html#regression-discontinuity-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>In this <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/676661?journalCode=jole">paper by Seth Zimmerman</a>, called “The Returns to College Admission for Academically Marginal Students”, he estimates the causal effects of Florida International University (FIU) by exploiting admissions cutoffs.</li>
+</ul>
 </div>
-<p><em>Notes</em>: This figure is from the non-technical summary of the Opportunity Atlas and was discussed in Section @ref(lec1_geomobility).</p>
-<hr />
+<div id="zimmerman-study" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Zimmerman Study<a href="lec6_ed-higher.html#zimmerman-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Zimmerman compares students just above, and just below, the state-level GPA cutoff for admission to the Florida State University system.
+<ul>
+<li>Depends upon your SAT score, and then the GPA that you need, in order to get into FIU (lowest-ranked four-year state college in Florida).</li>
+<li>Lots of students with SAT scores slightly below 970. Then think about the student who also has a GPA of 2.99: by this rule, this student is not going to get in, but a student with a GPA of 3.01 will get in.</li>
+<li>Exploit this variation to identify the causal effect of attending FIU.</li>
+</ul></li>
+</ul>
+<p><img src="images/lec6_higher_ed/zimmerman1.png" width="90%" /></p>
+<p><img src="images/lec6_higher_ed/zimmerman3.png" width="90%" /></p>
+<ul>
+<li>Graph on the left: the horizontal axis is how far away your GPA is from the cutoff that’s relevant for you, given your SAT score.
+<ul>
+<li>If your SAT score was below 970, then zero corresponds to 3.0.</li>
+</ul></li>
+<li>The vertical access is plotting what fraction of kids get admitted to FIU.
+<ul>
+<li>Big jump in adherence with the rule right at the cutoff. Not from zero to 100%—they’re not mechanically following this rule.</li>
+<li>Your odds of getting into FIU are 23 percentage points higher if your GPA happens to be 3.01, rather than 2.99.</li>
+</ul></li>
+<li>Graph on right: we care about actually attending, not just getting in.
+<ul>
+<li>The cutoff actually affects who shows up at FIU, not just the admission margins.</li>
+<li>The people on the right of the cutoff are 10 percentage points more likely to attend FIU than the people just to the left of the cutoff.</li>
+</ul></li>
+<li>Those with a GPA just above the cutoff are the treatment group in an experiment, they got the FIU treatment. Those just below the GPA cutoff are the control group, the people who did not get into FIU.
+<ul>
+<li>The control group typically ends up attending a two-year community college in Florida. The experiment is attending a four-year state university, rather than a two-year community college.</li>
+</ul></li>
+<li>Compare the earnings outcomes of the kids who ended up just above the cutoff (GPA of 3.01), versus the earnings outcomes of the kids who ended up just below the cutoff (GPA of 2.99).</li>
+<li>Quasi-experiments require an identification assumption that allows you to estimate causal effects.
+<ul>
+<li>The assumption must make your quasi-experiment as good as an experiment.</li>
+<li>Key identification assumption for regression discontinuity: all other determinants of earnings are balanced (comparable) on either side of the cutoff.
+<ul>
+<li>People in the control group are comparable to the people in the treatment group. An experiment guarantees that by randomization. Here we’re going to make an assumption that the people with a GPA of 2.99 are pretty similar to the people with a GPA of 3.01.</li>
+</ul></li>
+</ul></li>
+<li>Suppose we make the assumption that those two sets of people are comparable in terms of overall merit, it’s just by chance you ended up with a GPA that was a bit lower than someone else.
+<ul>
+<li>Then any jump in earnings, at the threshold, when we cross from 2.99 to 3.01, has to be due to the discrete jump of the chance of attending FIU instead of a community college.</li>
+<li>We can attribute it to the causal effect of attending FIU instead of a community college.</li>
+</ul></li>
+<li>Plausible assumption because the admissions threshold was not widely publicized.
+<ul>
+<li>If the cutoffs were well-publicized, you might worry that the students just above the cutoff would be different from those just below the cutoff because there’s a strong incentive if you want to get into the university to try to do something to get your GPA just over 3.0.</li>
+<li>The students who managed to do that maybe have put in a little bit of extra effort, or they came from a certain school where their guidance counselor helped them figure out how to get over the threshold. This is manipulation of the running variable that is creating this regression discontinuity.</li>
+</ul></li>
+<li>Evaluate the validity of the assumption: make sure the observable characteristics that you can see in the data, students’ characteristics, look relatively similar on both sides of the cutoffs.</li>
+</ul>
+<p><img src="images/lec6_higher_ed/zimmerman4.png" width="90%" /></p>
+<ul>
+<li>Plot the fraction of students who are black around the same admissions cutoff: that number hovers around 30%, both for the students who are just below the cutoff and just above the cutoff.
+<ul>
+<li>If we saw a huge difference here on the left and the right, we don’t have a valid experiment; basically, we wouldn’t be comparing similar people on the left and the right.</li>
+<li>Gender also looks relatively similar.</li>
+</ul></li>
+</ul>
+<p><img src="images/lec6_higher_ed/zimmerman6.png" width="90%" /></p>
+<ul>
+<li>Treatment effect of attending FIU: plot mean quarterly earnings around that cutoff.
+<ul>
+<li>Administrative data on earnings of students who previously either attended FIU or didn’t. Plot earnings now around the GPA cutoff, eight to 14 years after you graduated from high school.</li>
+<li>Clear jump in earnings, to the right of the cutoff, relative to the left. The people to the right had a significantly higher chance of attending FIU than the people to the left. Because we assume these people are comparable on other dimensions, we can attribute the $372 jump in earnings at that point to the causal effect of attending FIU instead of your local community college.</li>
+</ul></li>
+<li>That’s the regression discontinuity method: plot the outcomes, versus the variable of interest, and then look for a jump at the relevant cutoff.</li>
+</ul>
+<p>##Causal Effects of Colleges</p>
+<ul>
+<li>Use earnings controlling for SAT scores, and parent income, as an estimate of each college’s causal effect.
+<ul>
+<li>Infeasible to do a random or quasi-random assignment at every college; instead, take a set of kids who have the same SAT scores and parent income. Find a set of kids who have those characteristics at Harvard and a set of kids who have those characteristics at the University of Michigan. Attribute any difference in earnings on average, between those two sets of kids, to the causal effect of attending Harvard instead of attending Michigan.</li>
+<li>Using SAT scores and parent income to control for selection, or differences in student background, works perfectly if the only dimension on which colleges are actually selecting students is based on SAT scores and parent income.</li>
+</ul></li>
+<li>Compare SAT/parent income control method to the quasi-experimental estimates you get at FIU: similar results.</li>
+<li>There is some scope to increase low and middle-income shares at highly selective colleges by admitting and enrolling more high-achieving, lower-income students.
+<ul>
+<li>It could be because they’re not applying, they’re not getting in, or they’re not choosing to enroll because of the cost.</li>
+</ul></li>
+<li>Lower application rates of well-qualified low-income students (undermatching).</li>
+</ul>
+<p><img src="images/lec6_higher_ed/cost_attending.png" width="90%" /></p>
+<pre><code>- Cost of college: the red bars are the sticker prices. For a kid from a low-income family the cost that you&#39;d actually face, taking financial aid into account, is shown by the blue bar, which is lower than the cost of going to some of the less competitive schools. At top colleges, cost by itself doesn&#39;t seem like the key barrier. 
+- Lack of information or support in the application process for low-income students seems more plausible. </code></pre>
 </div>
-</div>
-<div id="description" class="section level2 unnumbered hasAnchor">
-<h2>Data Description<a href="project1.html#description" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The data consist of n = 73,278 U.S. Census tracts. For more details on the construction of the variables included in this data set, please see <a href="https://opportunityinsights.org/wp-content/uploads/2018/10/atlas_paper.pdf">Chetty, Raj, John Friedman, Nathaniel Hendren, Maggie R. Jones, and Sonya R. Porter. 2018. “The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility.”</a>, NBER Working Paper No. 25147.</p>
-<p><strong>Table 1</strong></p>
-<p>Definitions of Variables in <code>atlas.rds</code></p>
-<table style="width:100%;">
-<colgroup>
-<col width="39%" />
-<col width="54%" />
-<col width="5%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Variable name</strong></th>
-<th><strong>Label</strong></th>
-<th><strong>Obs.</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>(1)</strong></td>
-<td><strong>(2)</strong></td>
-<td><strong>(3)</strong></td>
-</tr>
-<tr class="even">
-<td><strong>1. Geographic identifiers</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>tract</td>
-<td>Tract FIPS Code (6-digit) 2010</td>
-<td>73,278</td>
-</tr>
-<tr class="even">
-<td>county</td>
-<td>County FIPS Code (3-digit)</td>
-<td>73,278</td>
-</tr>
-<tr class="odd">
-<td>state</td>
-<td>State FIPS Code (2-digit)</td>
-<td>73,278</td>
-</tr>
-<tr class="even">
-<td>cz</td>
-<td>Commuting Zone Identifier (1990 Definition)</td>
-<td>72,473</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>2. Characteristics of Census tracts</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>hhinc_mean2000</td>
-<td>Mean Household Income 2000</td>
-<td>72,302</td>
-</tr>
-<tr class="even">
-<td>mean_commutetime2000</td>
-<td>Average Commute Time of Working Adults in 2000</td>
-<td>72,313</td>
-</tr>
-<tr class="odd">
-<td>frac_coll_plus2010</td>
-<td>Fraction of Residents with a College Degree or More in 2010</td>
-<td>72,993</td>
-</tr>
-<tr class="even">
-<td>frac_coll_plus2000</td>
-<td>Fraction of Residents with a College Degree or More in 2000</td>
-<td>72,343</td>
-</tr>
-<tr class="odd">
-<td>foreign_share2010</td>
-<td>Share of Population Born Outside the U.S.</td>
-<td>72,279</td>
-</tr>
-<tr class="even">
-<td>med_hhinc2016</td>
-<td>Median Household Income in 2016</td>
-<td>72,763</td>
-</tr>
-<tr class="odd">
-<td>med_hhinc1990</td>
-<td>Median Household Income in 1999</td>
-<td>72,313</td>
-</tr>
-<tr class="even">
-<td>popdensity2000</td>
-<td>Population Density (per square mile) in 2000</td>
-<td>72,469</td>
-</tr>
-<tr class="odd">
-<td>poor_share2010</td>
-<td>Poverty Rate 2010</td>
-<td>72,933</td>
-</tr>
-<tr class="even">
-<td>poor_share2000</td>
-<td>Poverty Rate 2000</td>
-<td>72,315</td>
-</tr>
-<tr class="odd">
-<td>poor_share1990</td>
-<td>Poverty Rate 1990</td>
-<td>72,323</td>
-</tr>
-<tr class="even">
-<td>share_black2010</td>
-<td>Share black 2010</td>
-<td>73,111</td>
-</tr>
-<tr class="odd">
-<td>share_hisp2010</td>
-<td>Share Hispanic 2010</td>
-<td>73,111</td>
-</tr>
-<tr class="even">
-<td>share_asian2010</td>
-<td>Share Asian 2010</td>
-<td>71,945</td>
-</tr>
-<tr class="odd">
-<td>share_black2000</td>
-<td>Share black 2000</td>
-<td>72,368</td>
-</tr>
-<tr class="even">
-<td>share_white2000</td>
-<td>Share white 2000</td>
-<td>72,368</td>
-</tr>
-<tr class="odd">
-<td>share_hisp2000</td>
-<td>Share Hispanic 2000</td>
-<td>72,368</td>
-</tr>
-<tr class="even">
-<td>share_asian2000</td>
-<td>Share Asian 2000</td>
-<td>71,050</td>
-</tr>
-<tr class="odd">
-<td>gsmn_math_g3_2013</td>
-<td>Average School District Level Standardized Test Scores in 3rd Grade in 2013</td>
-<td>72,090</td>
-</tr>
-<tr class="even">
-<td>rent_twobed2015</td>
-<td>Average Rent for Two-Bedroom Apartment in 2015</td>
-<td>56,607</td>
-</tr>
-<tr class="odd">
-<td>singleparent_share2010</td>
-<td>Share of Single-Headed Households with Children 2010</td>
-<td>72,564</td>
-</tr>
-<tr class="even">
-<td>singleparent_share1990</td>
-<td>Share of Single-Headed Households with Children 1990</td>
-<td>72,196</td>
-</tr>
-<tr class="odd">
-<td>singleparent_share2000</td>
-<td>Share of Single-Headed Households with Children 2000</td>
-<td>72,285</td>
-</tr>
-<tr class="even">
-<td>traveltime15_2010</td>
-<td>Share of Working Adults w/ Commute Time of 15 Minutes Or Less in 2010</td>
-<td>72,939</td>
-</tr>
-<tr class="odd">
-<td>emp2000</td>
-<td>Employment Rate 2000</td>
-<td>72,344</td>
-</tr>
-<tr class="even">
-<td>mail_return_rate2010</td>
-<td>Census Form Rate Return Rate 2010</td>
-<td>72,547</td>
-</tr>
-<tr class="odd">
-<td>ln_wage_growth_hs_grad</td>
-<td>Log wage growth for HS Grad., 2005-2014</td>
-<td>51,635</td>
-</tr>
-<tr class="even">
-<td>jobs_total_5mi_2015</td>
-<td>Number of Primary Jobs within 5 Miles in 2015</td>
-<td>72,311</td>
-</tr>
-<tr class="odd">
-<td>jobs_highpay_5mi_2015</td>
-<td>Number of High-Paying (&gt;USD40,000 annually) Jobs within 5 Miles in 2015</td>
-<td>72,311</td>
-</tr>
-<tr class="even">
-<td>nonwhite_share2010</td>
-<td>Share of People who are not white 2010</td>
-<td>73,111</td>
-</tr>
-<tr class="odd">
-<td>popdensity2010</td>
-<td>Population Density (per square mile) in 2010</td>
-<td>73,194</td>
-</tr>
-<tr class="even">
-<td>ann_avg_job_growth_2004_2013</td>
-<td>Average Annual Job Growth Rate 2004-2013</td>
-<td>70,664</td>
-</tr>
-<tr class="odd">
-<td>job_density_2013</td>
-<td>Job Density (in square miles) in 2013</td>
-<td>72,463</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>3. Measures of Upward Mobility from the Opportunity Atlas</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>kfr_pooled_p25</td>
-<td>Household income ($) at age 31-37 for children with parents at the 25th percentile of the national income distribution</td>
-<td>72,011</td>
-</tr>
-<tr class="odd">
-<td>kfr_pooled_p75</td>
-<td>Household income ($) at age 31-37 for children with parents at the 75th percentile of the national income distribution</td>
-<td>72,012</td>
-</tr>
-<tr class="even">
-<td>kfr_pooled_p100</td>
-<td>Household income ($) at age 31-37 for children with parents at the 100th percentile of the national income distribution</td>
-<td>71,968</td>
-</tr>
-<tr class="odd">
-<td>kfr_natam_p25</td>
-<td>Household income ($) at age 31-37 for Native American children with parents at the 25th percentile of the national income distribution</td>
-<td>1,733</td>
-</tr>
-<tr class="even">
-<td>kfr_natam_p75</td>
-<td>Household income ($) at age 31-37 for Native American children with parents at the 75th percentile of the national income distribution</td>
-<td>1,728</td>
-</tr>
-<tr class="odd">
-<td>kfr_natam_p100</td>
-<td>Household income ($) at age 31-37 for Native American children with parents at the 100th percentile of the national income distribution</td>
-<td>1,594</td>
-</tr>
-<tr class="even">
-<td>kfr_asian_p25</td>
-<td>Household income ($) at age 31-37 for Asian children with parents at the 25th percentile of the national income distribution</td>
-<td>15,434</td>
-</tr>
-<tr class="odd">
-<td>kfr_asian_p75</td>
-<td>Household income ($) at age 31-37 for Asian children with parents at the 75th percentile of the national income distribution</td>
-<td>15,360</td>
-</tr>
-<tr class="even">
-<td>kfr_asian_p100</td>
-<td>Household income ($) at age 31-37 for Asian children with parents at the 100th percentile of the national income distribution</td>
-<td>13,480</td>
-</tr>
-<tr class="odd">
-<td>kfr_black_p25</td>
-<td>Household income ($) at age 31-37 for Black children with parents at the 25th percentile of the national income distribution</td>
-<td>34,086</td>
-</tr>
-<tr class="even">
-<td>kfr_black_p75</td>
-<td>Household income ($) at age 31-37 for Black children with parents at the 75th percentile of the national income distribution</td>
-<td>34,049</td>
-</tr>
-<tr class="odd">
-<td>kfr_black_p100</td>
-<td>Household income ($) at age 31-37 for Black children with parents at the 100th percentile of the national income distribution</td>
-<td>32,536</td>
-</tr>
-<tr class="even">
-<td>kfr_hisp_p25</td>
-<td>Household income ($) at age 31-37 for Hispanic children with parents at the 25th percentile of the national income distribution</td>
-<td>37,611</td>
-</tr>
-<tr class="odd">
-<td>kfr_hisp_p75</td>
-<td>Household income ($) at age 31-37 for Hispanic children with parents at the 75th percentile of the national income distribution</td>
-<td>37,579</td>
-</tr>
-<tr class="even">
-<td>kfr_hisp_p100</td>
-<td>Household income ($) at age 31-37 for Hispanic children with parents at the 100th percentile of the national income distribution</td>
-<td>35,987</td>
-</tr>
-<tr class="odd">
-<td>kfr_white_p25</td>
-<td>Household income ($) at age 31-37 for white children with parents at the 25th percentile of the national income distribution</td>
-<td>67,978</td>
-</tr>
-<tr class="even">
-<td>kfr_white_p75</td>
-<td>Household income ($) at age 31-37 for white children with parents at the 75th percentile of the national income distribution</td>
-<td>67,968</td>
-</tr>
-<tr class="odd">
-<td>kfr_white_p100</td>
-<td>Household income ($) at age 31-37 for white children with parents at the 100th percentile of the national income distribution</td>
-<td>67,627</td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>3. Counts of number of children under 18 in 2000 (to calculate weighted summary statistics)</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>count_pooled</td>
-<td>Count of all children</td>
-<td>72,451</td>
-</tr>
-<tr class="odd">
-<td>count_white</td>
-<td>Count of White children</td>
-<td>72,451</td>
-</tr>
-<tr class="even">
-<td>count_black</td>
-<td>Count of Black children</td>
-<td>72,451</td>
-</tr>
-<tr class="odd">
-<td>count_asian</td>
-<td>Count of Asian children</td>
-<td>72,451</td>
-</tr>
-<tr class="even">
-<td>count_hisp</td>
-<td>Count of Hispanic children</td>
-<td>72,451</td>
-</tr>
-<tr class="odd">
-<td>count_natam</td>
-<td>Count of Native American children</td>
-<td>72,451</td>
-</tr>
-</tbody>
-</table>
-<hr />
-</div>
-<div id="cheatsheetproject1" class="section level2 unnumbered hasAnchor">
-<h2>Cheatsheat commands<a href="project1.html#cheatsheetproject1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>R command Description</strong></p>
-<p>Here I present a summary of the commands you could use to work on this project. There are two important issues you should keep in mind while reading this:</p>
-<ol style="list-style-type: decimal">
-<li>Notice that whenever you see <code>yvar</code> this is <strong>not a real variable</strong>. It is only a place holder for the appropriate variable that you decide to analyze or use. For example, if you want to see the mean across neighborhoods of the average household income as measured in 2000, you would not do <code>mean(atlas$yvar, na.rm=TRUE)</code> but <code>mean(atlas$hhinc_mean2000, na.rm=TRUE)</code>.</li>
-</ol>
-<div class="blackbox">
-<div class="center">
-<p><strong>Important!</strong></p>
-</div>
-<p><strong>‘yvar’</strong> is not a real variable. You should replace it for the appropriate variable in your code.</p>
-</div>
-<ol start="2" style="list-style-type: decimal">
-<li>The data <code>atlas</code> has missing information for <em>some</em> neighborhoods for <em>some</em> variables. These are called <code>NA</code> or missing. Most R functions do not like that you include missings in the function, because R does not know what to do with that. What is <code>5+NA</code> ? NA !! So, for many of these functions, we will <strong>explicitely tell R to ignore NAs</strong>. That is what the option <code>na.rm=TRUE</code> does. It does not not exist for every function, but it does for most of the ones we will use here.</li>
-</ol>
-<div class="blackbox">
-<div class="center">
-<p><strong>Important!</strong></p>
-</div>
-<p>Careful with missing values (also called <strong>‘NA’</strong>)! We will use <em>‘na.rm=TRUE’</em> as an option for several functions to tell R to ignore the missings.</p>
-</div>
-<div id="unweighted-summary-statistics" class="section level3 unnumbered hasAnchor">
-<h3>Unweighted summary statistics<a href="project1.html#unweighted-summary-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="project1.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(atlas<span class="sc">$</span>yvar)</span>
-<span id="cb92-2"><a href="project1.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(atlas<span class="sc">$</span>yvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb92-3"><a href="project1.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(atlas<span class="sc">$</span>yvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-</div>
-<div id="load-package" class="section level3 unnumbered hasAnchor">
-<h3>Load package<a href="project1.html#load-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If you wanted to install and open the package <code>Hmisc</code> (which you will need to calculate the weighted statistics), run:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="project1.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;Hmisc&quot;</span>)</span>
-<span id="cb93-2"><a href="project1.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span></code></pre></div>
-</div>
-<div id="weighted-summary-statistics" class="section level3 unnumbered hasAnchor">
-<h3>Weighted summary statistics<a href="project1.html#weighted-summary-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>You can weight means or other statistics. In our case, we want to use the <strong>population weighted</strong> statistics in several cases. That is, we want to put more weight on the value of a tract in which more people live than in another with lower population. Recall that the population variable is <code>count_pooled</code>.</p>
-<ol style="list-style-type: decimal">
-<li>Weighted mean:</li>
-</ol>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="project1.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wtd.mean</span>(atlas<span class="sc">$</span>yvar, atlas<span class="sc">$</span>count_pooled)</span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Weighted standard deviation:</li>
-</ol>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="project1.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">wtd.var</span>(atlas<span class="sc">$</span>yvar, atlas<span class="sc">$</span>count_pooled))</span></code></pre></div>
-</div>
-<div id="subset-observations" class="section level3 unnumbered hasAnchor">
-<h3>Subset observations<a href="project1.html#subset-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ol style="list-style-type: decimal">
-<li>State level:</li>
-</ol>
-<p>If you want to select a subset of observations, you can add the rule for selecting those observations, and the <code>filter</code> function. Here we subset the observations for the State of Wisconsin, and called the resulting dataset <code>atlas_wisconsin</code>.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="project1.html#cb96-1" aria-hidden="true" tabindex="-1"></a>atlas_wisconsin <span class="ot">&lt;-</span> atlas <span class="sc">%&gt;%</span> </span>
-<span id="cb96-2"><a href="project1.html#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="dv">55</span>)</span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>County level:</li>
-</ol>
-<p>We can do the same but now for a specific county, adding an extra rule after a comma <code>,</code> or <code>&amp;</code>. Here we subset the observations for Milwaukee County in Wisconsin:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="project1.html#cb97-1" aria-hidden="true" tabindex="-1"></a>atlas_milwaukee <span class="ot">&lt;-</span> atlas <span class="sc">%&gt;%</span> </span>
-<span id="cb97-2"><a href="project1.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="dv">55</span> <span class="sc">&amp;</span> county <span class="sc">==</span> <span class="dv">079</span>) </span></code></pre></div>
-</div>
-<div id="standardize-variables" class="section level3 unnumbered hasAnchor">
-<h3>Standardize variables<a href="project1.html#standardize-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>You can standardize variables by substracting the mean and dividing by the standard deviation. Let us say that you want to standardize only considering the variables in Milwaukee, then you can do this:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="project1.html#cb98-1" aria-hidden="true" tabindex="-1"></a>atlas_milwaukee<span class="ot">&lt;-</span> atlas_milwaukee <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="project1.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_std=</span>(xvar <span class="sc">-</span> <span class="fu">mean</span>(atlas_milwaukee<span class="sc">$</span>xvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_milwaukee<span class="sc">$</span>xvar, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
-<p>As an example, let’s say you want to standardize both the measure of mobility and the annual job growth for the data in Wisconsin:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="project1.html#cb99-1" aria-hidden="true" tabindex="-1"></a>atlas_wisconsin<span class="ot">&lt;-</span> atlas_wisconsin <span class="sc">%&gt;%</span></span>
-<span id="cb99-2"><a href="project1.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">kfr_pooled_p25_std=</span>(kfr_pooled_p25 <span class="sc">-</span> <span class="fu">mean</span>(atlas_wisconsin<span class="sc">$</span>kfr_pooled_p25, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_wisconsin<span class="sc">$</span>kfr_pooled_p25, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
-<span id="cb99-3"><a href="project1.html#cb99-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ann_avg_job_growth_2004_2013_std=</span>(ann_avg_job_growth_2004_2013 <span class="sc">-</span> <span class="fu">mean</span>(atlas_wisconsin<span class="sc">$</span>ann_avg_job_growth_2004_2013, <span class="at">na.rm=</span><span class="cn">TRUE</span>))<span class="sc">/</span><span class="fu">sd</span>(atlas_wisconsin<span class="sc">$</span>ann_avg_job_growth_2004_2013, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
-</div>
-<div id="run-regression" class="section level3 unnumbered hasAnchor">
-<h3>Run regression<a href="project1.html#run-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>I have written a whole section explaining regression in more detail: Section <a href="regression.html#regression">10</a>. Please see that for further details. But here is a quick help.</p>
-<ol style="list-style-type: decimal">
-<li>Simple linear regression</li>
-</ol>
-<p>Let’s say you want to run a simple regression of variable <code>yvar</code> on variable <code>xvar1</code> for the county of Milwaukee. We will save the results of that regression in an object call <code>mod1</code> (we could give it any name). Then you would do this:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="project1.html#cb100-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yvar<span class="sc">~</span>xvar1, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
-<p>To see what the outcome of the regression is, you would use the function <code>summary</code> and apply it to our new object <code>mod1</code>, like this:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="project1.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
-<p>As an example, we could regress the mobility of children from parents in the 25th percentile (<code>kfr_pooled_p25</code>) on the average annual job growth rate between 2004 and 2013 (<code>ann_avg_job_growth_2004_2013</code>). To do that, we would run:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="project1.html#cb102-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(kfr_pooled_p25<span class="sc">~</span>ann_avg_job_growth_2004_2013, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Multivariate linear regression</li>
-</ol>
-<p>You might want to understand the relationship between <code>yvar</code> and variable <code>xvar1</code> <strong>while holding fixed</strong> another variable <code>xvar2</code> for neighborhoods only in Milwaukee. You can do this:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="project1.html#cb103-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yvar<span class="sc">~</span>xvar1<span class="sc">+</span>xvar2 <span class="sc">+</span> xvar3, <span class="at">data =</span> atlas_milwaukee)</span></code></pre></div>
-</div>
-<div id="how-to-read-the-regression-output" class="section level3 unnumbered hasAnchor">
-<h3>How to read the regression output?<a href="project1.html#how-to-read-the-regression-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To simplify the interpretation, let’s run a regression where you use the standardize both the measure of mobility and the annual job growth for the data in Wisconsin:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="project1.html#cb104-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(kfr_pooled_p25_std <span class="sc">~</span> ann_avg_job_growth_2004_2013_std, <span class="at">data =</span> atlas_wisconsin)</span>
-<span id="cb104-2"><a href="project1.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = kfr_pooled_p25_std ~ ann_avg_job_growth_2004_2013_std, 
-##     data = atlas_wisconsin)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -2.829 -0.569  0.035  0.684  5.128 
-## 
-## Coefficients:
-##                                     Estimate  Std. Error t value Pr(&gt;|t|)  
-## (Intercept)                      -0.00000978  0.02681564    0.00    1.000  
-## ann_avg_job_growth_2004_2013_std -0.05131843  0.02679889   -1.91    0.056 .
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.999 on 1386 degrees of freedom
-##   (6 observations deleted due to missingness)
-## Multiple R-squared:  0.00264,    Adjusted R-squared:  0.00192 
-## F-statistic: 3.67 on 1 and 1386 DF,  p-value: 0.0557</code></pre>
-<p>You should focus here on interpreting the coefficient for <code>ann_avg_job_growth_2004_2013_std</code>. You should pay attention to both the magnitude of the number, and the sign. In this case, you would read it like this:</p>
-<blockquote>
-<p>In <strong>Wisconsin</strong>, increasing <strong>one standard deviation</strong> the average annual job growth rate <strong>is correlated</strong> with an <strong>reduction</strong> of <strong>0.05 standard deviations</strong> in the economic mobility for children with parents in the 25th percertile.</p>
-</blockquote>
-</div>
-<div id="plotting-the-linear-relationship" class="section level3 unnumbered hasAnchor">
-<h3>Plotting the linear relationship<a href="project1.html#plotting-the-linear-relationship" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>You need to load the <code>ggplot2</code> package (which should be installed already).</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="project1.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
-<p>Suppose you want to visually see the linear relationship between two variables in the <code>atlas_milwaukee</code> dataset that we filtered above. Then, you can do this:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="project1.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas_milwaukee) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar1, <span class="at">y =</span> yvar)) <span class="sc">+</span> </span>
-<span id="cb107-2"><a href="project1.html#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> xvar1, <span class="at">y =</span> yvar), <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> F)</span></code></pre></div>
-<p>The function <code>geom_smooth()</code> adds the line that you calculated above for <code>mod1</code>, where you ran <code>mod1 &lt;- lm(yvar~xvar1, data = atlas_milwaukee)</code>.</p>
-<p>For more, see Section <a href="viz.html#viz">8</a>.</p>
+<div id="university-of-michigan-hail-experiment" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> University of Michigan HAIL Experiment<a href="lec6_ed-higher.html#university-of-michigan-hail-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Sue Dynarski and peers test this information hypothesis by running an experiment at the University of Michigan (UofM).
+<ul>
+<li>High-achieving students: GPA above 3.3 and an SAT score above 1100.</li>
+<li>Low-income families: kids growing up in families that have an income below about $50,000 a year.</li>
+<li>Administrative data from schools of every student in Michigan.</li>
+<li>Proxy for low-income families: eligibility for a free or reduced-price lunch.</li>
+</ul></li>
+<li>Assign 50% of those students, randomly, to receive a treatment of additional information and support to apply to the UofM.
+<ul>
+<li>Brochures saying you can attend with free tuition. Everybody was eligible given their income cutoffs. But they’re making that very clear. Waiving fees that are often deterrents to applying. Informing them the FAFSA is free.</li>
+<li>Reach out to both students and parents with personalized mailing.</li>
+</ul></li>
+<li>Controlled treatment comparisons: 67% of the students in the treatment group applied to the University of Michigan, only 26% of the students in the control group did.
+<ul>
+<li>32% of the students in the treatment group got into the UofM; 15% in the control group. 27% of the students in the treatment group are currently attending the UofM; 12% of the students in the control group are.</li>
+</ul></li>
+<li>With simple, low-cost mailing, they increased the fraction of highly qualified students who attend the UofM, by about 15 percentage points, doubling the rate of attending the UofM in this group.
+<ul>
+<li>Students continue to attend the UofM two years after the experimental intervention.</li>
+<li>Many of these students would have attended community colleges had they not attended the UofM.</li>
+</ul></li>
+<li>Removing cost and informational barriers, for high-achieving, low-income students can increase their access to highly selective colleges appreciably.
+<ul>
+<li>By itself, this is not the solution. Starting from a pool of 2,000 students, you’re increasing the fraction of students who attend the UofM by about 15%, or 300 extra students per year. This will not alone desegregate the higher education system.</li>
+</ul></li>
+<li>Even if you hypothetically eliminated all barriers, and had pure SAT-based applications and admission, that would not change low-income shares appreciably, especially at elite colleges.</li>
+</ul>
+<p><img src="images/lec6_higher_ed/dynarski2.png" width="90%" /></p>
 
 </div>
 </div>
-</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="appendixA.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="project2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lec5_mob-ed.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-started.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1051,7 +629,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/project1.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-ed-higher.Rmd",
 "text": "Edit"
 },
 "history": {
