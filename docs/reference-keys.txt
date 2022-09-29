@@ -94,6 +94,7 @@ causal-effects-of-colleges
 estimating-the-causal-effects-of-colleges
 regression-discontinuity-methods
 zimmerman-study
+causal-effects-of-colleges-1
 university-of-michigan-hail-experiment
 getting-started
 why-r-again

@@ -75,7 +75,7 @@ knitr::include_graphics("images/lec6_higher_ed/zimmerman6.png")
     - Clear jump in earnings, to the right of the cutoff, relative to the left. The people to the right had a significantly higher chance of attending FIU than the people to the left. Because we assume these people are comparable on other dimensions, we can attribute the $372 jump in earnings at that point to the causal effect of attending FIU instead of your local community college. 
 - That's the regression discontinuity method: plot the outcomes, versus the variable of interest, and then look for a jump at the relevant cutoff. 
 
-##Causal Effects of Colleges
+## Causal Effects of Colleges
 
 - Use earnings controlling for SAT scores, and parent income, as an estimate of each college's causal effect. 
     - Infeasible to do a random or quasi-random assignment at every college; instead, take a set of kids who have the same SAT scores and parent income. Find a set of kids who have those characteristics at Harvard and a set of kids who have those characteristics at the University of Michigan. Attribute any difference in earnings on average, between those two sets of kids, to the causal effect of attending Harvard instead of attending Michigan. 
@@ -89,8 +89,9 @@ knitr::include_graphics("images/lec6_higher_ed/zimmerman6.png")
 knitr::include_graphics("images/lec6_higher_ed/cost_attending.png")
 ```
 
-    - Cost of college: the red bars are the sticker prices. For a kid from a low-income family the cost that you'd actually face, taking financial aid into account, is shown by the blue bar, which is lower than the cost of going to some of the less competitive schools. At top colleges, cost by itself doesn't seem like the key barrier. 
-    - Lack of information or support in the application process for low-income students seems more plausible. 
+- Cost of college: the red bars are the sticker prices. For a kid from a low-income family the cost that you'd actually face, taking financial aid into account, is shown by the blue bar, which is lower than the cost of going to some of the less competitive schools. At top colleges, cost by itself doesn't seem like the key barrier. 
+
+- Lack of information or support in the application process for low-income students seems more plausible. 
 
 ## University of Michigan HAIL Experiment
 - Sue Dynarski and peers test this information hypothesis by running an experiment at the University of Michigan (UofM). 

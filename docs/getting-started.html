@@ -219,7 +219,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="lec6_ed-higher.html"><a href="lec6_ed-higher.html#estimating-the-causal-effects-of-colleges"><i class="fa fa-check"></i><b>6.2</b> Estimating the Causal Effects of Colleges</a></li>
 <li class="chapter" data-level="6.3" data-path="lec6_ed-higher.html"><a href="lec6_ed-higher.html#regression-discontinuity-methods"><i class="fa fa-check"></i><b>6.3</b> Regression Discontinuity Methods</a></li>
 <li class="chapter" data-level="6.4" data-path="lec6_ed-higher.html"><a href="lec6_ed-higher.html#zimmerman-study"><i class="fa fa-check"></i><b>6.4</b> Zimmerman Study</a></li>
-<li class="chapter" data-level="6.5" data-path="lec6_ed-higher.html"><a href="lec6_ed-higher.html#university-of-michigan-hail-experiment"><i class="fa fa-check"></i><b>6.5</b> University of Michigan HAIL Experiment</a></li>
+<li class="chapter" data-level="6.5" data-path="lec6_ed-higher.html"><a href="lec6_ed-higher.html#causal-effects-of-colleges-1"><i class="fa fa-check"></i><b>6.5</b> Causal Effects of Colleges</a></li>
+<li class="chapter" data-level="6.6" data-path="lec6_ed-higher.html"><a href="lec6_ed-higher.html#university-of-michigan-hail-experiment"><i class="fa fa-check"></i><b>6.6</b> University of Michigan HAIL Experiment</a></li>
 </ul></li>
 <li class="part"><span><b>II Tools</b></span></li>
 <li class="chapter" data-level="7" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>7</b> Very Brief Intro to Data in R</a>
@@ -589,25 +590,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="in-class-exercise" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> In Class Exercise<a href="getting-started.html#in-class-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Try running the following commands in the console. What do you see for each one?</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="getting-started.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">3</span></span>
-<span id="cb2-2"><a href="getting-started.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>pi</span>
-<span id="cb2-3"><a href="getting-started.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span>
-<span id="cb2-4"><a href="getting-started.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">2</span>)</span>
-<span id="cb2-5"><a href="getting-started.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">25</span>)</span>
-<span id="cb2-6"><a href="getting-started.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">==</span><span class="dv">3</span></span>
-<span id="cb2-7"><a href="getting-started.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">==</span><span class="dv">4</span></span>
-<span id="cb2-8"><a href="getting-started.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">&lt;=</span><span class="dv">4</span></span>
-<span id="cb2-9"><a href="getting-started.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">!=</span><span class="dv">4</span></span>
-<span id="cb2-10"><a href="getting-started.html#cb2-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>)<span class="co"># this is called a &#39;vector&#39;</span></span>
-<span id="cb2-11"><a href="getting-started.html#cb2-11" aria-hidden="true" tabindex="-1"></a>x <span class="co">#what do you see?</span></span>
-<span id="cb2-12"><a href="getting-started.html#cb2-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">2</span>)</span>
-<span id="cb2-13"><a href="getting-started.html#cb2-13" aria-hidden="true" tabindex="-1"></a>x <span class="co">#now what do you see?</span></span>
-<span id="cb2-14"><a href="getting-started.html#cb2-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>) <span class="co"># USE ARROW!</span></span>
-<span id="cb2-15"><a href="getting-started.html#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span>
-<span id="cb2-16"><a href="getting-started.html#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(y)</span>
-<span id="cb2-17"><a href="getting-started.html#cb2-17" aria-hidden="true" tabindex="-1"></a>x<span class="sc">+</span>y</span>
-<span id="cb2-18"><a href="getting-started.html#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#write this</span></span>
-<span id="cb2-19"><a href="getting-started.html#cb2-19" aria-hidden="true" tabindex="-1"></a>write this again</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="getting-started.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">3</span></span>
+<span id="cb1-2"><a href="getting-started.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>pi</span>
+<span id="cb1-3"><a href="getting-started.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span>
+<span id="cb1-4"><a href="getting-started.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">2</span>)</span>
+<span id="cb1-5"><a href="getting-started.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">25</span>)</span>
+<span id="cb1-6"><a href="getting-started.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">==</span><span class="dv">3</span></span>
+<span id="cb1-7"><a href="getting-started.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">==</span><span class="dv">4</span></span>
+<span id="cb1-8"><a href="getting-started.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">&lt;=</span><span class="dv">4</span></span>
+<span id="cb1-9"><a href="getting-started.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">!=</span><span class="dv">4</span></span>
+<span id="cb1-10"><a href="getting-started.html#cb1-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">5</span>)<span class="co"># this is called a &#39;vector&#39;</span></span>
+<span id="cb1-11"><a href="getting-started.html#cb1-11" aria-hidden="true" tabindex="-1"></a>x <span class="co">#what do you see?</span></span>
+<span id="cb1-12"><a href="getting-started.html#cb1-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">2</span>)</span>
+<span id="cb1-13"><a href="getting-started.html#cb1-13" aria-hidden="true" tabindex="-1"></a>x <span class="co">#now what do you see?</span></span>
+<span id="cb1-14"><a href="getting-started.html#cb1-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>) <span class="co"># USE ARROW!</span></span>
+<span id="cb1-15"><a href="getting-started.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span>
+<span id="cb1-16"><a href="getting-started.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(y)</span>
+<span id="cb1-17"><a href="getting-started.html#cb1-17" aria-hidden="true" tabindex="-1"></a>x<span class="sc">+</span>y</span>
+<span id="cb1-18"><a href="getting-started.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#write this</span></span>
+<span id="cb1-19"><a href="getting-started.html#cb1-19" aria-hidden="true" tabindex="-1"></a>write this again</span></code></pre></div>
 <div id="errors-warnings-and-messages" class="section level3 hasAnchor" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> Errors, warnings, and messages<a href="getting-started.html#errors-warnings-and-messages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Noticed the last thing that appeared in the console when you wrote <code>write this again</code>? It had scary red letters. It is an example of something that intimidates new R and RStudio users: how it reports <em>errors</em>, <em>warnings</em>, and <em>messages</em>. R reports errors, warnings, and messages in a glaring red font, which makes it seem like it is scolding you. However, seeing red text in the console is not always bad.</p>
@@ -704,7 +705,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="package-loading" class="section level3 hasAnchor" number="7.6.2">
 <h3><span class="header-section-number">7.6.2</span> Package loading<a href="getting-started.html#package-loading" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Recall that after you’ve installed a package, you need to “load” it, in other words open it. We do this by using the <code>library()</code> command. For example, to load the <code>ggplot2</code> package, run the following code in the Console pane. What do we mean by “run the following code”? Either type or copy &amp; paste the following code into the Console pane and then hit the enter key.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="getting-started.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="getting-started.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <p>If after running the above code, a blinking cursor returns next to the <code>&gt;</code> “prompt” sign, it means you were successful and the <code>ggplot2</code> package is now loaded and ready to use. If however, you get a red “error message” that reads…</p>
 <pre><code>Error in library(ggplot2) : there is no package called ‘ggplot2’</code></pre>
 <p>… it means that you didn’t successfully install it. In that case, go back to the previous subsection “Package installation” and install it.</p>
@@ -731,10 +732,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.7.1</span> Explore your first dataset: economic mobility in the US<a href="getting-started.html#mobilitydata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s put everything we’ve learned so far into practice and start exploring some real data! These “spreadsheet”-type datasets are called <em>data frames</em> in R; we will focus on working with data saved as data frames throughout this course.</p>
 <p>Step 1: Load all the packages needed for this exercise (assuming you’ve already installed them).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="getting-started.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb6-2"><a href="getting-started.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb6-3"><a href="getting-started.html#cb6-3" aria-hidden="true" tabindex="-1"></a>atlas <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">gzcon</span>(<span class="fu">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds&quot;</span>)))</span>
-<span id="cb6-4"><a href="getting-started.html#cb6-4" aria-hidden="true" tabindex="-1"></a>atlas<span class="ot">&lt;-</span><span class="fu">tibble</span>(atlas)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="getting-started.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="getting-started.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb5-3"><a href="getting-started.html#cb5-3" aria-hidden="true" tabindex="-1"></a>atlas <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">gzcon</span>(<span class="fu">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/jrm87/ECO3253_repo/master/data/atlas.rds&quot;</span>)))</span>
+<span id="cb5-4"><a href="getting-started.html#cb5-4" aria-hidden="true" tabindex="-1"></a>atlas<span class="ot">&lt;-</span><span class="fu">tibble</span>(atlas)</span></code></pre></div>
 </div>
 <div id="economic-mobility-data" class="section level3 hasAnchor" number="7.7.2">
 <h3><span class="header-section-number">7.7.2</span> Economic mobility data<a href="getting-started.html#economic-mobility-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -744,7 +745,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="atlas-data-frame" class="section level3 hasAnchor" number="7.7.3">
 <h3><span class="header-section-number">7.7.3</span> <code>atlas</code> data frame<a href="getting-started.html#atlas-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will begin by exploring the <code>atlas</code> data frame we just loaded to get an idea of its structure. Run the following code in your console (either by typing it or cutting &amp; pasting it): it loads the <code>atlas</code> dataset into your Console. Note depending on the size of your monitor, the output may vary slightly.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="getting-started.html#cb7-1" aria-hidden="true" tabindex="-1"></a>atlas</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="getting-started.html#cb6-1" aria-hidden="true" tabindex="-1"></a>atlas</span></code></pre></div>
 <pre><code>## # A tibble: 73,278 x 62
 ##    tract county state    cz czname     hhinc_mean2000 mean_commutetime2000
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;                &lt;dbl&gt;
@@ -807,7 +808,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that if you look in the leftmost column of the <code>View(atlas)</code> output, you will see a column of numbers. These are the row numbers of the dataset. If you glance across a row with the same number, say row 5, you can get an idea of what each row corresponds to.</p>
 <p><strong>2. <code>glimpse()</code></strong>:</p>
 <p>The second way to explore a data frame is using the <code>glimpse()</code> function included in the <code>dplyr</code> package. Thus, you can only use the <code>glimpse()</code> function after you’ve loaded the <code>dplyr</code> package. This function provides us with an alternative method for exploring a data frame:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="getting-started.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(atlas)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="getting-started.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(atlas)</span></code></pre></div>
 <pre><code>## Rows: 73,278
 ## Columns: 62
 ## $ tract                        &lt;dbl&gt; 20100, 20200, 20300, 20400, 20500, 20600,~
@@ -875,7 +876,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We see that <code>glimpse()</code> will give you the first few entries of each variable in a row after the variable. In addition, the <em>data type</em> of the variable is given immediately after each variable’s name inside <code>&lt; &gt;</code>. Here, <code>int</code> and <code>dbl</code> refer to “integer” and “double”, which are computer coding terminology for quantitative/numerical variables. In contrast, <code>chr</code> refers to “character”, which is computer terminology for text data. Text data, such as the <code>czname</code> (the name of the metro area), are categorical variables.</p>
 <p><strong>3. <code>$</code> operator</strong></p>
 <p>Lastly, the <code>$</code> operator allows us to explore a single variable within a data frame. For example, run the following in your console</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="getting-started.html#cb11-1" aria-hidden="true" tabindex="-1"></a>atlas<span class="sc">$</span>tract</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="getting-started.html#cb10-1" aria-hidden="true" tabindex="-1"></a>atlas<span class="sc">$</span>tract</span></code></pre></div>
 <p>We used the <code>$</code> operator to extract only the <code>tract</code> variable and return it as a vector of length 73,278. We will only be occasionally exploring data frames using this operator, instead favoring the <code>View()</code> and <code>glimpse()</code> functions.</p>
 </div>
 </div>
