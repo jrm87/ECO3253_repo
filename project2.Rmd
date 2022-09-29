@@ -10,7 +10,7 @@ In this empirical project, you will use a regression discontinuity design to est
 
 1.	[Chetty, Raj, John N. Friedman, Nathaniel Hilger, Emmanuel Saez, Diane Whitmore Schanzenbach, and Danny Yagan. 2011. “How Does Your Kindergarten Classroom Affect Your Earnings? Evidence from Project STAR,” Quarterly Journal of Economics 126(4): 1593–1660.](https://opportunityinsights.org/wp-content/uploads/2018/03/star_paper.pdf) 
 
-2.	[Angrist, Joshua D., and Victor Lavy. 1999. “Using Maimonides’ Rule to Estimate the Effect of Class Size on Scholastic Achievement,” Quarterly Journal of Economics 114(2): 533–575.](https://economics.mit.edu/files/8273)
+2.	[Angrist, Joshua D., and Victor Lavy. 1999. “Using Maimonides’ Rule to Estimate the Effect of Class Size on Scholastic Achievement,” Quarterly Journal of Economics 114(2): 533–575.](http://piketty.pse.ens.fr/files/AngristLavy1999.pdf)
 
 The data file `grade5.rds` consists of test scores in fifth grade classes at public elementary schools in Israel. These data were originally used in Angrist and Lavy (1999). The graphs below were drawn using the same data.
 
@@ -48,11 +48,11 @@ We will construct a graphical regression discontinuity analysis, focusing on the
 
     d. Produce a histogram of the number of schools by total school enrollment.  Note that you must collapse the data by school to produce this graph.  
 
-4.	Regression analysis.  Run the regressions that correspond to your three graphs in 4a and 4b to quantify the discontinuities that you see in the data.  In estimating these regressions, use all the observations with school enrollment less than 80.  Report a 95% confidence interval for each of these estimates.  See Table in the [Data Description Section](#descriptionproject2) and the [cheat sheet](#cheatsheetproject2) for more guidance.
+4.	Regression analysis.  Run the regressions that correspond to your three graphs in 3a and 3b to quantify the discontinuities that you see in the data.  In estimating these regressions, use all the observations with school enrollment less than 80.  Report a 95% confidence interval for each of these estimates.  See Table in the [Data Description Section](#descriptionproject2) and the [cheat sheet](#cheatsheetproject2) for more guidance.
 
-5.	Recall that any quasi experiment requires an identification assumption to make it as good as an experiment.  What is the identification assumption for regression discontinuity design?  Explain whether your graphs in 4c and 4d are consistent with that assumption.  
+5.	Recall that any quasi experiment requires an identification assumption to make it as good as an experiment.  What is the identification assumption for regression discontinuity design?  Explain whether your graphs in 3c and 3d are consistent with that assumption.  
  
-6.	(To answer this question, read [Angrist and Lavy (1999)](https://economics.mit.edu/files/8273)). If all schools followed the class size rule exactly as described in Angrist and Lavy (1999), how much would you expect class size to change at the 40 student enrollment threshold? Explain why the actual change in class size that you see in the data is less than this.  
+6.	(To answer this question, read [Angrist and Lavy (1999)](http://piketty.pse.ens.fr/files/AngristLavy1999.pdf)). If all schools followed the class size rule exactly as described in Angrist and Lavy (1999), how much would you expect class size to change at the 40 student enrollment threshold? Explain why the actual change in class size that you see in the data is less than this.  
 
 7.	Suppose your school superintendent is considering a reform to reduce class sizes in your school from 40 to 35. Use your estimates above to predict the change in math and verbal test scores that would result from this reform. 
 
@@ -60,7 +60,7 @@ We will construct a graphical regression discontinuity analysis, focusing on the
 
 8.	Now suppose you are asked for advice by another school that is considering reducing class size from 20 to 15 students – a 5 unit reduction as above.  Would you feel confident in making the same prediction as you did above about the impacts this change will have?  Why or why not?
 
-9.	Compare your estimates in 7 with the estimates from (i) the Tennessee STAR experiment (Chetty et al. 2011) and (ii) data from Sweden (Fredriksson et al. 2013) discussed in lecture. Give two reasons that your estimates might differ from those of these other studies.
+9.	Compare your estimates in 7 with the estimates from the Tennessee STAR experiment (Chetty et al. 2011). Give two reasons that your estimates might differ from those of these other studies.
 
 10.	Chetty et al. (2011) show that being assigned to a smaller class in Kindergarten raises Kindergarten test scores, but has little impact in later grades. Does this “fade out” effect mean that class size doesn’t really matter in the long run?  Why or why not?
 
@@ -201,7 +201,7 @@ We then generate a variable that equals `school_enrollment` minus 40, and the in
 
 ```{r, eval=FALSE}
 grade_u80 <- grade_u80%>%
-  mutate(x=-school_enrollment - 40,
+  mutate(x=school_enrollment - 40,
          x_above = above40*x)
 ```
 
