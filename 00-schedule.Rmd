@@ -135,13 +135,13 @@ s_immigration<-c("11: 10/31", #date
            "Immigration ", #topic with link
            "Clemens (2011)  ", #reading
            "Welfare analysis ", # method
-           "Project 3") #deliverable
+           " ") #deliverable
 s_polecon<-c("11: 11/02", #date
            "21", # session
            "Political Economy ", #topic with link
            "  ", #reading
            " ", # method
-           " ") #deliverable
+           "Project 3") #deliverable
 s_tax<-c("12: 11/07", #date
            "22", # session
            "Income taxation ", #topic with link
