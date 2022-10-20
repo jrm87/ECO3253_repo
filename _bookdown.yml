@@ -19,5 +19,6 @@ rmd_files: [
   "06-rmarkdown.Rmd",
   "91-appendixA.Rmd",
   "project1.Rmd",
-  "project2.Rmd"
+  "project2.Rmd",
+  "project3.Rmd"
 ]
