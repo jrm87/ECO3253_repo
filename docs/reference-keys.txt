@@ -1,10 +1,10 @@
 fig:chicagoMob
 fig:mobCZ
-fig:unnamed-chunk-2
 fig:unnamed-chunk-3
 fig:unnamed-chunk-4
 fig:unnamed-chunk-5
 fig:unnamed-chunk-6
+fig:unnamed-chunk-7
 tab:gapminder-2007
 fig:gapminder
 tab:summary-table-gapminder
@@ -15,8 +15,8 @@ fig:histogramexample
 fig:weather-histogram
 fig:weather-histogram-2
 fig:weather-histogram-3
-fig:unnamed-chunk-51
 fig:unnamed-chunk-52
+fig:unnamed-chunk-53
 fig:geombar
 fig:geomcol
 fig:flightsbar
@@ -25,7 +25,7 @@ fig:filter
 fig:select
 fig:selectfig
 fig:dplyr-cheatsheet
-tab:unnamed-chunk-84
+tab:unnamed-chunk-85
 tab:five-random-courses
 fig:correlation1
 fig:numxplot1
@@ -39,8 +39,8 @@ tab:model3-correlation
 fig:2numxplot1
 fig:3D-scatterplot
 tab:model3-table-output
-fig:unnamed-chunk-122
 fig:unnamed-chunk-123
+fig:unnamed-chunk-124
 lec1_geomobility
 parental-and-children-income-rank
 interpreting-the-regression-line

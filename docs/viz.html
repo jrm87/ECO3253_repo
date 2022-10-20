@@ -23,7 +23,7 @@
 <meta name="author" content="Jonathan Moreno-Medina" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -409,6 +409,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="project2.html"><a href="project2.html#draw-graph-of-count-of-schools"><i class="fa fa-check"></i>Draw graph of count of schools</a></li>
 <li class="chapter" data-level="" data-path="project2.html"><a href="project2.html#estimate-the-discontinuity"><i class="fa fa-check"></i>Estimate the discontinuity</a></li>
 <li class="chapter" data-level="" data-path="project2.html"><a href="project2.html#interpretation"><i class="fa fa-check"></i>Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html"><i class="fa fa-check"></i>Project 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#social-capital-and-economic-mobility"><i class="fa fa-check"></i>Social Capital and Economic Mobility</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#instructions-2"><i class="fa fa-check"></i>Instructions</a>
+<ul>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#specific-questions-to-address-in-your-narrative-1"><i class="fa fa-check"></i>Specific questions to address in your narrative</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#data-description"><i class="fa fa-check"></i>Data Description</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#cheatsheetproject3"><i class="fa fa-check"></i>Cheatsheat commands</a>
+<ul>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#unweighted-summary-statistics-1"><i class="fa fa-check"></i>Unweighted summary statistics</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#load-package-1"><i class="fa fa-check"></i>Load package</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#weighted-summary-statistics-1"><i class="fa fa-check"></i>Weighted summary statistics</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#subset-observations-2"><i class="fa fa-check"></i>Subset observations</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#standardize-variables-1"><i class="fa fa-check"></i>Standardize variables</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#run-regression-1"><i class="fa fa-check"></i>Run regression</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#how-to-read-the-regression-output-1"><i class="fa fa-check"></i>How to read the regression output?</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#confidence-intervals"><i class="fa fa-check"></i>Confidence Intervals</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#plotting-the-linear-relationship-1"><i class="fa fa-check"></i>Plotting the linear relationship</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -894,8 +915,8 @@ Figure 8.8: Histogram of mobility for children of p25 in the US with white borde
 <p>Using the first method, we have the power to specify how many bins we would like to cut the x-axis up in. As mentioned in the previous section, the default number of bins is 30. We can override this default, to say 40 bins, as follows:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="viz.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="viz.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-51"></span>
-<img src="_main_files/figure-html/unnamed-chunk-51-1.png" alt="Histogram with 40 bins." width="\textwidth" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-52"></span>
+<img src="_main_files/figure-html/unnamed-chunk-52-1.png" alt="Histogram with 40 bins." width="\textwidth" />
 <p class="caption">
 Figure 8.9: Histogram with 40 bins.
 </p>
@@ -903,8 +924,8 @@ Figure 8.9: Histogram with 40 bins.
 <p>Using the second method, instead of specifying the number of bins, we specify the width of the bins by using the <code>binwidth</code> argument in the <code>geom_histogram()</code> layer. For example, let’s set the width of each bin to be 10°F.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="viz.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
 <span id="cb24-2"><a href="viz.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4000</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-52"></span>
-<img src="_main_files/figure-html/unnamed-chunk-52-1.png" alt="Histogram with binwidth 10." width="\textwidth" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-53"></span>
+<img src="_main_files/figure-html/unnamed-chunk-53-1.png" alt="Histogram with binwidth 10." width="\textwidth" />
 <p class="caption">
 Figure 8.10: Histogram with binwidth 10.
 </p>
