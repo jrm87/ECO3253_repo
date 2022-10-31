@@ -102,83 +102,83 @@ s_recap_quarto<-c("8: 10/10", #date
            " ") #deliverable
 s_k12<-c("8: 10/12", #date
            "15", # session
-           "Primary education ", #topic with link
+           "[Primary education](#lec7_k12)", #topic with link
            "Chetty, Friedman and Rockoff (2011) [Non-technical summary]	", #reading
            "Experiments ", # method
            " ") #deliverable
 s_teachers<-c("9: 10/17", #date
            "16", # session
-           "Teachers and Charter Schools ", #topic with link
+           "[Teachers and Charter Schools](#lec8_teachers-charters)", #topic with link
            "	", #reading
            "Event study designs, competitive equilibrium ", # method
            " ") #deliverable
 s_racedis<-c("9: 10/19", #date
            "17", # session
-           "Racial Disparities in Economic Opportunity ", #topic with link
+           "[Racial Disparities in Economic Opportunity](#lec9_race-ineq) ", #topic with link
            "Bertrand, and Mullainathan (2004)	", #reading
            "Dynamic models and steady states ", # method
            " ") #deliverable
-s_jud_sys<-c("10: 10/24", #date
+s_mediabias<-c("10: 10/24", #date
            "18", # session
-           "Improving judicial decisions ", #topic with link
+           "Media Bias in Crime Coverage and Housing Prices ", #topic with link
+           "  ", #reading
+           "Instrumental Variables", # method
+           " ") #deliverable
+s_jud_sys<-c("10: 10/26", #date
+           "19", # session
+           "[Improving judicial decisions](#lec10_criminal-justice)", #topic with link
            "Kleinberg, Lakkaraju, Leskovec, Ludwig and Mullainathan (2017) ", #reading
            "Machine learning, implicit bias ", # method
            "") #deliverable
-s_ml<-c("10: 10/26", #date
-           "19", # session
+s_ml<-c("11: 10/31", #date
+           "20", # session
            "Implementing a simple machine learning model in R ", #topic with link
            "  ", #reading
            "  ", # method
            " ") #deliverable
-s_immigration<-c("11: 10/31", #date
-           "20", # session
+s_immigration<-c("11: 10/02", #date
+           "21", # session
            "Immigration ", #topic with link
            "Clemens (2011)  ", #reading
            "Welfare analysis ", # method
-           " ") #deliverable
-s_polecon<-c("11: 11/02", #date
-           "21", # session
+           "[Project 3](#project3)") #deliverable
+s_polecon<-c("12: 11/07", #date
+           "22", # session
            "Political Economy ", #topic with link
            "  ", #reading
            " ", # method
-           "Project 3") #deliverable
-s_tax<-c("12: 11/07", #date
-           "22", # session
+           "") #deliverable
+s_tax<-c("12: 11/09", #date
+           "23", # session
            "Income taxation ", #topic with link
            "Diamond and Saez (2011)  ", #reading
            "Supply and demand; synthetic control ", # method
            " ") #deliverable
-s_saving<-c("12: 11/09", #date
-           "23", # session
+s_saving<-c("13: 11/14", #date
+           "24", # session
            "Savings and wealth ", #topic with link
            "  ", #reading
            "Behavioral Economics ", # method
            " ") #deliverable
-s_housing<-c("13: 11/14", #date
-           "24", # session
+s_housing<-c("13: 11/16", #date
+           "25", # session
            "Housing markets and COVID ", #topic with link
            "Glaeser, Edward, Kominers, Luca and Naik (2018)   ", #reading
            " ", # method
            "Project 4 – Part 1") #deliverable
-s_pollution<-c("13: 11/16", #date
-           "25", # session
+s_pollution<-c("14: 11/21", #date
+           "26", # session
            "Intro to air and water pollution, and externalities ", #topic with link
            "Moore, Obradovich, Lehner and Baylis (2019)   ", #reading
            "Difference in difference ", # method
            " ") #deliverable
-s_discountrate<-c("14: 11/21", #date
-           "26", # session
+s_discountrate<-c("14: 11/23", #date
+           "27", # session
            "Discount rates, external validity ", #topic with link
            " ", #reading
            "Difference in difference ", # method
            "Project 4 – Part 1 and 2") #deliverable
-s_tbd1<-c("14: 11/23", #date
-           "27", # session
-           "TBD 1 ", #topic with link
-           " ", #reading
-           " ", # method
-           " ") #deliverable
-s_tbd2<-c("15: 11/28", #date
+s_tbd1<-c("15: 11/28", #date
            "28", # session
            "TBD 1 ", #topic with link
            " ", #reading
@@ -249,6 +249,7 @@ tabl<-paste0(c(title_line,
               create_session(s_k12), 
               create_session(s_teachers), 
               create_session(s_racedis), 
+              create_session(s_mediabias),
               create_session(s_jud_sys), 
               create_session(s_ml), 
               create_session(s_immigration), 
@@ -259,7 +260,6 @@ tabl<-paste0(c(title_line,
               create_session(s_pollution),
               create_session(s_discountrate),
               create_session(s_tbd1),
-              create_session(s_tbd2),
               create_session(s_review_final)))
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
