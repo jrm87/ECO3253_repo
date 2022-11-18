@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Data Visualization | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Data Visualization | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jonathan Moreno-Medina" />
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2022-11-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -488,6 +488,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#plotting-the-linear-relationship-1"><i class="fa fa-check"></i>Plotting the linear relationship</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html"><i class="fa fa-check"></i>Project 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#using-google-datacommons-to-predict-social-mobility"><i class="fa fa-check"></i>Using Google DataCommons to Predict Social Mobility</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#instructions-3"><i class="fa fa-check"></i>Instructions</a>
+<ul>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#specific-questions"><i class="fa fa-check"></i>Specific questions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#data-description-1"><i class="fa fa-check"></i>Data Description</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#cheatsheetproject3"><i class="fa fa-check"></i>Cheatsheat commands</a>
+<ul>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#how-to-tell-r-that-you-have-a-categorical-variable"><i class="fa fa-check"></i>How to tell R that you have a categorical variable?</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#load-package-2"><i class="fa fa-check"></i>Load package</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#run-regression-2"><i class="fa fa-check"></i>Run regression</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#measures-of-accuracy-in-prediction-in-a-multiple-regression"><i class="fa fa-check"></i>Measures of accuracy in prediction in a Multiple regression</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#estimating-a-decision-tree"><i class="fa fa-check"></i>Estimating a Decision Tree</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#measures-of-accuracy-in-a-decision-tree"><i class="fa fa-check"></i>Measures of accuracy in a Decision Tree</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://www.jmorenomedina.com/" target="blank">By Jon Moreno-Medina</a></li>
 
@@ -831,7 +849,7 @@ point
 </ul>
 <p>After running the above code, you’ll notice two outputs: a warning message and the graphic shown in Figure <a href="viz.html#fig:noalpha">12.2</a>. Let’s first unpack the warning message:
 “y” axis</p>
-<pre><code>## Warning: Removed 1372 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1372 rows containing missing values (`geom_point()`).</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:noalpha"></span>
 <img src="_main_files/figure-html/noalpha-1.png" alt="Median Household Income in 2016 vs Mobility for Children with Parents in Percentile 25" width="\textwidth" />
 <p class="caption">
@@ -933,8 +951,10 @@ Figure 12.5: Example histogram.
 <p>Let’s now present the <code>ggplot()</code> code to plot your first histogram! Unlike with scatterplots and linegraphs, there is now only one variable being mapped in <code>aes()</code>: the single numerical variable <code>temp</code>. The y-aesthetic of a histogram gets computed for you automatically. Furthermore, the geometric object layer is now a <code>geom_histogram()</code></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="viz.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> atlas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> kfr_pooled_p25)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="viz.html#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 1267 rows containing non-finite values (stat_bin).</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
+## `binwidth`.</code></pre>
+<pre><code>## Warning: Removed 1267 rows containing non-finite values
+## (`stat_bin()`).</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:weather-histogram"></span>
 <img src="_main_files/figure-html/weather-histogram-1.png" alt="Histogram of mobility for children of p25 in the US." width="\textwidth" />
 <p class="caption">
@@ -1016,7 +1036,7 @@ Figure 12.10: Histogram with binwidth 10.
 <span id="cb25-6"><a href="viz.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">number =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
 <span id="cb25-7"><a href="viz.html#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>We see both the <code>fruits</code> and <code>fruits_counted</code> data frames represent the same collection of fruit. Whereas <code>fruits</code> just lists the fruit individually…</p>
-<pre><code>## # A tibble: 5 x 1
+<pre><code>## # A tibble: 5 × 1
 ##   fruit 
 ##   &lt;chr&gt; 
 ## 1 apple 
@@ -1025,7 +1045,7 @@ Figure 12.10: Histogram with binwidth 10.
 ## 4 apple 
 ## 5 orange</code></pre>
 <p>… <code>fruits_counted</code> has a variable <code>count</code> which represents pre-counted values of each fruit.</p>
-<pre><code>## # A tibble: 2 x 2
+<pre><code>## # A tibble: 2 × 2
 ##   fruit  number
 ##   &lt;chr&gt;   &lt;dbl&gt;
 ## 1 apple       3

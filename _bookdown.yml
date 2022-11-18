@@ -24,5 +24,6 @@ rmd_files: [
   "91-appendixA.Rmd",
   "project1.Rmd",
   "project2.Rmd",
-  "project3.Rmd"
+  "project3.Rmd",
+  "project4.Rmd"
 ]

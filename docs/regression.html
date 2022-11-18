@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Simple and Multivariate Regression | Economics of Public and Social Issues</title>
   <meta name="description" content="This is the website for the course ECO 3253 at UTSA, taught in the Fall of 2022." />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Simple and Multivariate Regression | Economics of Public and Social Issues" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jonathan Moreno-Medina" />
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2022-11-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -488,6 +488,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#plotting-the-linear-relationship-1"><i class="fa fa-check"></i>Plotting the linear relationship</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html"><i class="fa fa-check"></i>Project 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#using-google-datacommons-to-predict-social-mobility"><i class="fa fa-check"></i>Using Google DataCommons to Predict Social Mobility</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#instructions-3"><i class="fa fa-check"></i>Instructions</a>
+<ul>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#specific-questions"><i class="fa fa-check"></i>Specific questions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#data-description-1"><i class="fa fa-check"></i>Data Description</a></li>
+<li class="chapter" data-level="" data-path="project3.html"><a href="project3.html#cheatsheetproject3"><i class="fa fa-check"></i>Cheatsheat commands</a>
+<ul>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#how-to-tell-r-that-you-have-a-categorical-variable"><i class="fa fa-check"></i>How to tell R that you have a categorical variable?</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#load-package-2"><i class="fa fa-check"></i>Load package</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#run-regression-2"><i class="fa fa-check"></i>Run regression</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#measures-of-accuracy-in-prediction-in-a-multiple-regression"><i class="fa fa-check"></i>Measures of accuracy in prediction in a Multiple regression</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#estimating-a-decision-tree"><i class="fa fa-check"></i>Estimating a Decision Tree</a></li>
+<li class="chapter" data-level="" data-path="project4.html"><a href="project4.html#measures-of-accuracy-in-a-decision-tree"><i class="fa fa-check"></i>Measures of accuracy in a Decision Tree</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://www.jmorenomedina.com/" target="blank">By Jon Moreno-Medina</a></li>
 
@@ -819,10 +837,12 @@ ann_avg_job_growth_2004_2013
 </tbody>
 </table>
 <p>Now that we’ve looked at the raw values in our <code>atlas_mob_jobs</code> data frame and got a preliminary sense of the data, let’s move on to the next common step in an exploratory data analysis: computing summary statistics. Let’s start by computing the mean and median of our numerical outcome variable <code>kfr_pooled_p25</code> and our numerical explanatory variable on ob growth denoted as <code>ann_avg_job_growth_2004_2013</code>. We’ll do this by using the <code>summarize()</code> function from <code>dplyr</code> along with the <code>mean()</code> and <code>median()</code> summary functions, in a function that although we did not cover, is fairly intuitive: <code>summarize</code>. It will take some data, and summarize it according to what you ask.</p>
-<pre><code>## # A tibble: 1 x 4
-##   mean_ann_avg_job_gro~ mean_kfr_pooled_~ median_ann_avg_job_~ median_kfr_poole~
-##                   &lt;dbl&gt;             &lt;dbl&gt;                &lt;dbl&gt;             &lt;dbl&gt;
-## 1                0.0153            34443.              0.00850            33733.</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   mean_ann_avg_job_growth_2004_2013 mean_kfr_pooled_p25 median_ann_avg…¹ media…²
+##                               &lt;dbl&gt;               &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+## 1                            0.0153              34443.          0.00850  33733.
+## # … with abbreviated variable names ¹​median_ann_avg_job_growth_2004_2013,
+## #   ²​median_kfr_pooled_p25</code></pre>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="regression.html#cb57-1" aria-hidden="true" tabindex="-1"></a>atlas_mob_jobs <span class="sc">%&gt;%</span></span>
 <span id="cb57-2"><a href="regression.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_ann_avg_job_growth_2004_2013 =</span> <span class="fu">mean</span>(ann_avg_job_growth_2004_2013, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
 <span id="cb57-3"><a href="regression.html#cb57-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_kfr_pooled_p25 =</span> <span class="fu">mean</span>(kfr_pooled_p25, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
@@ -870,7 +890,7 @@ Figure 14.1: Different correlation coefficients
 <p>The correlation coefficient is computed using the <code>cor()</code> function, where the inputs to the function are the two numerical variables for which we want to quantify the strength of the linear relationship. Note, however, that because the dataset has missing values for some neighborhoods, if you run <code>cor()</code> without the option <code>use = "pairwise.complete.obs"</code>, you will get <code>NA</code> - which is a missing value. See that we add this option below:</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="regression.html#cb60-1" aria-hidden="true" tabindex="-1"></a>atlas_mob_jobs <span class="sc">%&gt;%</span> </span>
 <span id="cb60-2"><a href="regression.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">correlation =</span> <span class="fu">cor</span>(kfr_pooled_p25, ann_avg_job_growth_2004_2013, <span class="at">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 1
+<pre><code>## # A tibble: 1 × 1
 ##   correlation
 ##         &lt;dbl&gt;
 ## 1      0.0716</code></pre>
@@ -901,7 +921,7 @@ Figure 14.2: Economic mobility for children of parents at percentile 25 across t
 <span id="cb65-3"><a href="regression.html#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Average Job Growth Rate 2004-2013&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mobility for Children of Parents in P25&quot;</span>, </span>
 <span id="cb65-4"><a href="regression.html#cb65-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Relationship of mobility and job growth&quot;</span>) <span class="sc">+</span>  </span>
 <span id="cb65-5"><a href="regression.html#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:numxplot3"></span>
 <img src="_main_files/figure-html/numxplot3-1.png" alt="Regression line" width="\textwidth" />
 <p class="caption">
@@ -915,7 +935,7 @@ Figure 14.3: Regression line
 <span id="cb67-3"><a href="regression.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Average Job Growth Rate 2004-2013&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mobility for Children of Parents in P25&quot;</span>, </span>
 <span id="cb67-4"><a href="regression.html#cb67-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Relationship of mobility and job growth&quot;</span>) <span class="sc">+</span></span>
 <span id="cb67-5"><a href="regression.html#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:numxplot4"></span>
 <img src="_main_files/figure-html/numxplot4-1.png" alt="Regression line without error bands" width="\textwidth" />
 <p class="caption">
@@ -1261,8 +1281,8 @@ poor_share2010
 <span id="cb79-9"><a href="regression.html#cb79-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Proverty Share in 2010&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mobility for Children of Parents in P25 (in $)&quot;</span>, </span>
 <span id="cb79-10"><a href="regression.html#cb79-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Mobility and poverty share&quot;</span>) <span class="sc">+</span></span>
 <span id="cb79-11"><a href="regression.html#cb79-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;
-## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:2numxplot1"></span>
 <img src="_main_files/figure-html/2numxplot1-1.png" alt="Relationship between mobility and job growth/poverty share." width="\textwidth" />
 <p class="caption">
