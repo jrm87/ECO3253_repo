@@ -130,66 +130,84 @@ s_jud_sys<-c("10: 10/26", #date
            "Kleinberg, Lakkaraju, Leskovec, Ludwig and Mullainathan (2017) ", #reading
            "Machine learning, implicit bias ", # method
            "") #deliverable
-s_ml<-c("11: 10/31", #date
+s_immigration<-c("11: 10/31", #date
            "20", # session
-           "Implementing a simple machine learning model in R ", #topic with link
-           "  ", #reading
-           "  ", # method
-           " ") #deliverable
-s_immigration<-c("11: 10/02", #date
-           "21", # session
            "Immigration ", #topic with link
            "Clemens (2011)  ", #reading
            "Welfare analysis ", # method
            "[Project 3](#project3)") #deliverable
-s_polecon<-c("12: 11/07", #date
+s_ml<-c("11: 10/02", #date
+           "21", # session
+           "Implementing a simple machine learning model in R - Part 1", #topic with link
+           "  ", #reading
+           "  ", # method
+           " ") #deliverable
+s_ml2<-c("12: 11/07", #date
            "22", # session
+           "Implementing a simple machine learning model in R - Part 2", #topic with link
+           "  ", #reading
+           "  ", # method
+           " ") #deliverable
+s_ml3<-c("12: 11/09", #date
+           "23", # session
+           "Implementing a simple machine learning model in R - Part 3", #topic with link
+           "  ", #reading
+           "  ", # method
+           " ") #deliverable
+s_polecon<-c("13: 11/14", #date
+           "24", # session
            "Political Economy ", #topic with link
            "  ", #reading
            " ", # method
            "") #deliverable
-s_tax<-c("12: 11/09", #date
-           "23", # session
+s_noclass<-c("13: 11/16", #date
+           "-", # session
+           "-", #topic with link
+           "", #reading
+           "", # method
+           " ") #deliverable
+s_tax<-c("14: 11/21", #date
+           "25", # session
            "Income taxation ", #topic with link
            "Diamond and Saez (2011)  ", #reading
            "Supply and demand; synthetic control ", # method
            " ") #deliverable
-s_saving<-c("13: 11/14", #date
-           "24", # session
+s_saving<-c("15: 11/28", #date
+           "26", # session
            "Savings and wealth ", #topic with link
            "  ", #reading
            "Behavioral Economics ", # method
            " ") #deliverable
-s_housing<-c("13: 11/16", #date
-           "25", # session
-           "Housing markets and COVID ", #topic with link
-           "Glaeser, Edward, Kominers, Luca and Naik (2018)   ", #reading
-           " ", # method
-           "Project 4 – Part 1") #deliverable
-s_pollution<-c("14: 11/21", #date
-           "26", # session
-           "Intro to air and water pollution, and externalities ", #topic with link
-           "Moore, Obradovich, Lehner and Baylis (2019)   ", #reading
-           "Difference in difference ", # method
-           " ") #deliverable
-s_discountrate<-c("14: 11/23", #date
-           "27", # session
-           "Discount rates, external validity ", #topic with link
-           " ", #reading
-           "Difference in difference ", # method
-           "Project 4 – Part 1 and 2") #deliverable
-s_tbd1<-c("15: 11/28", #date
-           "28", # session
-           "TBD 1 ", #topic with link
-           " ", #reading
-           " ", # method
-           " ") #deliverable
+# s_housing<-c("13: 11/16", #date
+#            "25", # session
+#            "Housing markets and COVID ", #topic with link
+#            "Glaeser, Edward, Kominers, Luca and Naik (2018)   ", #reading
+#            " ", # method
+#            "Project 4 – Part 1") #deliverable
+# s_pollution<-c("14: 11/21", #date
+#            "26", # session
+#            "Intro to air and water pollution, and externalities ", #topic with link
+#            "Moore, Obradovich, Lehner and Baylis (2019)   ", #reading
+#            "Difference in difference ", # method
+#            " ") #deliverable
+# s_discountrate<-c("14: 11/23", #date
+#            "27", # session
+#            "Discount rates, external validity ", #topic with link
+#            " ", #reading
+#            "Difference in difference ", # method
+#            "Project 4 – Part 1 and 2") #deliverable
+# s_tbd1<-c("15: 11/28", #date
+#            "28", # session
+#            "TBD 1 ", #topic with link
+#            " ", #reading
+#            " ", # method
+#            " ") #deliverable
 s_review_final<-c("15: 11/30", #date
-           "29", # session
+           "27", # session
            "Review session ", #topic with link
            " ", #reading
            " ", # method
-           " ") #deliverable
+           "[Project 4](#project4) - (for Friday 12/02)") #deliverable
 ```
 
 ```{r tableSchedule, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
@@ -251,15 +269,18 @@ tabl<-paste0(c(title_line,
               create_session(s_racedis), 
               create_session(s_mediabias),
               create_session(s_jud_sys), 
-              create_session(s_ml), 
               create_session(s_immigration), 
-              create_session(s_polecon), 
+              create_session(s_ml), 
+              create_session(s_ml2), 
+              create_session(s_ml3), 
+              create_session(s_polecon),
+              create_session(s_noclass),
               create_session(s_tax), 
               create_session(s_saving), 
-              create_session(s_housing),
-              create_session(s_pollution),
-              create_session(s_discountrate),
-              create_session(s_tbd1),
+              #create_session(s_housing),
+              #create_session(s_pollution),
+              #create_session(s_discountrate),
+              #create_session(s_tbd1),
               create_session(s_review_final)))
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
