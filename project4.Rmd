@@ -43,9 +43,9 @@ As usual, you will work on RStudio Cloud for this project. Write your responses 
 
 6.	Implement a decision tree model to predict `krf_pooled_p25` using the code in below (covered in class). Plot the decision tree if possible. What are the main predictors? 
 
-7.	How well does your linear regression predict `krf_pooled_p25` **in-sample**? Present the RMSE.
+7.	How well does your decision tree predict `krf_pooled_p25` **in-sample**? Present the RMSE.
 
-8.	How well does your linear regression predict `krf_pooled_p25` **out-of-sample**? Present the RMSE.
+8.	How well does your decision tree predict `krf_pooled_p25` **out-of-sample**? Present the RMSE.
 
 9. Which model performs a better prediction?
 
